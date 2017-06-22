@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{947CF5D9-995C-4D26-A58C-05C5843A3C7F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TaskBoard.Common</RootNamespace>
+    <AssemblyName>TaskBoard.Common</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\Build\TaskBoard.Common\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\..\Build\TaskBoard.Common\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ConfigurationFile.cs" />
+    <Compile Include="Database\Editors\IDatabaseBoardEditor.cs" />
+    <Compile Include="Database\Editors\IDatabaseColumnEditor.cs" />
+    <Compile Include="Database\Editors\IDatabaseCommentEditor.cs" />
+    <Compile Include="Database\Editors\IDatabaseTaskEditor.cs" />
+    <Compile Include="Database\Editors\IDatabaseUserEditor.cs" />
+    <Compile Include="Database\IDatabaseAuthorizer.cs" />
+    <Compile Include="Database\IDatabaseEditor.cs" />
+    <Compile Include="Database\IDatabaseReader.cs" />
+    <Compile Include="Database\Readers\IDatabaseBoardReader.cs" />
+    <Compile Include="Database\Readers\IDatabaseColumnReader.cs" />
+    <Compile Include="Database\Readers\IDatabaseCommentReader.cs" />
+    <Compile Include="Database\Readers\IDatabaseTaskReader.cs" />
+    <Compile Include="Database\Readers\IDatabaseUserReader.cs" />
+    <Compile Include="Database\Readers\IDatabaseUserReaderAsAdmin.cs" />
+    <Compile Include="Extensions\BytesExtensions.cs" />
+    <Compile Include="Extensions\ObjectExtensions.cs" />
+    <Compile Include="Extensions\StreamExtensions.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="GlobalConfiguration.cs" />
+    <Compile Include="Http\HttpParameters.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Serializers\JsonSerializer.cs" />
+    <Compile Include="Serializers\XmlSerializer.cs" />
+    <Compile Include="Tables\Attributes\HeaderColumnAttribute.cs" />
+    <Compile Include="Enums\AccessType.cs" />
+    <Compile Include="Enums\Priority.cs" />
+    <Compile Include="Enums\State.cs" />
+    <Compile Include="Tables\Board.cs" />
+    <Compile Include="Tables\Column.cs" />
+    <Compile Include="Tables\Comment.cs" />
+    <Compile Include="Tables\Task.cs" />
+    <Compile Include="Tables\User.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
