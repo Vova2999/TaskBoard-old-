@@ -2,13 +2,14 @@
 using TaskBoard.Common.Database;
 using TaskBoard.Common.Database.Readers;
 using TaskBoard.Common.Enums;
+using TaskBoard.Common.Http;
 using TaskBoard.Server.AdditionalObjects;
 
 namespace TaskBoard.Server.Functions.Protected.WithReturn.Database.CommentReads {
 	// ReSharper disable UnusedMember.Global
 
 	public class GetAllCommentIdsFunction : HttpProtectedFunctionWithReturn<Guid[]> {
-		public override string NameOfCalledMethod => "GetAllCommentIds";
+		public override string NameOfCalledMethod => HttpFunctions.GetAllCommentIds;
 		protected override AccessType RequiredAccessType => AccessType.UserRead;
 		private readonly IDatabaseCommentReader databaseCommentReader;
 

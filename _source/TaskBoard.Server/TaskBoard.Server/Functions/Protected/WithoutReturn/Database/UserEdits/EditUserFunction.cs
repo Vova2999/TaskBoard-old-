@@ -10,7 +10,7 @@ namespace TaskBoard.Server.Functions.Protected.WithoutReturn.Database.UserEdits 
 	// ReSharper disable UnusedMember.Global
 
 	public class EditUserFunction : HttpProtectedFunctionWithoutReturn {
-		public override string NameOfCalledMethod => "EditUser";
+		public override string NameOfCalledMethod => HttpFunctions.EditUser;
 		protected override AccessType RequiredAccessType => AccessType.AdminWrite;
 		private readonly IDatabaseUserEditor databaseUserEditor;
 

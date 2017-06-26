@@ -10,7 +10,7 @@ namespace TaskBoard.Server.Functions.Protected.WithReturn.Database.ColumnReads {
 	// ReSharper disable UnusedMember.Global
 
 	public class GetColumnByIdFunction : HttpProtectedFunctionWithReturn<Column> {
-		public override string NameOfCalledMethod => "GetColumnById";
+		public override string NameOfCalledMethod => HttpFunctions.GetColumnById;
 		protected override AccessType RequiredAccessType => AccessType.UserRead;
 		private readonly IDatabaseColumnReader databaseColumnReader;
 

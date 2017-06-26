@@ -2,13 +2,14 @@
 using TaskBoard.Common.Database;
 using TaskBoard.Common.Database.Readers;
 using TaskBoard.Common.Enums;
+using TaskBoard.Common.Http;
 using TaskBoard.Server.AdditionalObjects;
 
 namespace TaskBoard.Server.Functions.Protected.WithReturn.Database.BoardReads {
 	// ReSharper disable UnusedMember.Global
 
 	public class GetAllBoardIdsFunction : HttpProtectedFunctionWithReturn<Guid[]> {
-		public override string NameOfCalledMethod => "GetAllBoardIds";
+		public override string NameOfCalledMethod => HttpFunctions.GetAllBoardIds;
 		protected override AccessType RequiredAccessType => AccessType.UserRead;
 		private readonly IDatabaseBoardReader databaseBoardReader;
 

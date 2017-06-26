@@ -13,23 +13,23 @@ namespace TaskBoard.Client.Clients.Readers {
 			var parameters = GetDefaultParameters();
 			parameters[HttpParameters.BoardId] = id.ToString();
 
-			return SendRequest<Board>("GetBoardById", parameters);
+			return SendRequest<Board>(HttpFunctions.GetBoardById, parameters);
 		}
 
 		public Guid[] GetAllIds() {
-			return SendRequest<Guid[]>("GetAllBoardIds", GetDefaultParameters());
+			return SendRequest<Guid[]>(HttpFunctions.GetAllBoardIds, GetDefaultParameters());
 		}
 
 		public Board[] GetAll() {
-			return SendRequest<Board[]>("GetAllBoards", GetDefaultParameters());
+			return SendRequest<Board[]>(HttpFunctions.GetAllBoards, GetDefaultParameters());
 		}
 
 		public Guid[] GetIdsWithUsingFilters(string name) {
-			return SendRequest<Guid[]>("GetBoardIdsWithUsingFilters", CreateParametersForUsingFilters(name));
+			return SendRequest<Guid[]>(HttpFunctions.GetBoardIdsWithUsingFilters, CreateParametersForUsingFilters(name));
 		}
 
 		public Board[] GetWithUsingFilters(string name) {
-			return SendRequest<Board[]>("GetBoardsWithUsingFilters", CreateParametersForUsingFilters(name));
+			return SendRequest<Board[]>(HttpFunctions.GetBoardsWithUsingFilters, CreateParametersForUsingFilters(name));
 		}
 
 		private Dictionary<string, string> CreateParametersForUsingFilters(string name) {

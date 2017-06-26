@@ -2,6 +2,7 @@
 using TaskBoard.Common.Database.Editors;
 using TaskBoard.Common.Enums;
 using TaskBoard.Common.Extensions;
+using TaskBoard.Common.Http;
 using TaskBoard.Common.Tables;
 using TaskBoard.Server.AdditionalObjects;
 
@@ -9,7 +10,7 @@ namespace TaskBoard.Server.Functions.Protected.WithoutReturn.Database.BoardEdits
 	// ReSharper disable UnusedMember.Global
 
 	public class AddBoardFunction : HttpProtectedFunctionWithoutReturn {
-		public override string NameOfCalledMethod => "AddBoard";
+		public override string NameOfCalledMethod => HttpFunctions.AddBoard;
 		protected override AccessType RequiredAccessType => AccessType.UserWrite;
 		private readonly IDatabaseBoardEditor databaseBoardEditor;
 

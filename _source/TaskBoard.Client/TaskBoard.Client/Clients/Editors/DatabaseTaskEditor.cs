@@ -10,21 +10,21 @@ namespace TaskBoard.Client.Clients.Editors {
 		}
 
 		public void Add(Task table) {
-			SendRequest("AddTask", GetDefaultParameters(), table.ToJson());
+			SendRequest(HttpFunctions.AddTask, GetDefaultParameters(), table.ToJson());
 		}
 
 		public void Edit(Guid oldTableId, Task newTable) {
 			var parameters = GetDefaultParameters();
 			parameters[HttpParameters.TaskId] = oldTableId.ToString();
 
-			SendRequest("EditTask", parameters, newTable.ToJson());
+			SendRequest(HttpFunctions.EditTask, parameters, newTable.ToJson());
 		}
 
 		public void Delete(Guid tableId) {
 			var parameters = GetDefaultParameters();
 			parameters[HttpParameters.TaskId] = tableId.ToString();
 
-			SendRequest("DeleteTask", parameters);
+			SendRequest(HttpFunctions.DeleteTask, parameters);
 		}
 	}
 }

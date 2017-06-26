@@ -44,7 +44,8 @@
     <Compile Include="Clients\Editors\DatabaseCommentEditor.cs" />
     <Compile Include="Clients\Editors\DatabaseTaskEditor.cs" />
     <Compile Include="Clients\Editors\DatabaseUserEditor.cs" />
-    <Compile Include="Clients\ParameretsClient.cs" />
+    <Compile Include="Clients\Paramerets\IParameretsClient.cs" />
+    <Compile Include="Clients\Paramerets\ParameretsClient.cs" />
     <Compile Include="Clients\Readers\DatabaseBoardReader.cs" />
     <Compile Include="Clients\Readers\DatabaseColumnReader.cs" />
     <Compile Include="Clients\Readers\DatabaseCommentReader.cs" />
@@ -52,8 +53,9 @@
     <Compile Include="Clients\Readers\DatabaseUserReader.cs" />
     <Compile Include="Clients\Readers\DatabaseUserReaderAsAdmin.cs" />
     <Compile Include="HttpClientParameters.cs" />
-    <Compile Include="HttpClientProvider.cs" />
+    <Compile Include="Providers\HttpClientProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\IHttpClientProvider.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

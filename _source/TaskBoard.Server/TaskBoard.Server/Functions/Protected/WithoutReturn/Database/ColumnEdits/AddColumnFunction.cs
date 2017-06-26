@@ -2,6 +2,7 @@
 using TaskBoard.Common.Database.Editors;
 using TaskBoard.Common.Enums;
 using TaskBoard.Common.Extensions;
+using TaskBoard.Common.Http;
 using TaskBoard.Common.Tables;
 using TaskBoard.Server.AdditionalObjects;
 
@@ -9,7 +10,7 @@ namespace TaskBoard.Server.Functions.Protected.WithoutReturn.Database.ColumnEdit
 	// ReSharper disable UnusedMember.Global
 
 	public class AddColumnFunction : HttpProtectedFunctionWithoutReturn {
-		public override string NameOfCalledMethod => "AddColumn";
+		public override string NameOfCalledMethod => HttpFunctions.AddColumn;
 		protected override AccessType RequiredAccessType => AccessType.UserWrite;
 		private readonly IDatabaseColumnEditor databaseColumnEditor;
 

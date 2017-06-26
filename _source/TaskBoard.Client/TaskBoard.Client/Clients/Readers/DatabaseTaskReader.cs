@@ -14,29 +14,29 @@ namespace TaskBoard.Client.Clients.Readers {
 			var parameters = GetDefaultParameters();
 			parameters[HttpParameters.TaskId] = id.ToString();
 
-			return SendRequest<Task>("GetTaskById", parameters);
+			return SendRequest<Task>(HttpFunctions.GetTaskById, parameters);
 		}
 
 		public Guid[] GetAllIds() {
-			return SendRequest<Guid[]>("GetAllTaskIds", GetDefaultParameters());
+			return SendRequest<Guid[]>(HttpFunctions.GetAllTaskIds, GetDefaultParameters());
 		}
 
 		public Task[] GetAll() {
-			return SendRequest<Task[]>("GetAllTasks", GetDefaultParameters());
+			return SendRequest<Task[]>(HttpFunctions.GetAllTasks, GetDefaultParameters());
 		}
 
 		public Guid[] GetIdsFromBoard(Guid boardId) {
 			var parameters = GetDefaultParameters();
 			parameters[HttpParameters.TaskBoardId] = boardId.ToString();
 
-			return SendRequest<Guid[]>("GetTaskIdsFromBoard", parameters);
+			return SendRequest<Guid[]>(HttpFunctions.GetTaskIdsFromBoard, parameters);
 		}
 
 		public Task[] GetFromBoard(Guid boardId) {
 			var parameters = GetDefaultParameters();
 			parameters[HttpParameters.TaskBoardId] = boardId.ToString();
 
-			return SendRequest<Task[]>("GetTasksFromBoard", parameters);
+			return SendRequest<Task[]>(HttpFunctions.GetTasksFromBoard, parameters);
 		}
 
 		public Guid[] GetIdsFromColumn(Guid boardId, Guid columnId) {
@@ -44,7 +44,7 @@ namespace TaskBoard.Client.Clients.Readers {
 			parameters[HttpParameters.TaskBoardId] = boardId.ToString();
 			parameters[HttpParameters.TaskColumnId] = columnId.ToString();
 
-			return SendRequest<Guid[]>("GetTaskIdsFromColumn", parameters);
+			return SendRequest<Guid[]>(HttpFunctions.GetTaskIdsFromColumn, parameters);
 		}
 
 		public Task[] GetFromColumn(Guid boardId, Guid columnId) {
@@ -52,15 +52,15 @@ namespace TaskBoard.Client.Clients.Readers {
 			parameters[HttpParameters.TaskBoardId] = boardId.ToString();
 			parameters[HttpParameters.TaskColumnId] = columnId.ToString();
 
-			return SendRequest<Task[]>("GetTasksFromColumn", parameters);
+			return SendRequest<Task[]>(HttpFunctions.GetTasksFromColumn, parameters);
 		}
 
 		public Guid[] GetIdsWithUsingFilters(string header, string description, string branch, State? state, Priority? priority, Guid? developerId, Guid? reviewerId, Guid? columnId, Guid? boardId) {
-			return SendRequest<Guid[]>("GetTaskIdsWithUsingFilters", CreateParametersForUsingFilters(header, description, branch, state, priority, developerId, reviewerId, columnId, boardId));
+			return SendRequest<Guid[]>(HttpFunctions.GetTaskIdsWithUsingFilters, CreateParametersForUsingFilters(header, description, branch, state, priority, developerId, reviewerId, columnId, boardId));
 		}
 
 		public Task[] GetWithUsingFilters(string header, string description, string branch, State? state, Priority? priority, Guid? developerId, Guid? reviewerId, Guid? columnId, Guid? boardId) {
-			return SendRequest<Task[]>("GetTasksWithUsingFilters", CreateParametersForUsingFilters(header, description, branch, state, priority, developerId, reviewerId, columnId, boardId));
+			return SendRequest<Task[]>(HttpFunctions.GetTasksWithUsingFilters, CreateParametersForUsingFilters(header, description, branch, state, priority, developerId, reviewerId, columnId, boardId));
 		}
 
 		private Dictionary<string, string> CreateParametersForUsingFilters(string header, string description, string branch, State? state, Priority? priority, Guid? developerId, Guid? reviewerId, Guid? columnId, Guid? boardId) {

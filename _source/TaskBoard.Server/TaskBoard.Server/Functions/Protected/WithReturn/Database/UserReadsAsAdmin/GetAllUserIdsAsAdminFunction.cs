@@ -2,13 +2,14 @@
 using TaskBoard.Common.Database;
 using TaskBoard.Common.Database.Readers;
 using TaskBoard.Common.Enums;
+using TaskBoard.Common.Http;
 using TaskBoard.Server.AdditionalObjects;
 
 namespace TaskBoard.Server.Functions.Protected.WithReturn.Database.UserReadsAsAdmin {
 	// ReSharper disable UnusedMember.Global
 
 	public class GetAllUserIdsAsAdminFunction : HttpProtectedFunctionWithReturn<Guid[]> {
-		public override string NameOfCalledMethod => "GetAllUserIdsAsAdmin";
+		public override string NameOfCalledMethod => HttpFunctions.GetAllUserIdsAsAdmin;
 		protected override AccessType RequiredAccessType => AccessType.AdminRead;
 		private readonly IDatabaseUserReaderAsAdmin databaseUserReaderAsAdmin;
 

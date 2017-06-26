@@ -13,37 +13,37 @@ namespace TaskBoard.Client.Clients.Readers {
 			var parameters = GetDefaultParameters();
 			parameters[HttpParameters.CommentId] = id.ToString();
 
-			return SendRequest<Comment>("GetCommentById", parameters);
+			return SendRequest<Comment>(HttpFunctions.GetCommentById, parameters);
 		}
 
 		public Guid[] GetAllIds() {
-			return SendRequest<Guid[]>("GetAllCommentIds", GetDefaultParameters());
+			return SendRequest<Guid[]>(HttpFunctions.GetAllCommentIds, GetDefaultParameters());
 		}
 
 		public Comment[] GetAll() {
-			return SendRequest<Comment[]>("GetAllComments", GetDefaultParameters());
+			return SendRequest<Comment[]>(HttpFunctions.GetAllComments, GetDefaultParameters());
 		}
 
 		public Guid[] GetIdsFromTask(Guid taskId) {
 			var parameters = GetDefaultParameters();
 			parameters[HttpParameters.CommentTaskId] = taskId.ToString();
 
-			return SendRequest<Guid[]>("GetCommentIdsFromTask", parameters);
+			return SendRequest<Guid[]>(HttpFunctions.GetCommentIdsFromTask, parameters);
 		}
 
 		public Comment[] GetFromTask(Guid taskId) {
 			var parameters = GetDefaultParameters();
 			parameters[HttpParameters.CommentTaskId] = taskId.ToString();
 
-			return SendRequest<Comment[]>("GetCommentsFromTask", parameters);
+			return SendRequest<Comment[]>(HttpFunctions.GetCommentsFromTask, parameters);
 		}
 
 		public Guid[] GetIdsWithUsingFilters(string content, DateTime? beginCreateDateTime, DateTime? endCreateDateTime, Guid? userId, Guid? taskId) {
-			return SendRequest<Guid[]>("GetCommentIdsWithUsingFilters", CreateParametersForUsingFilters(content, beginCreateDateTime, endCreateDateTime, userId, taskId));
+			return SendRequest<Guid[]>(HttpFunctions.GetCommentIdsWithUsingFilters, CreateParametersForUsingFilters(content, beginCreateDateTime, endCreateDateTime, userId, taskId));
 		}
 
 		public Comment[] GetWithUsingFilters(string content, DateTime? beginCreateDateTime, DateTime? endCreateDateTime, Guid? userId, Guid? taskId) {
-			return SendRequest<Comment[]>("GetCommentsWithUsingFilters", CreateParametersForUsingFilters(content, beginCreateDateTime, endCreateDateTime, userId, taskId));
+			return SendRequest<Comment[]>(HttpFunctions.GetCommentsWithUsingFilters, CreateParametersForUsingFilters(content, beginCreateDateTime, endCreateDateTime, userId, taskId));
 		}
 
 		private Dictionary<string, string> CreateParametersForUsingFilters(string content, DateTime? beginCreateDateTime, DateTime? endCreateDateTime, Guid? userId, Guid? taskId) {

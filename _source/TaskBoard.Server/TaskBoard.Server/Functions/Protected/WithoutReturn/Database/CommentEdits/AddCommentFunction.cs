@@ -2,6 +2,7 @@
 using TaskBoard.Common.Database.Editors;
 using TaskBoard.Common.Enums;
 using TaskBoard.Common.Extensions;
+using TaskBoard.Common.Http;
 using TaskBoard.Common.Tables;
 using TaskBoard.Server.AdditionalObjects;
 
@@ -9,7 +10,7 @@ namespace TaskBoard.Server.Functions.Protected.WithoutReturn.Database.CommentEdi
 	// ReSharper disable UnusedMember.Global
 
 	public class AddCommentFunction : HttpProtectedFunctionWithoutReturn {
-		public override string NameOfCalledMethod => "AddComment";
+		public override string NameOfCalledMethod => HttpFunctions.AddComment;
 		protected override AccessType RequiredAccessType => AccessType.UserWrite;
 		private readonly IDatabaseCommentEditor databaseCommentEditor;
 
