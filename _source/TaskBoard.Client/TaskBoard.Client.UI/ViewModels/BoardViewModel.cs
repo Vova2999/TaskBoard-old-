@@ -4,14 +4,17 @@ using System.Windows.Input;
 using System.Windows.Media;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
-using GalaSoft.MvvmLight.Ioc;
 using TaskBoard.Client.Providers;
+using TaskBoard.Client.UI.Creators;
 using TaskBoard.Client.UI.Extensions;
+using TaskBoard.Client.UI.Extensions.Tables;
 using TaskBoard.Client.UI.Models;
 
 namespace TaskBoard.Client.UI.ViewModels {
 	public class BoardViewModel : ViewModelBase {
-		private readonly IHttpClientProvider httpClientProvider = SimpleIoc.Default.GetInstance<IHttpClientProvider>();
+		private readonly IHttpClientProvider httpClientProvider;
+		private readonly IViewModelCreator viewModelCreator;
+
 		public ObservableCollection<ColumnViewModel> ColumnViewModels { get; } = new ObservableCollection<ColumnViewModel>();
 
 		private BoardModel currentBoardModel;
@@ -23,17 +26,20 @@ namespace TaskBoard.Client.UI.ViewModels {
 			}
 		}
 
-		public BoardViewModel() {
-			RefreshColumnsCommand = new RelayCommand(RefreshColumns);
+		public BoardViewModel(IHttpClientProvider httpClientProvider, IViewModelCreator viewModelCreator) {
+			this.httpClientProvider = httpClientProvider;
+			this.viewModelCreator = viewModelCreator;
+
+			RefreshColumnsCommand = new RelayCommand(RefreshColumnsMethod);
 		}
 
 		public ICommand RefreshColumnsCommand { get; }
-		private void RefreshColumns() {
+		private void RefreshColumnsMethod() {
 			if (CurrentBoardModel == null)
 				return;
 
-			ColumnViewModels.ResetItems(httpClientProvider.GetDatabaseColumnReader().GetFromBoard(CurrentBoardModel.BoardId)
-				.Select(column => new ColumnViewModel(new ColumnModel { Header = column.Header, Brush = (Brush)new BrushConverter().ConvertFromString(column.Brush) })));
+			ColumnViewModels.Reset(httpClientProvider.GetDatabaseColumnReader().GetFromBoard(CurrentBoardModel.BoardId).ToModels(httpClientProvider)
+				.Select(columnModel => viewModelCreator.CreateColumnViewModel(httpClientProvider, viewModelCreator, columnModel)));
 		}
 	}
 }

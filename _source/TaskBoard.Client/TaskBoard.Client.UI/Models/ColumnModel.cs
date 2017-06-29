@@ -10,6 +10,12 @@ namespace TaskBoard.Client.UI.Models {
 			set => Set(() => ColumnId, ref columnId, value);
 		}
 
+		private Guid boardId;
+		public Guid BoardId {
+			get => boardId;
+			set => Set(() => BoardId, ref boardId, value);
+		}
+
 		private string header;
 		public string Header {
 			get => header;

@@ -3,12 +3,13 @@
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:viewModels="clr-namespace:TaskBoard.Client.UI.ViewModels"
 			 mc:Ignorable="d"
 			 d:DesignHeight="300" d:DesignWidth="300"
-			 d:DataContext="{task:TaskViewModel}">
+			 d:DataContext="{d:DesignInstance Type=viewModels:TaskViewModel}">
 	<StackPanel>
-		<Label Content="{Binding Path=TaskModel.Header}" />
-		<Label Content="{Binding Path=TaskModel.Description}" />
-		<Label Content="{Binding Path=TaskModel.Column.Header}" />
+		<Label Content="{Binding Path=CurrentTaskModel.Header, UpdateSourceTrigger=PropertyChanged}" />
+		<Label Content="{Binding Path=CurrentTaskModel.Description, UpdateSourceTrigger=PropertyChanged}" />
+		<Label Content="{Binding Path=CurrentTaskModel.ColumnHeader, UpdateSourceTrigger=PropertyChanged}" />
 	</StackPanel>
 </UserControl>

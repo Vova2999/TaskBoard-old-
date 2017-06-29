@@ -1,19 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Media;
+using TaskBoard.Client.Providers;
 using TaskBoard.Client.UI.Models;
 using TaskBoard.Common.Tables;
 
-namespace TaskBoard.Client.UI.Extensions {
+namespace TaskBoard.Client.UI.Extensions.Tables {
 	public static class TaskExtensions {
-		public static TaskModel[] ToModels(this IEnumerable<Task> tasks, User developer, User reviewer, Column column, Board board) {
-			return tasks.Select(task => task.ToModel(developer, reviewer, column, board)).ToArray();
+		public static TaskModel[] ToModels(this IEnumerable<Task> tasks, IHttpClientProvider httpClientProvider) {
+			return tasks.Select(task => task.ToModel(httpClientProvider)).ToArray();
 		}
 
-		public static TaskModel ToModel(this Task task, User developer, User reviewer, Column column, Board board) {
-			if (task.DeveloperId != developer?.UserId)
-				throw new InvalidOperationException($"Ошибка при преобразовании из {nameof(Task)} в {nameof(TaskModel)}");
+		public static TaskModel ToModel(this Task task, IHttpClientProvider httpClientProvider) {
+			var developer = task.DeveloperId == null ? null : httpClientProvider.GetDatabaseUserReader().GetById(task.DeveloperId.Value);
+			var reviewer = task.ReviewerId == null ? null : httpClientProvider.GetDatabaseUserReader().GetById(task.ReviewerId.Value);
+			var column = task.ColumnId == null ? null : httpClientProvider.GetDatabaseColumnReader().GetById(task.ColumnId.Value);
+			var board = httpClientProvider.GetDatabaseBoardReader().GetById(task.BoardId);
 
 			return new TaskModel {
 				TaskId = task.TaskId,
@@ -23,10 +25,10 @@ namespace TaskBoard.Client.UI.Extensions {
 				State = task.State,
 				Priority = task.Priority,
 				CreateDateTime = task.CreateDateTime,
-				DeveloperName = developer?.Login,
-				ReviewerName = reviewer?.Login,
-				ColumnHeader = column?.Header,
-				ColumnBrush = column == null ? Brushes.Black : (Brush)new BrushConverter().ConvertFromString(column.Brush),
+				DeveloperName = developer?.Login ?? string.Empty,
+				ReviewerName = reviewer?.Login ?? string.Empty,
+				ColumnHeader = column?.Header ?? string.Empty,
+				ColumnBrush = column == null ? null : (Brush)new BrushConverter().ConvertFromString(column.Brush),
 				BoardName = board.Name
 			};
 		}

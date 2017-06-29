@@ -14,7 +14,7 @@
 		<ComboBox Grid.Row="0" ItemsSource="{Binding BoardModels, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding BoardViewModel.CurrentBoardModel, Mode=TwoWay}">
 			<i:Interaction.Triggers>
 				<i:EventTrigger EventName="DropDownOpened">
-					<i:InvokeCommandAction Command="{Binding LoadBoardsCommand}" />
+					<i:InvokeCommandAction Command="{Binding RefreshBoardModelsCommand}" />
 				</i:EventTrigger>
 			</i:Interaction.Triggers>
 			<ComboBox.ItemTemplate>

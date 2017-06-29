@@ -73,6 +73,8 @@
     <Compile Include="Extensions\ObservableCollectionExtensions.cs" />
     <Compile Include="Extensions\Tables\TaskExtensions.cs" />
     <Compile Include="Extensions\Tables\UserExtensions.cs" />
+    <Compile Include="Creators\IViewModelCreator.cs" />
+    <Compile Include="Creators\ViewModelCreator.cs" />
     <Compile Include="Models\BoardModel.cs" />
     <Compile Include="Models\CommentModel.cs" />
     <Compile Include="Models\UserModel.cs" />
@@ -150,6 +152,9 @@
       <Project>{6CD7B3C0-5AC7-4901-9B80-AC59C748E1DC}</Project>
       <Name>TaskBoard.Client</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Helpers\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

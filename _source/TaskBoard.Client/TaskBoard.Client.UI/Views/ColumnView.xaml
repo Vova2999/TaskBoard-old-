@@ -6,7 +6,8 @@
 			 xmlns:viewModels="clr-namespace:TaskBoard.Client.UI.ViewModels"
 			 xmlns:views="clr-namespace:TaskBoard.Client.UI.Views"
 			 mc:Ignorable="d"
-			 d:DesignHeight="300" d:DesignWidth="300">
+			 d:DesignHeight="300" d:DesignWidth="250"
+			 d:DataContext="{d:DesignInstance Type=viewModels:ColumnViewModel}">
 	<d:UserControl.DataContext>
 		<viewModels:ColumnViewModel />
 	</d:UserControl.DataContext>
@@ -25,8 +26,19 @@
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
 
-		<Label Grid.Row="0" Content="{Binding ColumnModel.Header}" HorizontalContentAlignment="Center" />
-		<Rectangle Grid.Row="1" Height="1" Fill="{Binding ColumnModel.Brush}" />
-		<ItemsControl Grid.Row="2" ItemTemplate="{StaticResource StackPanelDataTemplate}" ItemsSource="{Binding Tasks, UpdateSourceTrigger=PropertyChanged}" />
+		<Label Grid.Row="0" Content="{Binding CurrentColumnModel.Header, UpdateSourceTrigger=PropertyChanged}" HorizontalContentAlignment="Center" />
+		<Rectangle Grid.Row="1" Height="1" Fill="Silver" />
+		<ItemsControl Grid.Row="2" ItemsSource="{Binding TaskViewModels, UpdateSourceTrigger=PropertyChanged}">
+			<ItemsControl.ItemsPanel>
+				<ItemsPanelTemplate>
+					<StackPanel />
+				</ItemsPanelTemplate>
+			</ItemsControl.ItemsPanel>
+			<ItemsControl.ItemTemplate>
+				<DataTemplate>
+					<views:TaskView Content="{Binding}" Width="250" />
+				</DataTemplate>
+			</ItemsControl.ItemTemplate>
+		</ItemsControl>
 	</Grid>
 </UserControl>
