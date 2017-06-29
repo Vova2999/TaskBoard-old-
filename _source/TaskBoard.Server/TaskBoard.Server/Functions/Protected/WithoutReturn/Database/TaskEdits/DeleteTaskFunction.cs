@@ -9,7 +9,7 @@ namespace TaskBoard.Server.Functions.Protected.WithoutReturn.Database.TaskEdits 
 	// ReSharper disable UnusedMember.Global
 
 	public class DeleteTaskFunction : HttpProtectedFunctionWithoutReturn {
-		public override string NameOfCalledMethod => HttpFunctions.DeleteTask;
+		public override string NameOfCalledMethod => HttpFunctions.TaskEdits.DeleteTask;
 		protected override AccessType RequiredAccessType => AccessType.UserWrite;
 		private readonly IDatabaseTaskEditor databaseTaskEditor;
 

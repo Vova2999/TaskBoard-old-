@@ -5,7 +5,7 @@ namespace TaskBoard.Server.Functions.NonProtected.WithoutReturn {
 	// ReSharper disable UnusedMember.Global
 
 	public class PingFunction : HttpFunctionWithoutReturn {
-		public override string NameOfCalledMethod => HttpFunctions.Ping;
+		public override string NameOfCalledMethod => HttpFunctions.Common.Ping;
 
 		protected override void Run(NameValues parameters, byte[] requestBody) {
 		}

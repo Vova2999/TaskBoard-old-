@@ -24,6 +24,28 @@ namespace TaskBoard.Server.Database.Models.Readers {
 			return ModelDatabase.Columns.ToTables();
 		}
 
+		public Guid GetIdByHeaderWithBoardId(string header, Guid boardId) {
+			return ModelDatabase.Columns.FirstOrDefault(column => column.Header == header && column.BoardId == boardId)?.BoardId
+				?? throw new ArgumentException($"Не найден столбец с header = '{header}', boardId = '{boardId}");
+		}
+
+		public Column GetByHeaderWithBoardId(string header, Guid boardId) {
+			return ModelDatabase.Columns.FirstOrDefault(column => column.Header == header && column.BoardId == boardId)?.ToTable()
+				?? throw new ArgumentException($"Не найден столбец с header = '{header}', boardId = '{boardId}");
+		}
+
+		public Guid GetIdByHeaderWithBoardName(string header, string boardName) {
+			var board = ModelDatabase.Boards.FirstOrDefault(b => b.Name == boardName) ?? throw new ArgumentException($"Не найдена доска с name = '{boardName}'");
+			return ModelDatabase.Columns.FirstOrDefault(column => column.Header == header && column.BoardId == board.BoardId)?.BoardId
+				?? throw new ArgumentException($"Не найден столбец с header = '{header}', boardName = '{boardName}");
+		}
+
+		public Column GetByHeaderWithBoardName(string header, string boardName) {
+			var board = ModelDatabase.Boards.FirstOrDefault(b => b.Name == boardName) ?? throw new ArgumentException($"Не найдена доска с name = '{boardName}'");
+			return ModelDatabase.Columns.FirstOrDefault(column => column.Header == header && column.BoardId == board.BoardId)?.ToTable()
+				?? throw new ArgumentException($"Не найден столбец с header = '{header}', boardName = '{boardName}");
+		}
+
 		public Guid[] GetIdsFromBoard(Guid boardId) {
 			return ModelDatabase.Columns.Where(column => column.BoardId == boardId).Select(column => column.ColumnId).ToArray();
 		}

@@ -10,7 +10,7 @@ namespace TaskBoard.Server.Database.Entities {
 		[Required, MaxLength(64), Index("IX_UserUniques", 1, IsUnique = true)]
 		public string Login { get; set; }
 
-		[Required, MaxLength(64), Index("IX_UserUniques", 2, IsUnique = true)]
+		[Required, MaxLength(64)]
 		public string Password { get; set; }
 
 		[Required]

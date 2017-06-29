@@ -16,7 +16,7 @@ namespace TaskBoard.Client.Clients.Paramerets {
 
 			serverAddress = new UriBuilder(serverAddress).Uri.ToString();
 
-			new ParameretsClient(new HttpClientParameters { ServerAddress = serverAddress, TimeoutMs = timeoutMs }).SendRequest(HttpFunctions.Ping);
+			new ParameretsClient(new HttpClientParameters { ServerAddress = serverAddress, TimeoutMs = timeoutMs }).SendRequest(HttpFunctions.Common.Ping);
 			httpClientParameters.ServerAddress = serverAddress;
 			httpClientParameters.TimeoutMs = timeoutMs;
 		}
@@ -30,7 +30,7 @@ namespace TaskBoard.Client.Clients.Paramerets {
 				[HttpParameters.Password] = password
 			};
 
-			SendRequest(HttpFunctions.CheckUserIsExist, parameters);
+			SendRequest(HttpFunctions.Common.CheckUserIsExist, parameters);
 			httpClientParameters.Login = login;
 			httpClientParameters.Password = password;
 			httpClientParameters.IsAuthorize = true;

@@ -24,6 +24,14 @@ namespace TaskBoard.Server.Database.Models.Readers {
 			return ModelDatabase.Boards.ToTables();
 		}
 
+		public Guid GetIdByName(string name) {
+			return ModelDatabase.Boards.FirstOrDefault(b => b.Name == name)?.BoardId ?? throw new ArgumentException($"Не найдена доска с name = '{name}'");
+		}
+
+		public Board GetByName(string name) {
+			return ModelDatabase.Boards.FirstOrDefault(board => board.Name == name)?.ToTable() ?? throw new ArgumentException($"Не найдена доска с name = '{name}'");
+		}
+
 		public Guid[] GetIdsWithUsingFilters(string name) {
 			return GetQueryWithUsingFilters(name).Select(board => board.BoardId).ToArray();
 		}

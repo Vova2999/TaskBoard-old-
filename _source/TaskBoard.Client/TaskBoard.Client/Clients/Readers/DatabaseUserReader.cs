@@ -13,23 +13,37 @@ namespace TaskBoard.Client.Clients.Readers {
 			var parameters = GetDefaultParameters();
 			parameters[HttpParameters.UserId] = id.ToString();
 
-			return SendRequest<User>(HttpFunctions.GetUserById, parameters);
+			return SendRequest<User>(HttpFunctions.UserReads.GetUserById, parameters);
 		}
 
 		public Guid[] GetAllIds() {
-			return SendRequest<Guid[]>(HttpFunctions.GetAllUserIds, GetDefaultParameters());
+			return SendRequest<Guid[]>(HttpFunctions.UserReads.GetAllUserIds, GetDefaultParameters());
 		}
 
 		public User[] GetAll() {
-			return SendRequest<User[]>(HttpFunctions.GetAllUsers, GetDefaultParameters());
+			return SendRequest<User[]>(HttpFunctions.UserReads.GetAllUsers, GetDefaultParameters());
+		}
+
+		public Guid GetIdByLogin(string login) {
+			var parameters = GetDefaultParameters();
+			parameters[HttpParameters.UserLogin] = login;
+
+			return SendRequest<Guid>(HttpFunctions.UserReads.GetUserIdByLogin, parameters);
+		}
+
+		public User GetByLogin(string login) {
+			var parameters = GetDefaultParameters();
+			parameters[HttpParameters.UserLogin] = login;
+
+			return SendRequest<User>(HttpFunctions.UserReads.GetUserByLogin, parameters);
 		}
 
 		public Guid[] GetIdsWithUsingFilters(string login) {
-			return SendRequest<Guid[]>(HttpFunctions.GetAllUserIds, CreateParametersForUsingFilters(login));
+			return SendRequest<Guid[]>(HttpFunctions.UserReads.GetAllUserIds, CreateParametersForUsingFilters(login));
 		}
 
 		public User[] GetWithUsingFilters(string login) {
-			return SendRequest<User[]>(HttpFunctions.GetAllUsers, CreateParametersForUsingFilters(login));
+			return SendRequest<User[]>(HttpFunctions.UserReads.GetAllUsers, CreateParametersForUsingFilters(login));
 		}
 
 		private Dictionary<string, string> CreateParametersForUsingFilters(string login) {

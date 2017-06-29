@@ -9,7 +9,7 @@ namespace TaskBoard.Server.Functions.Protected.WithReturn.Database.UserReadsAsAd
 	// ReSharper disable UnusedMember.Global
 
 	public class GetAllUsersAsAdminFunction : HttpProtectedFunctionWithReturn<User[]> {
-		public override string NameOfCalledMethod => HttpFunctions.GetAllUsersAsAdmin;
+		public override string NameOfCalledMethod => HttpFunctions.UserReadsAsAdmin.GetAllUsersAsAdmin;
 		protected override AccessType RequiredAccessType => AccessType.AdminRead;
 		private readonly IDatabaseUserReaderAsAdmin databaseUserReaderAsAdmin;
 

@@ -8,17 +8,17 @@ using TaskBoard.Server.AdditionalObjects;
 namespace TaskBoard.Server.Functions.Protected.WithReturn.Database.BoardReads {
 	// ReSharper disable UnusedMember.Global
 
-	public class GetAllBoardIdsFunction : HttpProtectedFunctionWithReturn<Guid[]> {
-		public override string NameOfCalledMethod => HttpFunctions.BoardReads.GetAllBoardIds;
+	public class GetBoardIdByNameFunction : HttpProtectedFunctionWithReturn<Guid> {
+		public override string NameOfCalledMethod => HttpFunctions.BoardReads.GetBoardIdByName;
 		protected override AccessType RequiredAccessType => AccessType.UserRead;
 		private readonly IDatabaseBoardReader databaseBoardReader;
 
-		public GetAllBoardIdsFunction(IDatabaseAuthorizer databaseAuthorizer, IDatabaseBoardReader databaseBoardReader) : base(databaseAuthorizer) {
+		public GetBoardIdByNameFunction(IDatabaseAuthorizer databaseAuthorizer, IDatabaseBoardReader databaseBoardReader) : base(databaseAuthorizer) {
 			this.databaseBoardReader = databaseBoardReader;
 		}
 
-		protected override Guid[] Run(NameValues parameters, byte[] requestBody) {
-			return databaseBoardReader.GetAllIds();
+		protected override Guid Run(NameValues parameters, byte[] requestBody) {
+			return databaseBoardReader.GetIdByName(parameters[HttpParameters.BoardName]);
 		}
 	}
 }

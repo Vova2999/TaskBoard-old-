@@ -85,6 +85,8 @@
     <Compile Include="Functions\Protected\WithoutReturn\Database\UserEdits\DeleteUserFunction.cs" />
     <Compile Include="Functions\Protected\WithoutReturn\Database\UserEdits\EditUserFunction.cs" />
     <Compile Include="Functions\Protected\WithoutReturn\StopServerFunction.cs" />
+    <Compile Include="Functions\Protected\WithReturn\Database\BoardReads\GetBoardByNameFunction.cs" />
+    <Compile Include="Functions\Protected\WithReturn\Database\BoardReads\GetBoardIdByNameFunction.cs" />
     <Compile Include="Functions\Protected\WithReturn\Database\BoardReads\GetBoardIdsWithUsingFiltersFunction.cs" />
     <Compile Include="Functions\Protected\WithReturn\Database\BoardReads\GetAllBoardIdsFunction.cs" />
     <Compile Include="Functions\Protected\WithReturn\Database\BoardReads\GetAllBoardsFunction.cs" />
@@ -92,7 +94,11 @@
     <Compile Include="Functions\Protected\WithReturn\Database\BoardReads\GetBoardsWithUsingFiltersFunction.cs" />
     <Compile Include="Functions\Protected\WithReturn\Database\ColumnReads\GetAllColumnIdsFunction.cs" />
     <Compile Include="Functions\Protected\WithReturn\Database\ColumnReads\GetAllColumnsFunction.cs" />
+    <Compile Include="Functions\Protected\WithReturn\Database\ColumnReads\GetColumnByHeaderWithBoardIdFunction.cs" />
+    <Compile Include="Functions\Protected\WithReturn\Database\ColumnReads\GetColumnByHeaderWithBoardNameFunction.cs" />
     <Compile Include="Functions\Protected\WithReturn\Database\ColumnReads\GetColumnByIdFunction.cs" />
+    <Compile Include="Functions\Protected\WithReturn\Database\ColumnReads\GetColumnIdByHeaderWithBoardIdFunction.cs" />
+    <Compile Include="Functions\Protected\WithReturn\Database\ColumnReads\GetColumnIdByHeaderWithBoardNameFunction.cs" />
     <Compile Include="Functions\Protected\WithReturn\Database\ColumnReads\GetColumnIdsFromBoardFunction.cs" />
     <Compile Include="Functions\Protected\WithReturn\Database\ColumnReads\GetColumnIdsWithUsingFiltersFunction.cs" />
     <Compile Include="Functions\Protected\WithReturn\Database\ColumnReads\GetColumnsFromBoardFunction.cs" />
@@ -116,11 +122,15 @@
     <Compile Include="Functions\Protected\WithReturn\Database\UserReadsAsAdmin\GetAllUserIdsAsAdminFunction.cs" />
     <Compile Include="Functions\Protected\WithReturn\Database\UserReadsAsAdmin\GetAllUsersAsAdminFunction.cs" />
     <Compile Include="Functions\Protected\WithReturn\Database\UserReadsAsAdmin\GetUserByIdAsAdminFunction.cs" />
+    <Compile Include="Functions\Protected\WithReturn\Database\UserReadsAsAdmin\GetUserByLoginAsAdminFunction.cs" />
+    <Compile Include="Functions\Protected\WithReturn\Database\UserReadsAsAdmin\GetUserIdByLoginAsAdminFunction.cs" />
     <Compile Include="Functions\Protected\WithReturn\Database\UserReadsAsAdmin\GetUserIdsWithUsingFiltersAsAdminFunction.cs" />
     <Compile Include="Functions\Protected\WithReturn\Database\UserReadsAsAdmin\GetUsersWithUsingFiltersAsAdminFunction.cs" />
     <Compile Include="Functions\Protected\WithReturn\Database\UserReads\GetAllUserIdsFunction.cs" />
     <Compile Include="Functions\Protected\WithReturn\Database\UserReads\GetAllUsersFunction.cs" />
     <Compile Include="Functions\Protected\WithReturn\Database\UserReads\GetUserByIdFunction.cs" />
+    <Compile Include="Functions\Protected\WithReturn\Database\UserReads\GetUserByLoginFunction.cs" />
+    <Compile Include="Functions\Protected\WithReturn\Database\UserReads\GetUserIdByLoginFunction.cs" />
     <Compile Include="Functions\Protected\WithReturn\Database\UserReads\GetUserIdsWithUsingFiltersFunction.cs" />
     <Compile Include="Functions\Protected\WithReturn\Database\UserReads\GetUsersWithUsingFiltersFunction.cs" />
     <Compile Include="Program.cs" />

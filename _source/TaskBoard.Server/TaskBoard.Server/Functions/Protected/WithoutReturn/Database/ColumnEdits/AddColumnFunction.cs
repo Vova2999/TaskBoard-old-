@@ -10,7 +10,7 @@ namespace TaskBoard.Server.Functions.Protected.WithoutReturn.Database.ColumnEdit
 	// ReSharper disable UnusedMember.Global
 
 	public class AddColumnFunction : HttpProtectedFunctionWithoutReturn {
-		public override string NameOfCalledMethod => HttpFunctions.AddColumn;
+		public override string NameOfCalledMethod => HttpFunctions.ColumnEdits.AddColumn;
 		protected override AccessType RequiredAccessType => AccessType.UserWrite;
 		private readonly IDatabaseColumnEditor databaseColumnEditor;
 

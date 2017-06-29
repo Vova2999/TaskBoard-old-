@@ -24,6 +24,14 @@ namespace TaskBoard.Server.Database.Models.Readers {
 			return ModelDatabase.Users.ToTables();
 		}
 
+		public Guid GetIdByLogin(string login) {
+			return ModelDatabase.Users.FirstOrDefault(user => user.Login == login)?.UserId ?? throw new ArgumentException($"Не найден пользователь с login = '{login}'");
+		}
+
+		public User GetByLogin(string login) {
+			return ModelDatabase.Users.FirstOrDefault(user => user.Login == login)?.ToTable() ?? throw new ArgumentException($"Не найден пользователь с login = '{login}'");
+		}
+
 		public Guid[] GetIdsWithUsingFilters(string login) {
 			return GetQueryWithUsingFilters(login).Select(user => user.UserId).ToArray();
 		}

@@ -9,7 +9,7 @@ namespace TaskBoard.Server.Functions.Protected.WithoutReturn.Database.CommentEdi
 	// ReSharper disable UnusedMember.Global
 
 	public class DeleteCommentFunction : HttpProtectedFunctionWithoutReturn {
-		public override string NameOfCalledMethod => HttpFunctions.DeleteComment;
+		public override string NameOfCalledMethod => HttpFunctions.CommentEdits.DeleteComment;
 		protected override AccessType RequiredAccessType => AccessType.UserWrite;
 		private readonly IDatabaseCommentEditor databaseCommentEditor;
 

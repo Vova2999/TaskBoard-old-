@@ -9,7 +9,7 @@ namespace TaskBoard.Server.Functions.Protected.WithoutReturn {
 	// ReSharper disable UnusedMember.Global
 
 	public class StopServerFunction : HttpProtectedFunctionWithoutReturn {
-		public override string NameOfCalledMethod => HttpFunctions.StopServer;
+		public override string NameOfCalledMethod => HttpFunctions.Common.StopServer;
 		protected override AccessType RequiredAccessType => AccessType.AdminRead;
 
 		public StopServerFunction(IDatabaseAuthorizer databaseAuthorizer) : base(databaseAuthorizer) {

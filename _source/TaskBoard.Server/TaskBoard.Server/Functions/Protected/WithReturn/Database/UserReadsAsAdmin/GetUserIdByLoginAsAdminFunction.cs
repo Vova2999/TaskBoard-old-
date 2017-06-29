@@ -8,17 +8,17 @@ using TaskBoard.Server.AdditionalObjects;
 namespace TaskBoard.Server.Functions.Protected.WithReturn.Database.UserReadsAsAdmin {
 	// ReSharper disable UnusedMember.Global
 
-	public class GetAllUserIdsAsAdminFunction : HttpProtectedFunctionWithReturn<Guid[]> {
-		public override string NameOfCalledMethod => HttpFunctions.UserReadsAsAdmin.GetAllUserIdsAsAdmin;
+	public class GetUserIdByLoginAsAdminFunction : HttpProtectedFunctionWithReturn<Guid> {
+		public override string NameOfCalledMethod => HttpFunctions.UserReadsAsAdmin.GetUserIdByLoginAsAdmin;
 		protected override AccessType RequiredAccessType => AccessType.AdminRead;
 		private readonly IDatabaseUserReaderAsAdmin databaseUserReaderAsAdmin;
 
-		public GetAllUserIdsAsAdminFunction(IDatabaseAuthorizer databaseAuthorizer, IDatabaseUserReaderAsAdmin databaseUserReaderAsAdmin) : base(databaseAuthorizer) {
+		public GetUserIdByLoginAsAdminFunction(IDatabaseAuthorizer databaseAuthorizer, IDatabaseUserReaderAsAdmin databaseUserReaderAsAdmin) : base(databaseAuthorizer) {
 			this.databaseUserReaderAsAdmin = databaseUserReaderAsAdmin;
 		}
 
-		protected override Guid[] Run(NameValues parameters, byte[] requestBody) {
-			return databaseUserReaderAsAdmin.GetAllIds();
+		protected override Guid Run(NameValues parameters, byte[] requestBody) {
+			return databaseUserReaderAsAdmin.GetIdByLogin(parameters[HttpParameters.UserLogin]);
 		}
 	}
 }

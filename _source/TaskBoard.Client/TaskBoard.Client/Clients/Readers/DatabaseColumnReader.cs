@@ -13,37 +13,69 @@ namespace TaskBoard.Client.Clients.Readers {
 			var parameters = GetDefaultParameters();
 			parameters[HttpParameters.ColumnId] = id.ToString();
 
-			return SendRequest<Column>(HttpFunctions.GetColumnById, parameters);
+			return SendRequest<Column>(HttpFunctions.ColumnReads.GetColumnById, parameters);
 		}
 
 		public Guid[] GetAllIds() {
-			return SendRequest<Guid[]>(HttpFunctions.GetAllColumnIds, GetDefaultParameters());
+			return SendRequest<Guid[]>(HttpFunctions.ColumnReads.GetAllColumnIds, GetDefaultParameters());
 		}
 
 		public Column[] GetAll() {
-			return SendRequest<Column[]>(HttpFunctions.GetAllColumns, GetDefaultParameters());
+			return SendRequest<Column[]>(HttpFunctions.ColumnReads.GetAllColumns, GetDefaultParameters());
+		}
+
+		public Guid GetIdByHeaderWithBoardId(string header, Guid boardId) {
+			var parameters = GetDefaultParameters();
+			parameters[HttpParameters.ColumnHeader] = header;
+			parameters[HttpParameters.ColumnBoardId] = boardId.ToString();
+
+			return SendRequest<Guid>(HttpFunctions.ColumnReads.GetColumnIdByHeaderWithBoardId, parameters);
+		}
+
+		public Column GetByHeaderWithBoardId(string header, Guid boardId) {
+			var parameters = GetDefaultParameters();
+			parameters[HttpParameters.ColumnHeader] = header;
+			parameters[HttpParameters.ColumnBoardId] = boardId.ToString();
+
+			return SendRequest<Column>(HttpFunctions.ColumnReads.GetColumnByHeaderWithBoardId, parameters);
+		}
+
+		public Guid GetIdByHeaderWithBoardName(string header, string boardName) {
+			var parameters = GetDefaultParameters();
+			parameters[HttpParameters.ColumnHeader] = header;
+			parameters[HttpParameters.ColumnBoardName] = boardName;
+
+			return SendRequest<Guid>(HttpFunctions.ColumnReads.GetColumnIdByHeaderWithBoardName, parameters);
+		}
+
+		public Column GetByHeaderWithBoardName(string header, string boardName) {
+			var parameters = GetDefaultParameters();
+			parameters[HttpParameters.ColumnHeader] = header;
+			parameters[HttpParameters.ColumnBoardName] = boardName;
+
+			return SendRequest<Column>(HttpFunctions.ColumnReads.GetColumnByHeaderWithBoardName, parameters);
 		}
 
 		public Guid[] GetIdsFromBoard(Guid boardId) {
 			var parameters = GetDefaultParameters();
 			parameters[HttpParameters.ColumnBoardId] = boardId.ToString();
 
-			return SendRequest<Guid[]>(HttpFunctions.GetColumnIdsFromBoard, parameters);
+			return SendRequest<Guid[]>(HttpFunctions.ColumnReads.GetColumnIdsFromBoard, parameters);
 		}
 
 		public Column[] GetFromBoard(Guid boardId) {
 			var parameters = GetDefaultParameters();
 			parameters[HttpParameters.ColumnBoardId] = boardId.ToString();
 
-			return SendRequest<Column[]>(HttpFunctions.GetColumnsFromBoard, parameters);
+			return SendRequest<Column[]>(HttpFunctions.ColumnReads.GetColumnsFromBoard, parameters);
 		}
 
 		public Guid[] GetIdsWithUsingFilters(string header, string brush, Guid? boardId) {
-			return SendRequest<Guid[]>(HttpFunctions.GetColumnIdsWithUsingFilters, CreateParametersForUsingFilters(header, brush, boardId));
+			return SendRequest<Guid[]>(HttpFunctions.ColumnReads.GetColumnIdsWithUsingFilters, CreateParametersForUsingFilters(header, brush, boardId));
 		}
 
 		public Column[] GetWithUsingFilters(string header, string brush, Guid? boardId) {
-			return SendRequest<Column[]>(HttpFunctions.GetColumnsWithUsingFilters, CreateParametersForUsingFilters(header, brush, boardId));
+			return SendRequest<Column[]>(HttpFunctions.ColumnReads.GetColumnsWithUsingFilters, CreateParametersForUsingFilters(header, brush, boardId));
 		}
 
 		private Dictionary<string, string> CreateParametersForUsingFilters(string header, string brush, Guid? boardId) {

@@ -10,7 +10,7 @@ namespace TaskBoard.Server.Functions.Protected.WithReturn.Database.CommentReads 
 	// ReSharper disable UnusedMember.Global
 
 	public class GetCommentsWithUsingFiltersFunction : HttpProtectedFunctionWithReturn<Comment[]> {
-		public override string NameOfCalledMethod => HttpFunctions.GetCommentsWithUsingFilters;
+		public override string NameOfCalledMethod => HttpFunctions.CommentReads.GetCommentsWithUsingFilters;
 		protected override AccessType RequiredAccessType => AccessType.UserRead;
 		private readonly IDatabaseCommentReader databaseCommentReader;
 
