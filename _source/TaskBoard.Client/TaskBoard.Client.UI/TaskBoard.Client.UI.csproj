@@ -79,40 +79,28 @@
     <Compile Include="Models\BoardModel.cs" />
     <Compile Include="Models\CommentModel.cs" />
     <Compile Include="Models\UserModel.cs" />
-    <Compile Include="ViewModels\CommentViewModel.cs" />
-    <Compile Include="ViewModels\UserViewModel.cs" />
-    <Compile Include="Views\BoardView.xaml.cs">
-      <DependentUpon>BoardView.xaml</DependentUpon>
+    <Compile Include="Views\Controls\BoardControlView.xaml.cs">
+      <DependentUpon>BoardControlView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\BoardViewModel.cs" />
+    <Compile Include="ViewModels\Controls\BoardControlViewModel.cs" />
     <Compile Include="ClientUiConfiguration.cs" />
     <Compile Include="Models\ColumnModel.cs" />
-    <Compile Include="Views\ColumnView.xaml.cs">
-      <DependentUpon>ColumnView.xaml</DependentUpon>
+    <Compile Include="Views\Controls\ColumnControlView.xaml.cs">
+      <DependentUpon>ColumnControlView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\ColumnViewModel.cs" />
+    <Compile Include="ViewModels\Controls\ColumnControlViewModel.cs" />
     <Compile Include="Models\TaskModel.cs" />
-    <Compile Include="Views\CommentView.xaml.cs">
-      <DependentUpon>CommentView.xaml</DependentUpon>
+    <Compile Include="Views\Controls\TaskControlView.xaml.cs">
+      <DependentUpon>TaskControlView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\TaskView.xaml.cs">
-      <DependentUpon>TaskView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewModels\TaskViewModel.cs" />
+    <Compile Include="ViewModels\Controls\TaskControlViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Locators\ViewModelLocator.cs" />
-    <Compile Include="Views\UserView.xaml.cs">
-      <DependentUpon>UserView.xaml</DependentUpon>
-    </Compile>
-    <Page Include="Views\BoardView.xaml">
+    <Page Include="Views\Controls\BoardControlView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ColumnView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\CommentView.xaml">
+    <Page Include="Views\Controls\ColumnControlView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -128,11 +116,7 @@
       <DependentUpon>MainView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\TaskView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\UserView.xaml">
+    <Page Include="Views\Controls\TaskControlView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -169,6 +153,10 @@
       <Project>{6CD7B3C0-5AC7-4901-9B80-AC59C748E1DC}</Project>
       <Name>TaskBoard.Client</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ViewModels\Windows\" />
+    <Folder Include="Views\Windows\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -7,13 +7,14 @@ using TaskBoard.Client.UI.Creators;
 using TaskBoard.Client.UI.Extensions;
 using TaskBoard.Client.UI.Extensions.Tables;
 using TaskBoard.Client.UI.Models;
+using TaskBoard.Client.UI.ViewModels.Controls;
 
 namespace TaskBoard.Client.UI.ViewModels {
 	public class MainViewModel : ViewModelBase {
 		private readonly IHttpClientProvider httpClientProvider;
 
 		public ObservableCollection<BoardModel> BoardModels { get; }
-		public BoardViewModel BoardViewModel { get; }
+		public BoardControlViewModel BoardViewModel { get; }
 
 		public MainViewModel(IHttpClientProvider httpClientProvider, IViewModelCreator viewModelCreator) {
 			this.httpClientProvider = httpClientProvider;

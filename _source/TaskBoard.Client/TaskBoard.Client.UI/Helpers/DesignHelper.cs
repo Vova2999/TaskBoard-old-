@@ -3,12 +3,12 @@ using System.Windows.Media;
 using GalaSoft.MvvmLight;
 using TaskBoard.Client.UI.Extensions;
 using TaskBoard.Client.UI.Models;
-using TaskBoard.Client.UI.ViewModels;
+using TaskBoard.Client.UI.ViewModels.Controls;
 using TaskBoard.Common.Enums;
 
 namespace TaskBoard.Client.UI.Helpers {
 	public static class DesignHelper {
-		public static void SetControls(BoardViewModel boardViewModel) {
+		public static void SetControls(BoardControlViewModel boardViewModel) {
 			CheckDesignMode();
 
 			boardViewModel.CurrentBoardModel = new BoardModel {
@@ -16,19 +16,19 @@ namespace TaskBoard.Client.UI.Helpers {
 			};
 
 			boardViewModel.ColumnViewModels.Reset(new[] {
-				new ColumnViewModel { CurrentColumnModel = new ColumnModel { Header = "Первый столбец", Brush = Brushes.Green, BoardName = "Название доски" } },
-				new ColumnViewModel { CurrentColumnModel = new ColumnModel { Header = "Второй столбец", Brush = Brushes.Blue, BoardName = "Название доски" } },
-				new ColumnViewModel { CurrentColumnModel = new ColumnModel { Header = "Третий столбец", Brush = Brushes.Red, BoardName = "Название доски" } }
+				new ColumnControlViewModel { CurrentColumnModel = new ColumnModel { Header = "Первый столбец", Brush = Brushes.Green, BoardName = "Название доски" } },
+				new ColumnControlViewModel { CurrentColumnModel = new ColumnModel { Header = "Второй столбец", Brush = Brushes.Blue, BoardName = "Название доски" } },
+				new ColumnControlViewModel { CurrentColumnModel = new ColumnModel { Header = "Третий столбец", Brush = Brushes.Red, BoardName = "Название доски" } }
 			});
 		}
 
-		public static void SetControls(ColumnViewModel columnViewModel) {
+		public static void SetControls(ColumnControlViewModel columnViewModel) {
 			CheckDesignMode();
 
 			columnViewModel.CurrentColumnModel = new ColumnModel { Header = "Название столбца", Brush = Brushes.Blue, BoardName = "Название доски" };
 
 			columnViewModel.TaskViewModels.Reset(new[] {
-				new TaskViewModel {
+				new TaskControlViewModel {
 					CurrentTaskModel = new TaskModel {
 						Header = "Задача №1",
 						Description = "Описание",
@@ -46,7 +46,7 @@ namespace TaskBoard.Client.UI.Helpers {
 			});
 		}
 
-		public static void SetControls(TaskViewModel taskViewModel) {
+		public static void SetControls(TaskControlViewModel taskViewModel) {
 			taskViewModel.CurrentTaskModel = new TaskModel {
 				Header = "Задача №1",
 				Description = "Описание",

@@ -10,12 +10,12 @@ using TaskBoard.Client.UI.Extensions.Tables;
 using TaskBoard.Client.UI.Helpers;
 using TaskBoard.Client.UI.Models;
 
-namespace TaskBoard.Client.UI.ViewModels {
-	public class ColumnViewModel : ViewModelBase {
+namespace TaskBoard.Client.UI.ViewModels.Controls {
+	public class ColumnControlViewModel : ViewModelBase {
 		private readonly IHttpClientProvider httpClientProvider;
 		private readonly IViewModelCreator viewModelCreator;
 
-		public ObservableCollection<TaskViewModel> TaskViewModels { get; } = new ObservableCollection<TaskViewModel>();
+		public ObservableCollection<TaskControlViewModel> TaskViewModels { get; } = new ObservableCollection<TaskControlViewModel>();
 
 		private ColumnModel currentColumnModel;
 		public ColumnModel CurrentColumnModel {
@@ -26,11 +26,11 @@ namespace TaskBoard.Client.UI.ViewModels {
 			}
 		}
 
-		public ColumnViewModel() {
+		public ColumnControlViewModel() {
 			DesignHelper.SetControls(this);
 		}
 
-		public ColumnViewModel(IHttpClientProvider httpClientProvider, IViewModelCreator viewModelCreator) {
+		public ColumnControlViewModel(IHttpClientProvider httpClientProvider, IViewModelCreator viewModelCreator) {
 			this.httpClientProvider = httpClientProvider;
 			this.viewModelCreator = viewModelCreator;
 

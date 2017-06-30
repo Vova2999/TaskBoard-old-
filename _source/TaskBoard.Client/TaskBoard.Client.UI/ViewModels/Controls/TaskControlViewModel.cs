@@ -4,19 +4,19 @@ using TaskBoard.Client.UI.Creators;
 using TaskBoard.Client.UI.Helpers;
 using TaskBoard.Client.UI.Models;
 
-namespace TaskBoard.Client.UI.ViewModels {
-	public class TaskViewModel : ViewModelBase {
+namespace TaskBoard.Client.UI.ViewModels.Controls {
+	public class TaskControlViewModel : ViewModelBase {
 		private TaskModel currentTaskModel;
 		public TaskModel CurrentTaskModel {
 			get => currentTaskModel;
 			set => Set(() => CurrentTaskModel, ref currentTaskModel, value);
 		}
 
-		public TaskViewModel() {
+		public TaskControlViewModel() {
 			DesignHelper.SetControls(this);
 		}
 
-		public TaskViewModel(IHttpClientProvider httpClientProvider, IViewModelCreator viewModelCreator) {
+		public TaskControlViewModel(IHttpClientProvider httpClientProvider, IViewModelCreator viewModelCreator) {
 		}
 	}
 }
