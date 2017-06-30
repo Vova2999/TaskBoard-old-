@@ -7,6 +7,7 @@ using TaskBoard.Client.Providers;
 using TaskBoard.Client.UI.Creators;
 using TaskBoard.Client.UI.Extensions;
 using TaskBoard.Client.UI.Extensions.Tables;
+using TaskBoard.Client.UI.Helpers;
 using TaskBoard.Client.UI.Models;
 
 namespace TaskBoard.Client.UI.ViewModels {
@@ -25,6 +26,10 @@ namespace TaskBoard.Client.UI.ViewModels {
 			}
 		}
 
+		public ColumnViewModel() {
+			DesignHelper.SetControls(this);
+		}
+
 		public ColumnViewModel(IHttpClientProvider httpClientProvider, IViewModelCreator viewModelCreator) {
 			this.httpClientProvider = httpClientProvider;
 			this.viewModelCreator = viewModelCreator;
@@ -32,7 +37,7 @@ namespace TaskBoard.Client.UI.ViewModels {
 			RefreshTasksCommand = new RelayCommand(RefreshTasksMethod);
 		}
 
-		public ICommand RefreshTasksCommand { get; }
+		public ICommand RefreshTasksCommand { get; } = new RelayCommand(() => { });
 		private void RefreshTasksMethod() {
 			if (CurrentColumnModel == null)
 				return;

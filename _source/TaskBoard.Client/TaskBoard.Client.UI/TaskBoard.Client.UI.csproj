@@ -75,9 +75,12 @@
     <Compile Include="Extensions\Tables\UserExtensions.cs" />
     <Compile Include="Creators\IViewModelCreator.cs" />
     <Compile Include="Creators\ViewModelCreator.cs" />
+    <Compile Include="Helpers\DesignHelper.cs" />
     <Compile Include="Models\BoardModel.cs" />
     <Compile Include="Models\CommentModel.cs" />
     <Compile Include="Models\UserModel.cs" />
+    <Compile Include="ViewModels\CommentViewModel.cs" />
+    <Compile Include="ViewModels\UserViewModel.cs" />
     <Compile Include="Views\BoardView.xaml.cs">
       <DependentUpon>BoardView.xaml</DependentUpon>
     </Compile>
@@ -89,17 +92,27 @@
     </Compile>
     <Compile Include="ViewModels\ColumnViewModel.cs" />
     <Compile Include="Models\TaskModel.cs" />
+    <Compile Include="Views\CommentView.xaml.cs">
+      <DependentUpon>CommentView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\TaskView.xaml.cs">
       <DependentUpon>TaskView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\TaskViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Locators\ViewModelLocator.cs" />
+    <Compile Include="Views\UserView.xaml.cs">
+      <DependentUpon>UserView.xaml</DependentUpon>
+    </Compile>
     <Page Include="Views\BoardView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ColumnView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CommentView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -116,6 +129,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\TaskView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -152,9 +169,6 @@
       <Project>{6CD7B3C0-5AC7-4901-9B80-AC59C748E1DC}</Project>
       <Name>TaskBoard.Client</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Helpers\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

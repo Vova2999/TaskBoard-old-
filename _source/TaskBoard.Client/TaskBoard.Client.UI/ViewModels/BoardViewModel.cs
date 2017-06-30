@@ -1,13 +1,13 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
-using System.Windows.Media;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using TaskBoard.Client.Providers;
 using TaskBoard.Client.UI.Creators;
 using TaskBoard.Client.UI.Extensions;
 using TaskBoard.Client.UI.Extensions.Tables;
+using TaskBoard.Client.UI.Helpers;
 using TaskBoard.Client.UI.Models;
 
 namespace TaskBoard.Client.UI.ViewModels {
@@ -26,6 +26,10 @@ namespace TaskBoard.Client.UI.ViewModels {
 			}
 		}
 
+		public BoardViewModel() {
+			DesignHelper.SetControls(this);
+		}
+
 		public BoardViewModel(IHttpClientProvider httpClientProvider, IViewModelCreator viewModelCreator) {
 			this.httpClientProvider = httpClientProvider;
 			this.viewModelCreator = viewModelCreator;
@@ -33,7 +37,7 @@ namespace TaskBoard.Client.UI.ViewModels {
 			RefreshColumnsCommand = new RelayCommand(RefreshColumnsMethod);
 		}
 
-		public ICommand RefreshColumnsCommand { get; }
+		public ICommand RefreshColumnsCommand { get; } = new RelayCommand(() => { });
 		private void RefreshColumnsMethod() {
 			if (CurrentBoardModel == null)
 				return;
