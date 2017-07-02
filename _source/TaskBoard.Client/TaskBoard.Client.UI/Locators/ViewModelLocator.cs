@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
 using TaskBoard.Client.Providers;
 using TaskBoard.Client.UI.Services;
+using TaskBoard.Client.UI.Services.Realizations;
 using TaskBoard.Client.UI.ViewModels;
 
 namespace TaskBoard.Client.UI.Locators {
@@ -15,6 +16,7 @@ namespace TaskBoard.Client.UI.Locators {
 			ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 			SimpleIoc.Default.Register<IControlService, ControlService>();
 			SimpleIoc.Default.Register<IWindowService, WindowService>();
+			SimpleIoc.Default.Register<IDialogService, DialogService>();
 
 			if (!SimpleIoc.Default.IsRegistered<IHttpClientProvider>())
 				SimpleIoc.Default.Register(CreateHttpClientProvider);
@@ -25,7 +27,8 @@ namespace TaskBoard.Client.UI.Locators {
 				SimpleIoc.Default.Register(() => new MainViewModel(
 					SimpleIoc.Default.GetInstance<IHttpClientProvider>(),
 					SimpleIoc.Default.GetInstance<IControlService>(),
-					SimpleIoc.Default.GetInstance<IWindowService>()));
+					SimpleIoc.Default.GetInstance<IWindowService>(),
+					SimpleIoc.Default.GetInstance<IDialogService>()));
 		}
 
 		private static IHttpClientProvider CreateHttpClientProvider() {

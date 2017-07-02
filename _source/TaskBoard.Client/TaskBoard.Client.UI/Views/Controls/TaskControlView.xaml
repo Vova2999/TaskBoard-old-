@@ -1,14 +1,18 @@
-﻿<UserControl x:Class="TaskBoard.Client.UI.Views.Controls.TaskControlView"
-			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-			 mc:Ignorable="d"
-			 d:DesignHeight="300" d:DesignWidth="300"
-			 d:DataContext="{Binding Source={StaticResource TaskControlViewModel}}">
+﻿<c:MetroContentControl x:Class="TaskBoard.Client.UI.Views.Controls.TaskControlView"
+					   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					   xmlns:c="http://metro.mahapps.com/winfx/xaml/controls"
+					   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+					   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					   xmlns:viewControls="clr-namespace:TaskBoard.Client.UI.Views.Controls"
+					   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+					   xmlns:di="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+					   mc:Ignorable="d"
+					   d:DesignHeight="300" d:DesignWidth="300"
+					   di:DialogParticipation.Register="{Binding}"
+					   d:DataContext="{Binding Source={StaticResource TaskControlViewModel}}">
 	<StackPanel>
 		<Label Content="{Binding Path=TaskModel.Header, UpdateSourceTrigger=PropertyChanged}" />
 		<Label Content="{Binding Path=TaskModel.Description, UpdateSourceTrigger=PropertyChanged}" />
 		<Label Content="{Binding Path=TaskModel.ColumnHeader, UpdateSourceTrigger=PropertyChanged}" />
 	</StackPanel>
-</UserControl>
+</c:MetroContentControl>

@@ -14,6 +14,7 @@ namespace TaskBoard.Client.UI.ViewModels {
 	public class MainViewModel : ViewModelBase {
 		private readonly IHttpClientProvider httpClientProvider;
 		private readonly IWindowService windowService;
+		private readonly IDialogService dialogService;
 
 		public ObservableCollection<BoardModel> BoardModels { get; } = new ObservableCollection<BoardModel>();
 
@@ -37,9 +38,10 @@ namespace TaskBoard.Client.UI.ViewModels {
 			DesignHelper.SetControls(this);
 		}
 
-		public MainViewModel(IHttpClientProvider httpClientProvider, IControlService controlService, IWindowService windowService) {
+		public MainViewModel(IHttpClientProvider httpClientProvider, IControlService controlService, IWindowService windowService, IDialogService dialogService) {
 			this.httpClientProvider = httpClientProvider;
 			this.windowService = windowService;
+			this.dialogService = dialogService;
 
 			BoardControlViewModel = controlService.CreateBoardControlViewModel(null);
 			RefreshBoardModelsCommand = new RelayCommand(RefreshBoardModelsMethod);

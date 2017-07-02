@@ -15,6 +15,7 @@ namespace TaskBoard.Client.UI.ViewModels.Controls {
 		private readonly IHttpClientProvider httpClientProvider;
 		private readonly IControlService controlService;
 		private readonly IWindowService windowService;
+		private readonly IDialogService dialogService;
 
 		public ObservableCollection<TaskControlViewModel> TaskControlViewModels { get; } = new ObservableCollection<TaskControlViewModel>();
 
@@ -31,10 +32,11 @@ namespace TaskBoard.Client.UI.ViewModels.Controls {
 			DesignHelper.SetControls(this);
 		}
 
-		public ColumnControlViewModel(IHttpClientProvider httpClientProvider, IControlService controlService, IWindowService windowService) {
+		public ColumnControlViewModel(IHttpClientProvider httpClientProvider, IControlService controlService, IWindowService windowService, IDialogService dialogService) {
 			this.httpClientProvider = httpClientProvider;
 			this.controlService = controlService;
 			this.windowService = windowService;
+			this.dialogService = dialogService;
 
 			RefreshTasksCommand = new RelayCommand(RefreshTasksMethod);
 		}

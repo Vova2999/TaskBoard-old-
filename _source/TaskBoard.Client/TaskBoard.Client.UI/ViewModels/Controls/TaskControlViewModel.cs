@@ -16,7 +16,7 @@ namespace TaskBoard.Client.UI.ViewModels.Controls {
 			DesignHelper.SetControls(this);
 		}
 
-		public TaskControlViewModel(IHttpClientProvider httpClientProvider, IControlService controlService, IWindowService windowService) {
+		public TaskControlViewModel(IHttpClientProvider httpClientProvider, IControlService controlService, IWindowService windowService, IDialogService dialogService) {
 		}
 	}
 }
