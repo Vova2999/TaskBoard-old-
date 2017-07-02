@@ -41,7 +41,7 @@ namespace TaskBoard.Client.UI.ViewModels {
 			this.httpClientProvider = httpClientProvider;
 			this.windowService = windowService;
 
-			BoardControlViewModel = controlService.CreateBoardControlViewModel(httpClientProvider, controlService, windowService, null);
+			BoardControlViewModel = controlService.CreateBoardControlViewModel(null);
 			RefreshBoardModelsCommand = new RelayCommand(RefreshBoardModelsMethod);
 		}
 

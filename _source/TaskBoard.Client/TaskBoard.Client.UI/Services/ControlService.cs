@@ -4,16 +4,24 @@ using TaskBoard.Client.UI.ViewModels.Controls;
 
 namespace TaskBoard.Client.UI.Services {
 	public class ControlService : IControlService {
-		public BoardControlViewModel CreateBoardControlViewModel(IHttpClientProvider httpClientProvider, IControlService controlService, IWindowService windowService, BoardModel boardModel) {
-			return new BoardControlViewModel(httpClientProvider, controlService, windowService) { BoardModel = boardModel };
+		private readonly IHttpClientProvider httpClientProvider;
+		private readonly IWindowService windowService;
+
+		public ControlService(IHttpClientProvider httpClientProvider, IWindowService windowService) {
+			this.httpClientProvider = httpClientProvider;
+			this.windowService = windowService;
 		}
 
-		public ColumnControlViewModel CreateColumnControlViewModel(IHttpClientProvider httpClientProvider, IControlService controlService, IWindowService windowService, ColumnModel columnModel) {
-			return new ColumnControlViewModel(httpClientProvider, controlService, windowService) { ColumnModel = columnModel };
+		public BoardControlViewModel CreateBoardControlViewModel(BoardModel boardModel) {
+			return new BoardControlViewModel(httpClientProvider, this, windowService) { BoardModel = boardModel };
 		}
 
-		public TaskControlViewModel CreateTaskControlViewModel(IHttpClientProvider httpClientProvider, IControlService controlService, IWindowService windowService, TaskModel taskModel) {
-			return new TaskControlViewModel(httpClientProvider, controlService, windowService) { TaskModel = taskModel };
+		public ColumnControlViewModel CreateColumnControlViewModel(ColumnModel columnModel) {
+			return new ColumnControlViewModel(httpClientProvider, this, windowService) { ColumnModel = columnModel };
+		}
+
+		public TaskControlViewModel CreateTaskControlViewModel(TaskModel taskModel) {
+			return new TaskControlViewModel(httpClientProvider, this, windowService) { TaskModel = taskModel };
 		}
 	}
 }

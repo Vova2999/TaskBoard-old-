@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Media;
 using GalaSoft.MvvmLight;
 using TaskBoard.Client.UI.Extensions;
@@ -27,11 +28,7 @@ namespace TaskBoard.Client.UI.Helpers {
 				Name = "Название доски"
 			};
 
-			boardViewModel.ColumnControlViewModels.Reset(new[] {
-				new ColumnControlViewModel { ColumnModel = new ColumnModel { Header = "Первый столбец", Brush = Brushes.Green, BoardName = "Название доски" } },
-				new ColumnControlViewModel { ColumnModel = new ColumnModel { Header = "Второй столбец", Brush = Brushes.Blue, BoardName = "Название доски" } },
-				new ColumnControlViewModel { ColumnModel = new ColumnModel { Header = "Третий столбец", Brush = Brushes.Red, BoardName = "Название доски" } }
-			});
+			boardViewModel.ColumnControlViewModels.Reset(Enumerable.Range(0, 3).Select(x => new ColumnControlViewModel()));
 		}
 
 		public static void SetControls(ColumnControlViewModel columnViewModel) {

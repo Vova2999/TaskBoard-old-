@@ -45,7 +45,7 @@ namespace TaskBoard.Client.UI.ViewModels.Controls {
 				return;
 
 			TaskControlViewModels.Reset(httpClientProvider.GetDatabaseTaskReader().GetFromColumn(ColumnModel.BoardId, ColumnModel.ColumnId).ToModels(httpClientProvider)
-				.Select(columnModel => controlService.CreateTaskControlViewModel(httpClientProvider, controlService, windowService, columnModel)));
+				.Select(columnModel => controlService.CreateTaskControlViewModel(columnModel)));
 		}
 	}
 }
