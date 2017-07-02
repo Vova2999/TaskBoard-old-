@@ -15,9 +15,9 @@
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
 
-		<Label Grid.Row="0" Content="{Binding CurrentColumnModel.Header, UpdateSourceTrigger=PropertyChanged}" HorizontalContentAlignment="Center" />
+		<Label Grid.Row="0" Content="{Binding ColumnModel.Header, UpdateSourceTrigger=PropertyChanged}" HorizontalContentAlignment="Center" />
 		<Rectangle Grid.Row="1" Height="1" Fill="Silver" />
-		<ItemsControl Grid.Row="2" ItemsSource="{Binding TaskViewModels, UpdateSourceTrigger=PropertyChanged}">
+		<ItemsControl Grid.Row="2" ItemsSource="{Binding TaskControlViewModels, UpdateSourceTrigger=PropertyChanged}">
 			<ItemsControl.ItemsPanel>
 				<ItemsPanelTemplate>
 					<StackPanel />

@@ -11,7 +11,7 @@
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
 
-		<ComboBox Grid.Row="0" ItemsSource="{Binding BoardModels, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding BoardViewModel.CurrentBoardModel, Mode=TwoWay}">
+		<ComboBox Grid.Row="0" ItemsSource="{Binding BoardModels, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedBoardModel, Mode=TwoWay}">
 			<i:Interaction.Triggers>
 				<i:EventTrigger EventName="DropDownOpened">
 					<i:InvokeCommandAction Command="{Binding RefreshBoardModelsCommand}" />
@@ -24,6 +24,6 @@
 			</ComboBox.ItemTemplate>
 		</ComboBox>
 
-		<viewControls:BoardControlView Grid.Row="1" DataContext="{Binding BoardViewModel}" />
+		<viewControls:BoardControlView Grid.Row="1" DataContext="{Binding BoardControlViewModel, UpdateSourceTrigger=PropertyChanged}" />
 	</Grid>
 </Window>

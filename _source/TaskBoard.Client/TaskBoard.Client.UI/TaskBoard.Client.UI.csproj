@@ -73,12 +73,24 @@
     <Compile Include="Extensions\ObservableCollectionExtensions.cs" />
     <Compile Include="Extensions\Tables\TaskExtensions.cs" />
     <Compile Include="Extensions\Tables\UserExtensions.cs" />
-    <Compile Include="Creators\IViewModelCreator.cs" />
-    <Compile Include="Creators\ViewModelCreator.cs" />
+    <Compile Include="Helpers\CloseWindowHelper.cs" />
+    <Compile Include="Messages\CloseViewMessage.cs" />
+    <Compile Include="Messages\ViewType.cs" />
+    <Compile Include="Services\IControlService.cs" />
+    <Compile Include="Services\ControlService.cs" />
     <Compile Include="Helpers\DesignHelper.cs" />
     <Compile Include="Models\BoardModel.cs" />
     <Compile Include="Models\CommentModel.cs" />
     <Compile Include="Models\UserModel.cs" />
+    <Compile Include="Services\IWindowService.cs" />
+    <Compile Include="Services\WindowService.cs" />
+    <Compile Include="ViewModels\Windows\AuthorizationWindowViewModel.cs" />
+    <Compile Include="ViewModels\Windows\BoardWindowViewModel.cs" />
+    <Compile Include="ViewModels\Windows\ColumnWindowViewModel.cs" />
+    <Compile Include="ViewModels\Windows\CommentWindowViewModel.cs" />
+    <Compile Include="ViewModels\Windows\SettingsWindowViewModel.cs" />
+    <Compile Include="ViewModels\Windows\TaskWindowViewModel.cs" />
+    <Compile Include="ViewModels\Windows\UserWindowViewModel.cs" />
     <Compile Include="Views\Controls\BoardControlView.xaml.cs">
       <DependentUpon>BoardControlView.xaml</DependentUpon>
     </Compile>
@@ -96,6 +108,27 @@
     <Compile Include="ViewModels\Controls\TaskControlViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Locators\ViewModelLocator.cs" />
+    <Compile Include="Views\Windows\AuthorizationWindowView.xaml.cs">
+      <DependentUpon>AuthorizationWindowView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Windows\BoardWindowView.xaml.cs">
+      <DependentUpon>BoardWindowView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Windows\ColumnWindowView.xaml.cs">
+      <DependentUpon>ColumnWindowView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Windows\CommentWindowView.xaml.cs">
+      <DependentUpon>CommentWindowView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Windows\SettingsWindowView.xaml.cs">
+      <DependentUpon>SettingsWindowView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Windows\TaskWindowView.xaml.cs">
+      <DependentUpon>TaskWindowView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Windows\UserWindowView.xaml.cs">
+      <DependentUpon>UserWindowView.xaml</DependentUpon>
+    </Compile>
     <Page Include="Views\Controls\BoardControlView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -117,6 +150,34 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\Controls\TaskControlView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Windows\AuthorizationWindowView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Windows\BoardWindowView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Windows\ColumnWindowView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Windows\CommentWindowView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Windows\SettingsWindowView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Windows\TaskWindowView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Windows\UserWindowView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -153,10 +214,6 @@
       <Project>{6CD7B3C0-5AC7-4901-9B80-AC59C748E1DC}</Project>
       <Name>TaskBoard.Client</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModels\Windows\" />
-    <Folder Include="Views\Windows\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

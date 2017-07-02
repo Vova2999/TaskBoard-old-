@@ -26,5 +26,12 @@ namespace TaskBoard.Client.UI.Models {
 			get => userName;
 			set => Set(() => UserName, ref userName, value);
 		}
+
+		public override bool Equals(object obj) {
+			return obj is CommentModel that && CommentId.Equals(that.CommentId);
+		}
+		public override int GetHashCode() {
+			return CommentId.GetHashCode();
+		}
 	}
 }

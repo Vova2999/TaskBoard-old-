@@ -26,5 +26,12 @@ namespace TaskBoard.Client.UI.Models {
 			get => accessType;
 			set => Set(() => AccessType, ref accessType, value);
 		}
+
+		public override bool Equals(object obj) {
+			return obj is UserModel that && UserId.Equals(that.UserId);
+		}
+		public override int GetHashCode() {
+			return UserId.GetHashCode();
+		}
 	}
 }

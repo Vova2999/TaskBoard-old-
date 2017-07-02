@@ -33,5 +33,12 @@ namespace TaskBoard.Client.UI.Models {
 			get => boardName;
 			set => Set(() => BoardName, ref boardName, value);
 		}
+
+		public override bool Equals(object obj) {
+			return obj is ColumnModel that && ColumnId.Equals(that.ColumnId);
+		}
+		public override int GetHashCode() {
+			return ColumnId.GetHashCode();
+		}
 	}
 }

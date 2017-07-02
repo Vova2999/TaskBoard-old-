@@ -14,5 +14,12 @@ namespace TaskBoard.Client.UI.Models {
 			get => name;
 			set => Set(() => Name, ref name, value);
 		}
+
+		public override bool Equals(object obj) {
+			return obj is BoardModel that && BoardId.Equals(that.BoardId);
+		}
+		public override int GetHashCode() {
+			return BoardId.GetHashCode();
+		}
 	}
 }

@@ -1,23 +1,31 @@
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
 using TaskBoard.Client.Providers;
-using TaskBoard.Client.UI.Creators;
+using TaskBoard.Client.UI.Services;
 using TaskBoard.Client.UI.ViewModels;
 
 namespace TaskBoard.Client.UI.Locators {
 	// ReSharper disable MemberCanBeMadeStatic.Global
 
 	public class ViewModelLocator {
-		public MainViewModel MainViewModel => SimpleIoc.Default.GetInstance<MainViewModel>();
+		public static MainViewModel MainViewModel => SimpleIoc.Default.GetInstance<MainViewModel>();
 
-		public ViewModelLocator() {
+		static ViewModelLocator() {
 			ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
-
-			SimpleIoc.Default.Register<MainViewModel>();
-			SimpleIoc.Default.Register<IViewModelCreator, ViewModelCreator>();
+			SimpleIoc.Default.Register<IControlService, ControlService>();
+			SimpleIoc.Default.Register<IWindowService, WindowService>();
 
 			if (!SimpleIoc.Default.IsRegistered<IHttpClientProvider>())
 				SimpleIoc.Default.Register(CreateHttpClientProvider);
+
+			if (ViewModelBase.IsInDesignModeStatic)
+				SimpleIoc.Default.Register(() => new MainViewModel());
+			else
+				SimpleIoc.Default.Register(() => new MainViewModel(
+					SimpleIoc.Default.GetInstance<IHttpClientProvider>(),
+					SimpleIoc.Default.GetInstance<IControlService>(),
+					SimpleIoc.Default.GetInstance<IWindowService>()));
 		}
 
 		private static IHttpClientProvider CreateHttpClientProvider() {

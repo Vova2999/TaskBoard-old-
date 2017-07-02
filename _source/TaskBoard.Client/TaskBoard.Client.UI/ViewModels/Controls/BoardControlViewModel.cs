@@ -4,24 +4,25 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using TaskBoard.Client.Providers;
-using TaskBoard.Client.UI.Creators;
 using TaskBoard.Client.UI.Extensions;
 using TaskBoard.Client.UI.Extensions.Tables;
 using TaskBoard.Client.UI.Helpers;
 using TaskBoard.Client.UI.Models;
+using TaskBoard.Client.UI.Services;
 
 namespace TaskBoard.Client.UI.ViewModels.Controls {
 	public class BoardControlViewModel : ViewModelBase {
 		private readonly IHttpClientProvider httpClientProvider;
-		private readonly IViewModelCreator viewModelCreator;
+		private readonly IControlService controlService;
+		private readonly IWindowService windowService;
 
-		public ObservableCollection<ColumnControlViewModel> ColumnViewModels { get; } = new ObservableCollection<ColumnControlViewModel>();
+		public ObservableCollection<ColumnControlViewModel> ColumnControlViewModels { get; } = new ObservableCollection<ColumnControlViewModel>();
 
-		private BoardModel currentBoardModel;
-		public BoardModel CurrentBoardModel {
-			get => currentBoardModel;
+		private BoardModel boardModel;
+		public BoardModel BoardModel {
+			get => boardModel;
 			set {
-				if (Set(() => CurrentBoardModel, ref currentBoardModel, value))
+				if (Set(() => BoardModel, ref boardModel, value))
 					RefreshColumnsCommand.Execute(null);
 			}
 		}
@@ -30,20 +31,22 @@ namespace TaskBoard.Client.UI.ViewModels.Controls {
 			DesignHelper.SetControls(this);
 		}
 
-		public BoardControlViewModel(IHttpClientProvider httpClientProvider, IViewModelCreator viewModelCreator) {
+		public BoardControlViewModel(IHttpClientProvider httpClientProvider, IControlService controlService, IWindowService windowService) {
 			this.httpClientProvider = httpClientProvider;
-			this.viewModelCreator = viewModelCreator;
+			this.controlService = controlService;
+			this.windowService = windowService;
 
 			RefreshColumnsCommand = new RelayCommand(RefreshColumnsMethod);
 		}
 
 		public ICommand RefreshColumnsCommand { get; } = new RelayCommand(() => { });
 		private void RefreshColumnsMethod() {
-			if (CurrentBoardModel == null)
+			ColumnControlViewModels.Clear();
+			if (BoardModel == null)
 				return;
 
-			ColumnViewModels.Reset(httpClientProvider.GetDatabaseColumnReader().GetFromBoard(CurrentBoardModel.BoardId).ToModels(httpClientProvider)
-				.Select(columnModel => viewModelCreator.CreateColumnViewModel(httpClientProvider, viewModelCreator, columnModel)));
+			ColumnControlViewModels.Add(httpClientProvider.GetDatabaseColumnReader().GetFromBoard(BoardModel.BoardId).ToModels(httpClientProvider)
+				.Select(columnModel => controlService.CreateColumnControlViewModel(httpClientProvider, controlService, windowService, columnModel)));
 		}
 	}
 }
