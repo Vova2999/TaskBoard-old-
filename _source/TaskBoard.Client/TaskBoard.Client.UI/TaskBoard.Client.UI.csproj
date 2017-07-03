@@ -76,7 +76,7 @@
     <Compile Include="Extensions\ObservableCollectionExtensions.cs" />
     <Compile Include="Extensions\Tables\TaskExtensions.cs" />
     <Compile Include="Extensions\Tables\UserExtensions.cs" />
-    <Compile Include="Helpers\CloseWindowHelper.cs" />
+    <Compile Include="Helpers\WindowHelper.cs" />
     <Compile Include="Messages\CloseViewMessage.cs" />
     <Compile Include="Messages\ViewType.cs" />
     <Compile Include="Services\Realizations\DialogService.cs" />

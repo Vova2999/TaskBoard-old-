@@ -1,9 +1,11 @@
-﻿namespace TaskBoard.Client.UI.Messages {
-	public class CloseViewMessage {
-		public readonly ViewType ViewType;
+﻿using GalaSoft.MvvmLight;
 
-		public CloseViewMessage(ViewType viewType) {
-			ViewType = viewType;
+namespace TaskBoard.Client.UI.Messages {
+	public class CloseViewMessage {
+		public readonly ViewModelBase ViewModel;
+
+		public CloseViewMessage(ViewModelBase viewModel) {
+			ViewModel = viewModel;
 		}
 	}
 }
