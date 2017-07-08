@@ -78,7 +78,6 @@
     <Compile Include="Extensions\Tables\UserExtensions.cs" />
     <Compile Include="Helpers\WindowHelper.cs" />
     <Compile Include="Messages\CloseViewMessage.cs" />
-    <Compile Include="Messages\ViewType.cs" />
     <Compile Include="Services\Realizations\DialogService.cs" />
     <Compile Include="Services\IControlService.cs" />
     <Compile Include="Services\Realizations\ControlService.cs" />

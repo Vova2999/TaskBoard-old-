@@ -10,13 +10,56 @@ using TaskBoard.Common.Enums;
 
 namespace TaskBoard.Client.UI.Helpers {
 	public static class DesignHelper {
+		private static readonly BoardModel boardModel;
+		private static readonly ColumnModel[] columnModels;
+		private static readonly TaskModel[][] taskModels;
+
+		static DesignHelper() {
+			if (!ViewModelBase.IsInDesignModeStatic)
+				return;
+
+			var countColumns = 3;
+			var countTasks = new[] { 3, 2, 1 };
+
+			boardModel = new BoardModel {
+				BoardId = Guid.NewGuid(),
+				Name = "Название доски"
+			};
+
+			columnModels = Enumerable.Range(0, countColumns)
+				.Select(x => new ColumnModel {
+					ColumnId = Guid.NewGuid(),
+					BoardId = boardModel.BoardId,
+					Header = $"Столбец №{x + 1}",
+					Brush = (Brush)new BrushConverter().ConvertFromString($"#FF{(x % 3 == 0 ? "FF" : "00")}{(x % 3 == 1 ? "FF" : "00")}{(x % 3 == 2 ? "FF" : "00")}"),
+					BoardName = boardModel.Name
+				}).ToArray();
+
+			taskModels = Enumerable.Range(0, countColumns)
+				.Select(x => Enumerable.Range(0, countTasks[x % countTasks.Length])
+					.Select(y => new TaskModel {
+						TaskId = Guid.NewGuid(),
+						Header = $"Задача №{x + 1}-{y + 1}",
+						Description = "Описание задачи",
+						Branch = "Branch",
+						State = State.NoState,
+						Priority = Priority.NoPriority,
+						CreateDateTime = DateTime.Now,
+						DeveloperName = "Developer",
+						ReviewerName = "Reviewer",
+						ColumnHeader = columnModels[x].Header,
+						ColumnBrush = columnModels[x].Brush,
+						BoardName = boardModel.Name
+					}).ToArray()).ToArray();
+		}
+
+
 		public static void SetControls(MainViewModel mainViewModel) {
 			CheckDesignMode();
 
-			var selectedBoardModel = new BoardModel { Name = "Название доски" };
 			mainViewModel.BoardControlViewModel = new BoardControlViewModel();
-			mainViewModel.BoardModels.Reset(new[] { selectedBoardModel });
-			mainViewModel.SelectedBoardModel = selectedBoardModel;
+			mainViewModel.BoardModels.Reset(new[] { boardModel });
+			mainViewModel.SelectedBoardModel = boardModel;
 
 			SetControls(mainViewModel.BoardControlViewModel);
 		}
@@ -24,53 +67,25 @@ namespace TaskBoard.Client.UI.Helpers {
 		public static void SetControls(BoardControlViewModel boardViewModel) {
 			CheckDesignMode();
 
-			boardViewModel.BoardModel = new BoardModel {
-				Name = "Название доски"
-			};
-
-			boardViewModel.ColumnControlViewModels.Reset(Enumerable.Range(0, 3).Select(x => new ColumnControlViewModel()));
+			boardViewModel.BoardModel = boardModel;
+			boardViewModel.ColumnControlViewModels.Reset(columnModels.Select((columnModel, x) => {
+				var columnControlViewModel = new ColumnControlViewModel { ColumnModel = columnModel };
+				columnControlViewModel.TaskControlViewModels.Reset(taskModels[x].Select(taskModel => new TaskControlViewModel { TaskModel = taskModel }));
+				return columnControlViewModel;
+			}));
 		}
 
 		public static void SetControls(ColumnControlViewModel columnViewModel) {
 			CheckDesignMode();
 
-			columnViewModel.ColumnModel = new ColumnModel { Header = "Название столбца", Brush = Brushes.Blue, BoardName = "Название доски" };
-
-			columnViewModel.TaskControlViewModels.Reset(new[] {
-				new TaskControlViewModel {
-					TaskModel = new TaskModel {
-						Header = "Задача №1",
-						Description = "Описание",
-						Branch = "Ветка",
-						State = State.NoState,
-						Priority = Priority.NoPriority,
-						CreateDateTime = DateTime.Now,
-						DeveloperName = "Имя разработчика",
-						ReviewerName = "Имя ревьюера",
-						ColumnHeader = "Заголовок столбца",
-						ColumnBrush = Brushes.Green,
-						BoardName = "Название доски"
-					}
-				}
-			});
+			columnViewModel.ColumnModel = columnModels.First();
+			columnViewModel.TaskControlViewModels.Reset(taskModels.First().Select(taskModel => new TaskControlViewModel { TaskModel = taskModel }));
 		}
 
 		public static void SetControls(TaskControlViewModel taskViewModel) {
 			CheckDesignMode();
 
-			taskViewModel.TaskModel = new TaskModel {
-				Header = "Задача №1",
-				Description = "Описание",
-				Branch = "Ветка",
-				State = State.NoState,
-				Priority = Priority.NoPriority,
-				CreateDateTime = DateTime.Now,
-				DeveloperName = "Имя разработчика",
-				ReviewerName = "Имя ревьюера",
-				ColumnHeader = "Заголовок столбца",
-				ColumnBrush = Brushes.Green,
-				BoardName = "Название доски"
-			};
+			taskViewModel.TaskModel = taskModels.First().First();
 		}
 
 		private static void CheckDesignMode() {
