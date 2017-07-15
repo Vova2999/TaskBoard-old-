@@ -5,6 +5,10 @@ namespace TaskBoard.Common.Extensions {
 	// ReSharper disable UnusedMember.Global
 
 	public static class StringExtensions {
+		public static string NullIfEmpty(this string line) {
+			return string.IsNullOrEmpty(line) ? null : line;
+		}
+
 		public static int ToInt(this string line) {
 			return int.Parse(line);
 		}

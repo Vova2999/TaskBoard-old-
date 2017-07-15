@@ -11,14 +11,10 @@ namespace TaskBoard.Client.Clients.Paramerets {
 		}
 
 		public void SetServerAddress(string serverAddress, int timeoutMs) {
-			if (string.IsNullOrEmpty(serverAddress))
-				return;
-
-			serverAddress = new UriBuilder(serverAddress).Uri.ToString();
-
-			new ParameretsClient(new HttpClientParameters { ServerAddress = serverAddress, TimeoutMs = timeoutMs }).SendRequest(HttpFunctions.Common.Ping);
-			httpClientParameters.ServerAddress = serverAddress;
+			httpClientParameters.ServerAddress = new UriBuilder(serverAddress).Uri.ToString();
 			httpClientParameters.TimeoutMs = timeoutMs;
+
+			SendRequest(HttpFunctions.Common.Ping);
 		}
 
 		public void SignIn(string login, string password) {

@@ -17,9 +17,7 @@ namespace TaskBoard.Client.UI.Locators {
 			SimpleIoc.Default.Register<IControlService, ControlService>();
 			SimpleIoc.Default.Register<IWindowService, WindowService>();
 			SimpleIoc.Default.Register<IDialogService, DialogService>();
-
-			if (!SimpleIoc.Default.IsRegistered<IHttpClientProvider>())
-				SimpleIoc.Default.Register(CreateHttpClientProvider);
+			SimpleIoc.Default.Register<IHttpClientProvider, HttpClientProvider>();
 
 			if (ViewModelBase.IsInDesignModeStatic)
 				SimpleIoc.Default.Register(() => new MainViewModel());
@@ -29,17 +27,6 @@ namespace TaskBoard.Client.UI.Locators {
 					SimpleIoc.Default.GetInstance<IControlService>(),
 					SimpleIoc.Default.GetInstance<IWindowService>(),
 					SimpleIoc.Default.GetInstance<IDialogService>()));
-		}
-
-		private static IHttpClientProvider CreateHttpClientProvider() {
-			var configuration = ClientUiConfiguration.ReadConfiguration();
-
-			var httpClientProvider = new HttpClientProvider();
-			var parameretsClient = httpClientProvider.GetParameretsClient();
-			parameretsClient.SetServerAddress(configuration.ServerAddress, configuration.TimeoutMs);
-			parameretsClient.SignIn(configuration.Login, configuration.Password);
-
-			return httpClientProvider;
 		}
 	}
 }

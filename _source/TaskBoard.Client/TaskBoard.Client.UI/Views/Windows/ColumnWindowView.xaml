@@ -3,9 +3,8 @@
 			   xmlns:c="http://metro.mahapps.com/winfx/xaml/controls"
 			   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-			   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			   xmlns:di="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
-			   mc:Ignorable="d"
+			   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
 			   di:DialogParticipation.Register="{Binding}"
 			   Title="ColumnWindowView" Height="300" Width="300">
 	<Grid />

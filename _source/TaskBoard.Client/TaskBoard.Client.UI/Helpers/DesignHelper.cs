@@ -6,6 +6,7 @@ using TaskBoard.Client.UI.Extensions;
 using TaskBoard.Client.UI.Models;
 using TaskBoard.Client.UI.ViewModels;
 using TaskBoard.Client.UI.ViewModels.Controls;
+using TaskBoard.Client.UI.ViewModels.Flyouts;
 using TaskBoard.Common.Enums;
 
 namespace TaskBoard.Client.UI.Helpers {
@@ -86,6 +87,14 @@ namespace TaskBoard.Client.UI.Helpers {
 			CheckDesignMode();
 
 			taskViewModel.TaskModel = taskModels.First().First();
+		}
+
+		public static void SetControls(SettingsFlyoutViewModel columnViewModel) {
+			CheckDesignMode();
+		}
+
+		public static void SetControls(AuthorizationFlyoutViewModel columnViewModel) {
+			CheckDesignMode();
 		}
 
 		private static void CheckDesignMode() {

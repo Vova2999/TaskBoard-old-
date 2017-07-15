@@ -1,4 +1,6 @@
+using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -9,6 +11,7 @@ using TaskBoard.Client.UI.Helpers;
 using TaskBoard.Client.UI.Models;
 using TaskBoard.Client.UI.Services;
 using TaskBoard.Client.UI.ViewModels.Controls;
+using TaskBoard.Client.UI.ViewModels.Flyouts;
 
 namespace TaskBoard.Client.UI.ViewModels {
 	public class MainViewModel : ViewModelBase {
@@ -16,6 +19,7 @@ namespace TaskBoard.Client.UI.ViewModels {
 		private readonly IWindowService windowService;
 		private readonly IDialogService dialogService;
 
+		private readonly BoardModel[] firstModelsOfBoardModels = { new BoardModel { BoardId = Guid.Empty, Name = "Выберите доску" } };
 		public ObservableCollection<BoardModel> BoardModels { get; } = new ObservableCollection<BoardModel>();
 
 		private BoardControlViewModel boardControlViewModel;
@@ -24,14 +28,26 @@ namespace TaskBoard.Client.UI.ViewModels {
 			set => Set(() => BoardControlViewModel, ref boardControlViewModel, value);
 		}
 
-		private bool changeBoardViewModel;
+		private bool changeBoardModelOnBoardViewModel;
 		private BoardModel selectedBoardModel;
 		public BoardModel SelectedBoardModel {
 			get => selectedBoardModel;
 			set {
-				if (Set(() => SelectedBoardModel, ref selectedBoardModel, value) && changeBoardViewModel)
+				if (Set(() => SelectedBoardModel, ref selectedBoardModel, value) && changeBoardModelOnBoardViewModel)
 					BoardControlViewModel.BoardModel = value;
 			}
+		}
+
+		private SettingsFlyoutViewModel settingsFlyoutViewModel;
+		public SettingsFlyoutViewModel SettingsFlyoutViewModel {
+			get => settingsFlyoutViewModel;
+			set => Set(() => SettingsFlyoutViewModel, ref settingsFlyoutViewModel, value);
+		}
+
+		private AuthorizationFlyoutViewModel authorizationFlyoutViewModel;
+		public AuthorizationFlyoutViewModel AuthorizationFlyoutViewModel {
+			get => authorizationFlyoutViewModel;
+			set => Set(() => AuthorizationFlyoutViewModel, ref authorizationFlyoutViewModel, value);
 		}
 
 		public MainViewModel() {
@@ -44,19 +60,37 @@ namespace TaskBoard.Client.UI.ViewModels {
 			this.dialogService = dialogService;
 
 			BoardControlViewModel = controlService.CreateBoardControlViewModel(null);
-			RefreshBoardModelsCommand = new RelayCommand(RefreshBoardModelsMethod);
+			SettingsFlyoutViewModel = controlService.CreateSettingsFlyoutViewModel();
+			AuthorizationFlyoutViewModel = controlService.CreateAuthorizationFlyoutViewModel();
+
+			RefreshBoardModelsCommand = new RelayCommand(RefreshBoardModels);
+			OpenSettingsFlyoutCommand = new RelayCommand(OpenSettingsFlyout);
+			OpenAuthorizationFlyoutCommand = new RelayCommand(OpenAuthorizationFlyout);
+
+			BoardModels.Reset(firstModelsOfBoardModels);
+			SelectedBoardModel = BoardModels.First();
 		}
 
 		public ICommand RefreshBoardModelsCommand { get; } = new RelayCommand(() => { });
-		private void RefreshBoardModelsMethod() {
-			changeBoardViewModel = false;
+		private void RefreshBoardModels() {
+			changeBoardModelOnBoardViewModel = false;
+
 			var oldSelectedBoardModel = SelectedBoardModel;
-
-			BoardModels.Reset(httpClientProvider.GetDatabaseBoardReader().GetAll().ToModels(httpClientProvider));
-
-			changeBoardViewModel = true;
+			BoardModels.Reset(firstModelsOfBoardModels.Concat(httpClientProvider.GetDatabaseBoardReader().GetAll().ToModels(httpClientProvider)));
 			if (BoardModels.Contains(oldSelectedBoardModel))
 				SelectedBoardModel = oldSelectedBoardModel;
+
+			changeBoardModelOnBoardViewModel = true;
+		}
+
+		public ICommand OpenSettingsFlyoutCommand { get; } = new RelayCommand(() => { });
+		private void OpenSettingsFlyout() {
+			SettingsFlyoutViewModel.IsOpen = !SettingsFlyoutViewModel.IsOpen;
+		}
+
+		public ICommand OpenAuthorizationFlyoutCommand { get; } = new RelayCommand(() => { });
+		private void OpenAuthorizationFlyout() {
+			AuthorizationFlyoutViewModel.IsOpen = !AuthorizationFlyoutViewModel.IsOpen;
 		}
 	}
 }

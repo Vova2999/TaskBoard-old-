@@ -38,11 +38,11 @@ namespace TaskBoard.Client.UI.ViewModels.Controls {
 			this.windowService = windowService;
 			this.dialogService = dialogService;
 
-			RefreshTasksCommand = new RelayCommand(RefreshTasksMethod);
+			RefreshTasksCommand = new RelayCommand(RefreshTasks);
 		}
 
 		public ICommand RefreshTasksCommand { get; } = new RelayCommand(() => { });
-		private void RefreshTasksMethod() {
+		private void RefreshTasks() {
 			if (ColumnModel == null)
 				return;
 

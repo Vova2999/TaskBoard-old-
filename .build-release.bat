@@ -1,3 +1,3 @@
-echo off
+@echo off
 call scripts\.build-all-solutions.bat Release
-echo on
+@echo on

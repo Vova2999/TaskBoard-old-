@@ -76,6 +76,8 @@
     <Compile Include="Extensions\ObservableCollectionExtensions.cs" />
     <Compile Include="Extensions\Tables\TaskExtensions.cs" />
     <Compile Include="Extensions\Tables\UserExtensions.cs" />
+    <Compile Include="Helpers\PasswordHelper.cs" />
+    <Compile Include="Helpers\RunMethodHelper.cs" />
     <Compile Include="Helpers\WindowHelper.cs" />
     <Compile Include="Messages\CloseViewMessage.cs" />
     <Compile Include="Services\Realizations\DialogService.cs" />
@@ -88,6 +90,8 @@
     <Compile Include="Services\IDialogService.cs" />
     <Compile Include="Services\IWindowService.cs" />
     <Compile Include="Services\Realizations\WindowService.cs" />
+    <Compile Include="ViewModels\Flyouts\AuthorizationFlyoutViewModel.cs" />
+    <Compile Include="ViewModels\Flyouts\SettingsFlyoutViewModel.cs" />
     <Compile Include="ViewModels\Windows\AuthorizationWindowViewModel.cs" />
     <Compile Include="ViewModels\Windows\BoardWindowViewModel.cs" />
     <Compile Include="ViewModels\Windows\ColumnWindowViewModel.cs" />
@@ -112,6 +116,12 @@
     <Compile Include="ViewModels\Controls\TaskControlViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Locators\ViewModelLocator.cs" />
+    <Compile Include="Views\Flyouts\AuthorizationFlyoutView.xaml.cs">
+      <DependentUpon>AuthorizationFlyoutView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Flyouts\SettingsFlyoutView.xaml.cs">
+      <DependentUpon>SettingsFlyoutView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Windows\AuthorizationWindowView.xaml.cs">
       <DependentUpon>AuthorizationWindowView.xaml</DependentUpon>
     </Compile>
@@ -133,11 +143,39 @@
     <Compile Include="Views\Windows\UserWindowView.xaml.cs">
       <DependentUpon>UserWindowView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Styles\ButtonStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\ComboBoxStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\TextBlockStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\TextBoxStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\WindowCommandsStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Controls\BoardControlView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Controls\ColumnControlView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Flyouts\AuthorizationFlyoutView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Flyouts\SettingsFlyoutView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

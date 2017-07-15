@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
@@ -38,13 +39,13 @@ namespace TaskBoard.Client.UI.ViewModels.Controls {
 			this.windowService = windowService;
 			this.dialogService = dialogService;
 
-			RefreshColumnsCommand = new RelayCommand(RefreshColumnsMethod);
+			RefreshColumnsCommand = new RelayCommand(RefreshColumns);
 		}
 
 		public ICommand RefreshColumnsCommand { get; } = new RelayCommand(() => { });
-		private void RefreshColumnsMethod() {
+		private void RefreshColumns() {
 			ColumnControlViewModels.Clear();
-			if (BoardModel == null)
+			if (BoardModel == null || BoardModel.BoardId == Guid.Empty)
 				return;
 
 			ColumnControlViewModels.Add(httpClientProvider.GetDatabaseColumnReader().GetFromBoard(BoardModel.BoardId).ToModels(httpClientProvider)

@@ -1,6 +1,7 @@
 ﻿using TaskBoard.Client.Providers;
 using TaskBoard.Client.UI.Models;
 using TaskBoard.Client.UI.ViewModels.Controls;
+using TaskBoard.Client.UI.ViewModels.Flyouts;
 
 namespace TaskBoard.Client.UI.Services.Realizations {
 	public class ControlService : IControlService {
@@ -24,6 +25,14 @@ namespace TaskBoard.Client.UI.Services.Realizations {
 
 		public TaskControlViewModel CreateTaskControlViewModel(TaskModel taskModel) {
 			return new TaskControlViewModel(httpClientProvider, this, windowService, dialogService) { TaskModel = taskModel };
+		}
+
+		public AuthorizationFlyoutViewModel CreateAuthorizationFlyoutViewModel() {
+			return new AuthorizationFlyoutViewModel(httpClientProvider, dialogService);
+		}
+
+		public SettingsFlyoutViewModel CreateSettingsFlyoutViewModel() {
+			return new SettingsFlyoutViewModel(httpClientProvider, dialogService);
 		}
 	}
 }
