@@ -7,15 +7,19 @@ using TaskBoard.Common.Tables;
 
 namespace TaskBoard.Client.UI.Extensions.Tables {
 	public static class TaskExtensions {
-		public static TaskModel[] ToModels(this IEnumerable<Task> tasks, IHttpClientProvider httpClientProvider) {
-			return tasks.Select(task => task.ToModel(httpClientProvider)).ToArray();
+		public static TaskModel[] ToModels(this IEnumerable<Task> tasks, IHttpClientProvider httpClientProvider, UserModel developerUserModel = null, UserModel reviewerUserModel = null, ColumnModel columnModel = null, BoardModel boardModel = null) {
+			return tasks.Select(task => task.ToModel(httpClientProvider, developerUserModel, reviewerUserModel, columnModel, boardModel)).ToArray();
 		}
 
-		public static TaskModel ToModel(this Task task, IHttpClientProvider httpClientProvider) {
-			var developer = task.DeveloperId == null ? null : httpClientProvider.GetDatabaseUserReader().GetById(task.DeveloperId.Value);
-			var reviewer = task.ReviewerId == null ? null : httpClientProvider.GetDatabaseUserReader().GetById(task.ReviewerId.Value);
-			var column = task.ColumnId == null ? null : httpClientProvider.GetDatabaseColumnReader().GetById(task.ColumnId.Value);
-			var board = httpClientProvider.GetDatabaseBoardReader().GetById(task.BoardId);
+		public static TaskModel ToModel(this Task task, IHttpClientProvider httpClientProvider, UserModel developerUserModel = null, UserModel reviewerUserModel = null, ColumnModel columnModel = null, BoardModel boardModel = null) {
+			if (task.DeveloperId != null && developerUserModel?.UserId != task.DeveloperId)
+				developerUserModel = httpClientProvider.GetDatabaseUserReader().GetById(task.DeveloperId.Value).ToModel(httpClientProvider);
+			if (task.ReviewerId != null && reviewerUserModel?.UserId != task.ReviewerId)
+				reviewerUserModel = httpClientProvider.GetDatabaseUserReader().GetById(task.ReviewerId.Value).ToModel(httpClientProvider);
+			if (task.ColumnId != null && columnModel?.ColumnId != task.ColumnId)
+				columnModel = httpClientProvider.GetDatabaseColumnReader().GetById(task.ColumnId.Value).ToModel(httpClientProvider);
+			if (boardModel?.BoardId != task.BoardId)
+				boardModel = httpClientProvider.GetDatabaseBoardReader().GetById(task.BoardId).ToModel(httpClientProvider);
 
 			return new TaskModel {
 				TaskId = task.TaskId,
@@ -25,11 +29,10 @@ namespace TaskBoard.Client.UI.Extensions.Tables {
 				State = task.State,
 				Priority = task.Priority,
 				CreateDateTime = task.CreateDateTime,
-				DeveloperName = developer?.Login ?? string.Empty,
-				ReviewerName = reviewer?.Login ?? string.Empty,
-				ColumnHeader = column?.Header ?? string.Empty,
-				ColumnBrush = column == null ? null : (Brush)new BrushConverter().ConvertFromString(column.Brush),
-				BoardName = board.Name
+				DeveloperUserModel = developerUserModel,
+				ReviewerUserModel = reviewerUserModel,
+				ColumnModel = columnModel,
+				BoardModel = boardModel
 			};
 		}
 	}

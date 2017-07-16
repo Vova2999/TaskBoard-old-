@@ -21,10 +21,16 @@ namespace TaskBoard.Client.UI.Models {
 			set => Set(() => CreateDateTime, ref createDateTime, value);
 		}
 
-		private string userName;
-		public string UserName {
-			get => userName;
-			set => Set(() => UserName, ref userName, value);
+		private UserModel userModel;
+		public UserModel UserModel {
+			get => userModel;
+			set => Set(() => UserModel, ref userModel, value);
+		}
+
+		private TaskModel taskModel;
+		public TaskModel TaskModel {
+			get => taskModel;
+			set => Set(() => TaskModel, ref taskModel, value);
 		}
 
 		public override bool Equals(object obj) {

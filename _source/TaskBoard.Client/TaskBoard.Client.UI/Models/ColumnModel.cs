@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Windows.Media;
 using GalaSoft.MvvmLight;
 
@@ -8,12 +9,6 @@ namespace TaskBoard.Client.UI.Models {
 		public Guid ColumnId {
 			get => columnId;
 			set => Set(() => ColumnId, ref columnId, value);
-		}
-
-		private Guid boardId;
-		public Guid BoardId {
-			get => boardId;
-			set => Set(() => BoardId, ref boardId, value);
 		}
 
 		private string header;
@@ -28,10 +23,16 @@ namespace TaskBoard.Client.UI.Models {
 			set => Set(() => Brush, ref brush, value);
 		}
 
-		private string boardName;
-		public string BoardName {
-			get => boardName;
-			set => Set(() => BoardName, ref boardName, value);
+		private BoardModel boardModel;
+		public BoardModel BoardModel {
+			get => boardModel;
+			set => Set(() => BoardModel, ref boardModel, value);
+		}
+
+		private ObservableCollection<TaskModel> taskModels;
+		public ObservableCollection<TaskModel> TaskModels {
+			get => taskModels;
+			set => Set(() => TaskModels, ref taskModels, value);
 		}
 
 		public override bool Equals(object obj) {

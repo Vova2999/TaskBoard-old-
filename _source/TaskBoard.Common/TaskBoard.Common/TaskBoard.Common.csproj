@@ -54,6 +54,7 @@
     <Compile Include="Database\Readers\IDatabaseUserReader.cs" />
     <Compile Include="Database\Readers\IDatabaseUserReaderAsAdmin.cs" />
     <Compile Include="Extensions\BytesExtensions.cs" />
+    <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Extensions\StreamExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />

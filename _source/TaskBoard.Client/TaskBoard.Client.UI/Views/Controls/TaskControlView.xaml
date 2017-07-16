@@ -12,6 +12,6 @@
 	<StackPanel>
 		<Label Content="{Binding Path=TaskModel.Header, UpdateSourceTrigger=PropertyChanged}" />
 		<Label Content="{Binding Path=TaskModel.Description, UpdateSourceTrigger=PropertyChanged}" />
-		<Label Content="{Binding Path=TaskModel.ColumnHeader, UpdateSourceTrigger=PropertyChanged}" />
+		<Label Content="{Binding Path=TaskModel.ColumnModel.Header, UpdateSourceTrigger=PropertyChanged}" />
 	</StackPanel>
 </c:MetroContentControl>

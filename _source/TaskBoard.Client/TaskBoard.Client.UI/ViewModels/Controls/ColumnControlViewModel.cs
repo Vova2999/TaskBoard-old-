@@ -5,7 +5,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using TaskBoard.Client.Providers;
 using TaskBoard.Client.UI.Extensions;
-using TaskBoard.Client.UI.Extensions.Tables;
+using TaskBoard.Client.UI.Extensions.Models;
 using TaskBoard.Client.UI.Helpers;
 using TaskBoard.Client.UI.Models;
 using TaskBoard.Client.UI.Services;
@@ -46,8 +46,8 @@ namespace TaskBoard.Client.UI.ViewModels.Controls {
 			if (ColumnModel == null)
 				return;
 
-			TaskControlViewModels.Reset(httpClientProvider.GetDatabaseTaskReader().GetFromColumn(ColumnModel.BoardId, ColumnModel.ColumnId).ToModels(httpClientProvider)
-				.Select(columnModel => controlService.CreateTaskControlViewModel(columnModel)));
+			ColumnModel.DownloadTaskModels(httpClientProvider);
+			TaskControlViewModels.Reset(ColumnModel.TaskModels.Select(columnModel => controlService.CreateTaskControlViewModel(columnModel)));
 		}
 	}
 }

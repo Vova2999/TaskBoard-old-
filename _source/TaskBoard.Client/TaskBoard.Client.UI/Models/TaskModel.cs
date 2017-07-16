@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Windows.Media;
+using System.Collections.ObjectModel;
 using GalaSoft.MvvmLight;
 using TaskBoard.Common.Enums;
 
@@ -47,34 +47,34 @@ namespace TaskBoard.Client.UI.Models {
 			set => Set(() => CreateDateTime, ref createDateTime, value);
 		}
 
-		private string developerName;
-		public string DeveloperName {
-			get => developerName;
-			set => Set(() => DeveloperName, ref developerName, value);
+		private UserModel developerUserModel;
+		public UserModel DeveloperUserModel {
+			get => developerUserModel;
+			set => Set(() => DeveloperUserModel, ref developerUserModel, value);
 		}
 
-		private string reviewerName;
-		public string ReviewerName {
-			get => reviewerName;
-			set => Set(() => ReviewerName, ref reviewerName, value);
+		private UserModel reviewerUserModel;
+		public UserModel ReviewerUserModel {
+			get => reviewerUserModel;
+			set => Set(() => ReviewerUserModel, ref reviewerUserModel, value);
 		}
 
-		private string columnHeader;
-		public string ColumnHeader {
-			get => columnHeader;
-			set => Set(() => ColumnHeader, ref columnHeader, value);
+		private ColumnModel columnModel;
+		public ColumnModel ColumnModel {
+			get => columnModel;
+			set => Set(() => ColumnModel, ref columnModel, value);
 		}
 
-		private Brush columnBrush;
-		public Brush ColumnBrush {
-			get => columnBrush;
-			set => Set(() => ColumnBrush, ref columnBrush, value);
+		private BoardModel boardModel;
+		public BoardModel BoardModel {
+			get => boardModel;
+			set => Set(() => BoardModel, ref boardModel, value);
 		}
 
-		private string boardName;
-		public string BoardName {
-			get => boardName;
-			set => Set(() => BoardName, ref boardName, value);
+		private ObservableCollection<CommentModel> commentModels;
+		public ObservableCollection<CommentModel> CommentModels {
+			get => commentModels;
+			set => Set(() => CommentModels, ref commentModels, value);
 		}
 
 		public override bool Equals(object obj) {

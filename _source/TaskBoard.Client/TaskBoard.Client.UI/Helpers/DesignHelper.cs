@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Media;
 using GalaSoft.MvvmLight;
@@ -8,6 +9,7 @@ using TaskBoard.Client.UI.ViewModels;
 using TaskBoard.Client.UI.ViewModels.Controls;
 using TaskBoard.Client.UI.ViewModels.Flyouts;
 using TaskBoard.Common.Enums;
+using TaskBoard.Common.Extensions;
 
 namespace TaskBoard.Client.UI.Helpers {
 	public static class DesignHelper {
@@ -30,10 +32,9 @@ namespace TaskBoard.Client.UI.Helpers {
 			columnModels = Enumerable.Range(0, countColumns)
 				.Select(x => new ColumnModel {
 					ColumnId = Guid.NewGuid(),
-					BoardId = boardModel.BoardId,
 					Header = $"Столбец №{x + 1}",
 					Brush = (Brush)new BrushConverter().ConvertFromString($"#FF{(x % 3 == 0 ? "FF" : "00")}{(x % 3 == 1 ? "FF" : "00")}{(x % 3 == 2 ? "FF" : "00")}"),
-					BoardName = boardModel.Name
+					BoardModel = boardModel
 				}).ToArray();
 
 			taskModels = Enumerable.Range(0, countColumns)
@@ -46,12 +47,15 @@ namespace TaskBoard.Client.UI.Helpers {
 						State = State.NoState,
 						Priority = Priority.NoPriority,
 						CreateDateTime = DateTime.Now,
-						DeveloperName = "Developer",
-						ReviewerName = "Reviewer",
-						ColumnHeader = columnModels[x].Header,
-						ColumnBrush = columnModels[x].Brush,
-						BoardName = boardModel.Name
+						DeveloperUserModel = new UserModel { Login = "Developer" },
+						ReviewerUserModel = new UserModel { Login = "Reviewer" },
+						ColumnModel = columnModels[x],
+						BoardModel = boardModel
 					}).ToArray()).ToArray();
+
+			boardModel.ColumnModels = new ObservableCollection<ColumnModel>(columnModels);
+			boardModel.TaskModels = new ObservableCollection<TaskModel>(taskModels.SelectMany(taskModel => taskModel));
+			columnModels.ForEach((columnModel, x) => columnModel.TaskModels = new ObservableCollection<TaskModel>(taskModels[x]));
 		}
 
 
