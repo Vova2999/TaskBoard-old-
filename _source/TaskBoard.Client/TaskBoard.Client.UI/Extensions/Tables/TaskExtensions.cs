@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Media;
 using TaskBoard.Client.Providers;
 using TaskBoard.Client.UI.Models;
 using TaskBoard.Common.Tables;

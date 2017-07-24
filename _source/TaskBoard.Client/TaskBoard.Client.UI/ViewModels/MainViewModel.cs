@@ -2,9 +2,9 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.CommandWpf;
+using GalaSoft.MvvmLight.Ioc;
 using TaskBoard.Client.Providers;
+using TaskBoard.Client.UI.AdditionalObjects;
 using TaskBoard.Client.UI.Extensions;
 using TaskBoard.Client.UI.Extensions.Tables;
 using TaskBoard.Client.UI.Helpers;
@@ -14,7 +14,7 @@ using TaskBoard.Client.UI.ViewModels.Controls;
 using TaskBoard.Client.UI.ViewModels.Flyouts;
 
 namespace TaskBoard.Client.UI.ViewModels {
-	public class MainViewModel : ViewModelBase {
+	public class MainViewModel : AutoViewModelBase {
 		private readonly IHttpClientProvider httpClientProvider;
 		private readonly IWindowService windowService;
 		private readonly IDialogService dialogService;
@@ -54,6 +54,7 @@ namespace TaskBoard.Client.UI.ViewModels {
 			DesignHelper.SetControls(this);
 		}
 
+		[PreferredConstructor]
 		public MainViewModel(IHttpClientProvider httpClientProvider, IControlService controlService, IWindowService windowService, IDialogService dialogService) {
 			this.httpClientProvider = httpClientProvider;
 			this.windowService = windowService;
@@ -63,15 +64,11 @@ namespace TaskBoard.Client.UI.ViewModels {
 			SettingsFlyoutViewModel = controlService.CreateSettingsFlyoutViewModel();
 			AuthorizationFlyoutViewModel = controlService.CreateAuthorizationFlyoutViewModel();
 
-			RefreshBoardModelsCommand = new RelayCommand(RefreshBoardModels);
-			OpenSettingsFlyoutCommand = new RelayCommand(OpenSettingsFlyout);
-			OpenAuthorizationFlyoutCommand = new RelayCommand(OpenAuthorizationFlyout);
-
 			BoardModels.Reset(firstModelsOfBoardModels);
 			SelectedBoardModel = BoardModels.First();
 		}
 
-		public ICommand RefreshBoardModelsCommand { get; } = new RelayCommand(() => { });
+		public ICommand RefreshBoardModelsCommand { get; } = new AutoRelayCommand(nameof(RefreshBoardModels));
 		private void RefreshBoardModels() {
 			changeBoardModelOnBoardViewModel = false;
 
@@ -83,12 +80,12 @@ namespace TaskBoard.Client.UI.ViewModels {
 			changeBoardModelOnBoardViewModel = true;
 		}
 
-		public ICommand OpenSettingsFlyoutCommand { get; } = new RelayCommand(() => { });
+		public ICommand OpenSettingsFlyoutCommand { get; } = new AutoRelayCommand(nameof(OpenSettingsFlyout));
 		private void OpenSettingsFlyout() {
 			SettingsFlyoutViewModel.IsOpen = !SettingsFlyoutViewModel.IsOpen;
 		}
 
-		public ICommand OpenAuthorizationFlyoutCommand { get; } = new RelayCommand(() => { });
+		public ICommand OpenAuthorizationFlyoutCommand { get; } = new AutoRelayCommand(nameof(OpenAuthorizationFlyout));
 		private void OpenAuthorizationFlyout() {
 			AuthorizationFlyoutViewModel.IsOpen = !AuthorizationFlyoutViewModel.IsOpen;
 		}

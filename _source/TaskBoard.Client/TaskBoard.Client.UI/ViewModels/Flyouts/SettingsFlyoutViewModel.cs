@@ -1,12 +1,12 @@
 ﻿using System.Windows.Input;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Ioc;
 using TaskBoard.Client.Providers;
+using TaskBoard.Client.UI.AdditionalObjects;
 using TaskBoard.Client.UI.Helpers;
 using TaskBoard.Client.UI.Services;
 
 namespace TaskBoard.Client.UI.ViewModels.Flyouts {
-	public class SettingsFlyoutViewModel : ViewModelBase {
+	public class SettingsFlyoutViewModel : AutoViewModelBase {
 		private ClientUiConfiguration clientUiConfiguration;
 		private readonly IHttpClientProvider httpClientProvider;
 		private readonly IDialogService dialogService;
@@ -36,13 +36,10 @@ namespace TaskBoard.Client.UI.ViewModels.Flyouts {
 			DesignHelper.SetControls(this);
 		}
 
+		[PreferredConstructor]
 		public SettingsFlyoutViewModel(IHttpClientProvider httpClientProvider, IDialogService dialogService, bool setServerAddressWhenCreating = true) {
 			this.httpClientProvider = httpClientProvider;
 			this.dialogService = dialogService;
-
-			WriteConfigurationCommand = new RelayCommand(WriteConfiguration);
-			ReadConfigurationCommand = new RelayCommand(ReadConfiguration);
-			SetServerAddressCommand = new RelayCommand(SetServerAddress);
 
 			if (!setServerAddressWhenCreating)
 				return;
@@ -54,7 +51,7 @@ namespace TaskBoard.Client.UI.ViewModels.Flyouts {
 			WriteConfiguration();
 		}
 
-		public ICommand WriteConfigurationCommand { get; } = new RelayCommand(() => { });
+		public ICommand WriteConfigurationCommand { get; } = new AutoRelayCommand(nameof(WriteConfiguration));
 		private void WriteConfiguration() {
 			clientUiConfiguration.ServerAddress = ServerAddress;
 			clientUiConfiguration.TimeoutMs = TimeoutMs;
@@ -62,7 +59,7 @@ namespace TaskBoard.Client.UI.ViewModels.Flyouts {
 			clientUiConfiguration.WriteConfiguration();
 		}
 
-		public ICommand ReadConfigurationCommand { get; } = new RelayCommand(() => { });
+		public ICommand ReadConfigurationCommand { get; } = new AutoRelayCommand(nameof(ReadConfiguration));
 		private void ReadConfiguration() {
 			clientUiConfiguration = ClientUiConfiguration.ReadConfiguration();
 
@@ -70,7 +67,7 @@ namespace TaskBoard.Client.UI.ViewModels.Flyouts {
 			TimeoutMs = clientUiConfiguration.TimeoutMs;
 		}
 
-		public ICommand SetServerAddressCommand { get; } = new RelayCommand(() => { });
+		public ICommand SetServerAddressCommand { get; } = new AutoRelayCommand(nameof(SetServerAddress));
 		private void SetServerAddress() {
 			RunMethodHelper.WithoutReturn(
 				() => httpClientProvider.GetParameretsClient().SetServerAddress(ServerAddress, TimeoutMs),

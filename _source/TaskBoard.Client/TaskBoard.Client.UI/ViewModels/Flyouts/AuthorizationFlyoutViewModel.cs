@@ -1,13 +1,13 @@
 ﻿using System.Windows.Input;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Ioc;
 using TaskBoard.Client.Providers;
+using TaskBoard.Client.UI.AdditionalObjects;
 using TaskBoard.Client.UI.Helpers;
 using TaskBoard.Client.UI.Services;
 using TaskBoard.Common.Extensions;
 
 namespace TaskBoard.Client.UI.ViewModels.Flyouts {
-	public class AuthorizationFlyoutViewModel : ViewModelBase {
+	public class AuthorizationFlyoutViewModel : AutoViewModelBase {
 		private ClientUiConfiguration clientUiConfiguration;
 		private const string defaultHeader = "Авторизация";
 		private readonly IHttpClientProvider httpClientProvider;
@@ -50,14 +50,10 @@ namespace TaskBoard.Client.UI.ViewModels.Flyouts {
 			DesignHelper.SetControls(this);
 		}
 
+		[PreferredConstructor]
 		public AuthorizationFlyoutViewModel(IHttpClientProvider httpClientProvider, IDialogService dialogService, bool signInWhenCreating = true) {
 			this.httpClientProvider = httpClientProvider;
 			this.dialogService = dialogService;
-
-			WriteConfigurationCommand = new RelayCommand(WriteConfiguration);
-			ReadConfigurationCommand = new RelayCommand(ReadConfiguration);
-			SignInCommand = new RelayCommand(SignIn);
-			SignOutCommand = new RelayCommand(SignOut);
 
 			if (!signInWhenCreating)
 				return;
@@ -69,7 +65,7 @@ namespace TaskBoard.Client.UI.ViewModels.Flyouts {
 			WriteConfiguration();
 		}
 
-		public ICommand WriteConfigurationCommand { get; } = new RelayCommand(() => { });
+		public ICommand WriteConfigurationCommand { get; } = new AutoRelayCommand(nameof(WriteConfiguration));
 		private void WriteConfiguration() {
 			clientUiConfiguration.Login = SaveLoginAndPassword ? Login : null;
 			clientUiConfiguration.Password = SaveLoginAndPassword ? Password : null;
@@ -78,7 +74,7 @@ namespace TaskBoard.Client.UI.ViewModels.Flyouts {
 			clientUiConfiguration.WriteConfiguration();
 		}
 
-		public ICommand ReadConfigurationCommand { get; } = new RelayCommand(() => { });
+		public ICommand ReadConfigurationCommand { get; } = new AutoRelayCommand(nameof(ReadConfiguration));
 		private void ReadConfiguration() {
 			clientUiConfiguration = ClientUiConfiguration.ReadConfiguration();
 
@@ -87,7 +83,7 @@ namespace TaskBoard.Client.UI.ViewModels.Flyouts {
 			SaveLoginAndPassword = clientUiConfiguration.SaveLoginAndPassword;
 		}
 
-		public ICommand SignInCommand { get; } = new RelayCommand(() => { });
+		public ICommand SignInCommand { get; } = new AutoRelayCommand(nameof(SignIn));
 		private void SignIn() {
 			RunMethodHelper.WithoutReturn(
 				() => httpClientProvider.GetParameretsClient().SignIn(Login, Password),
@@ -98,7 +94,7 @@ namespace TaskBoard.Client.UI.ViewModels.Flyouts {
 				exception => dialogService.ShowErrorMessage(this, "Ошибка авторизации", exception.Message));
 		}
 
-		public ICommand SignOutCommand { get; } = new RelayCommand(() => { });
+		public ICommand SignOutCommand { get; } = new AutoRelayCommand(nameof(SignOut));
 		private void SignOut() {
 			RunMethodHelper.WithoutReturn(
 				() => httpClientProvider.GetParameretsClient().SingOut(),

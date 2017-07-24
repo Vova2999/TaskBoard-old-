@@ -70,9 +70,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AdditionalObjects\AutoRelayCommand.cs" />
+    <Compile Include="AdditionalObjects\AutoViewModelBase.cs" />
     <Compile Include="Extensions\Models\BoardModelExtensions.cs" />
     <Compile Include="Extensions\Models\ColumnModelExtensions.cs" />
     <Compile Include="Extensions\Models\TaskModelExtensions.cs" />
+    <Compile Include="Extensions\SimpleIocExtensions.cs" />
     <Compile Include="Extensions\Tables\BoardExtensions.cs" />
     <Compile Include="Extensions\Tables\ColumnExtensions.cs" />
     <Compile Include="Extensions\Tables\CommentExtensions.cs" />

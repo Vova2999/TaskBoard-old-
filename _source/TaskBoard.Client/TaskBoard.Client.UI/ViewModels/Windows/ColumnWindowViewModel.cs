@@ -1,6 +1,6 @@
-using GalaSoft.MvvmLight;
+using TaskBoard.Client.UI.AdditionalObjects;
 
 namespace TaskBoard.Client.UI.ViewModels.Windows {
-	public class ColumnWindowViewModel : ViewModelBase {
+	public class ColumnWindowViewModel : AutoViewModelBase {
 	}
 }
