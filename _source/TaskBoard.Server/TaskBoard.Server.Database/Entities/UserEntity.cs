@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace TaskBoard.Server.Database.Entities {
 	public class UserEntity {
 		[Key]
-		public Guid UserId { get; set; }
+		public Guid Id { get; set; }
 
 		[Required, MaxLength(64), Index("IX_UserUniques", 1, IsUnique = true)]
 		public string Login { get; set; }

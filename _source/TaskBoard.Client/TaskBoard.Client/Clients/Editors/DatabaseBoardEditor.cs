@@ -1,28 +1,28 @@
-﻿using System;
-using TaskBoard.Common.Database.Editors;
+﻿using TaskBoard.Common.Database.Editors;
 using TaskBoard.Common.Extensions;
 using TaskBoard.Common.Http;
 using TaskBoard.Common.Tables;
+using TaskBoard.Common.Tables.TableIds;
 
 namespace TaskBoard.Client.Clients.Editors {
 	public class DatabaseBoardEditor : BaseHttpClient, IDatabaseBoardEditor {
 		public DatabaseBoardEditor(HttpClientParameters httpClientParameters) : base(httpClientParameters) {
 		}
 
-		public void Add(Board table) {
-			SendRequest(HttpFunctions.BoardEdits.AddBoard, GetDefaultParameters(), table.ToJson());
+		public void Add(Board board) {
+			SendRequest(HttpFunctions.BoardEdits.AddBoard, GetDefaultParameters(), board.ToJson());
 		}
 
-		public void Edit(Guid oldTableId, Board newTable) {
+		public void Edit(BoardId boardId, Board newBoard) {
 			var parameters = GetDefaultParameters();
-			parameters[HttpParameters.BoardId] = oldTableId.ToString();
+			parameters[HttpParameters.BoardId] = boardId.ToString();
 
-			SendRequest(HttpFunctions.BoardEdits.EditBoard, parameters, newTable.ToJson());
+			SendRequest(HttpFunctions.BoardEdits.EditBoard, parameters, newBoard.ToJson());
 		}
 
-		public void Delete(Guid tableId) {
+		public void Delete(BoardId boardId) {
 			var parameters = GetDefaultParameters();
-			parameters[HttpParameters.BoardId] = tableId.ToString();
+			parameters[HttpParameters.BoardId] = boardId.ToString();
 
 			SendRequest(HttpFunctions.BoardEdits.DeleteBoard, parameters);
 		}

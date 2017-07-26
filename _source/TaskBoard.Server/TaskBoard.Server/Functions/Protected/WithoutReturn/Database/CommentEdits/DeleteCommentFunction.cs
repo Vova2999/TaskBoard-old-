@@ -18,7 +18,7 @@ namespace TaskBoard.Server.Functions.Protected.WithoutReturn.Database.CommentEdi
 		}
 
 		protected override void Run(NameValues parameters, byte[] requestBody) {
-			databaseCommentEditor.Delete(parameters[HttpParameters.CommentId].ToGuid());
+			databaseCommentEditor.Delete(parameters[HttpParameters.CommentId].ToGuid().ToCommentId());
 		}
 	}
 }

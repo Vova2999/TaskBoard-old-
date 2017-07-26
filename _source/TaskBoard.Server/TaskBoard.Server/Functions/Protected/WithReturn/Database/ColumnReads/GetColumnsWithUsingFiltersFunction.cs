@@ -21,7 +21,7 @@ namespace TaskBoard.Server.Functions.Protected.WithReturn.Database.ColumnReads {
 		protected override Column[] Run(NameValues parameters, byte[] requestBody) {
 			var header = parameters.GetValueOrNull(HttpParameters.ColumnHeader);
 			var brush = parameters.GetValueOrNull(HttpParameters.ColumnBrush);
-			var boardId = parameters.GetValueOrNull(HttpParameters.ColumnBoardId)?.ToGuid();
+			var boardId = parameters.GetValueOrNull(HttpParameters.ColumnBoardId)?.ToGuid().ToBoardId();
 
 			return databaseColumnReader.GetWithUsingFilters(header, brush, boardId);
 		}

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace TaskBoard.Common.Extensions {
 	// ReSharper disable UnusedMember.Global
@@ -14,6 +15,10 @@ namespace TaskBoard.Common.Extensions {
 			var i = 0;
 			foreach (var value in enumerable)
 				action(value, i++);
+		}
+
+		public static TValue[] ToArrayOrNull<TValue>(this IEnumerable<TValue> enumerable) {
+			return enumerable == null ? null : enumerable as TValue[] ?? enumerable.ToArray();
 		}
 	}
 }

@@ -19,7 +19,7 @@ namespace TaskBoard.Server.Functions.Protected.WithoutReturn.Database.ColumnEdit
 		}
 
 		protected override void Run(NameValues parameters, byte[] requestBody) {
-			databaseColumnEditor.Edit(parameters[HttpParameters.ColumnId].ToGuid(), requestBody.FromJson<Column>());
+			databaseColumnEditor.Edit(parameters[HttpParameters.ColumnId].ToGuid().ToColumnId(), requestBody.FromJson<Column>());
 		}
 	}
 }

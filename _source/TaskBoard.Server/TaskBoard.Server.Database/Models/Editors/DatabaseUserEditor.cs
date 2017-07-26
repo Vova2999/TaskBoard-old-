@@ -1,6 +1,7 @@
 using System;
 using TaskBoard.Common.Database.Editors;
 using TaskBoard.Common.Tables;
+using TaskBoard.Common.Tables.TableIds;
 using TaskBoard.Server.Database.Entities;
 
 namespace TaskBoard.Server.Database.Models.Editors {
@@ -10,28 +11,28 @@ namespace TaskBoard.Server.Database.Models.Editors {
 		public DatabaseUserEditor(ModelDatabase modelDatabase) : base(modelDatabase) {
 		}
 
-		public void Add(User table) {
+		public void Add(User user) {
 			ModelDatabase.Users.Add(new UserEntity {
-				UserId = Guid.NewGuid(),
-				Login = table.Login,
-				Password = table.Password,
-				AccessType = table.AccessType
+				Id = Guid.NewGuid(),
+				Login = user.Login,
+				Password = user.Password,
+				AccessType = user.AccessType
 			});
 
 			ModelDatabase.SaveChanges();
 		}
 
-		public void Edit(Guid oldTableId, User newTable) {
-			var user = ModelDatabase.GetUser(oldTableId);
-			user.Login = newTable.Login;
-			user.Password = newTable.Password;
-			user.AccessType = newTable.AccessType;
+		public void Edit(UserId oldUserId, User newUser) {
+			var user = ModelDatabase.GetUser(oldUserId);
+			user.Login = newUser.Login;
+			user.Password = newUser.Password;
+			user.AccessType = newUser.AccessType;
 
 			ModelDatabase.SaveChanges();
 		}
 
-		public void Delete(Guid tableId) {
-			DeleteUser(tableId);
+		public void Delete(UserId userId) {
+			DeleteUser(userId);
 			ModelDatabase.SaveChanges();
 		}
 	}

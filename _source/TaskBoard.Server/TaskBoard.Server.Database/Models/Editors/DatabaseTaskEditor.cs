@@ -1,6 +1,7 @@
 ﻿using System;
 using TaskBoard.Common.Database.Editors;
 using TaskBoard.Common.Tables;
+using TaskBoard.Common.Tables.TableIds;
 using TaskBoard.Server.Database.Entities;
 
 namespace TaskBoard.Server.Database.Models.Editors {
@@ -10,40 +11,40 @@ namespace TaskBoard.Server.Database.Models.Editors {
 		public DatabaseTaskEditor(ModelDatabase modelDatabase) : base(modelDatabase) {
 		}
 
-		public void Add(Task table) {
+		public void Add(Task task) {
 			ModelDatabase.Tasks.Add(new TaskEntity {
-				TaskId = Guid.NewGuid(),
-				Header = table.Header,
-				Description = table.Description,
-				Branch = string.IsNullOrEmpty(table.Branch) ? "-" : table.Branch,
-				State = table.State,
-				Priority = table.Priority,
+				Id = Guid.NewGuid(),
+				Header = task.Header,
+				Description = task.Description,
+				Branch = string.IsNullOrEmpty(task.Branch) ? "-" : task.Branch,
+				State = task.State,
+				Priority = task.Priority,
 				CreateDateTime = DateTime.Now,
-				DeveloperId = ModelDatabase.GetUser(table.DeveloperId)?.UserId,
-				ReviewerId = ModelDatabase.GetUser(table.ReviewerId)?.UserId,
-				ColumnId = ModelDatabase.GetColumn(table.ColumnId)?.ColumnId,
-				BoardId = ModelDatabase.GetBoard(table.BoardId).BoardId
+				DeveloperId = ModelDatabase.GetUser(task.DeveloperId)?.Id,
+				ReviewerId = ModelDatabase.GetUser(task.ReviewerId)?.Id,
+				ColumnId = ModelDatabase.GetColumn(task.ColumnId)?.Id,
+				BoardId = ModelDatabase.GetBoard(task.BoardId).Id
 			});
 
 			ModelDatabase.SaveChanges();
 		}
 
-		public void Edit(Guid oldTableId, Task newTable) {
-			var task = ModelDatabase.GetTask(oldTableId);
-			task.Header = newTable.Header;
-			task.Description = newTable.Description;
-			task.Branch = string.IsNullOrEmpty(newTable.Branch) ? "-" : newTable.Branch;
-			task.State = newTable.State;
-			task.Priority = newTable.Priority;
-			task.DeveloperId = ModelDatabase.GetUser(newTable.DeveloperId)?.UserId;
-			task.ReviewerId = ModelDatabase.GetUser(newTable.ReviewerId)?.UserId;
-			task.ColumnId = ModelDatabase.GetColumn(newTable.ColumnId)?.ColumnId;
+		public void Edit(TaskId oldTaskId, Task newTask) {
+			var task = ModelDatabase.GetTask(oldTaskId);
+			task.Header = newTask.Header;
+			task.Description = newTask.Description;
+			task.Branch = string.IsNullOrEmpty(newTask.Branch) ? "-" : newTask.Branch;
+			task.State = newTask.State;
+			task.Priority = newTask.Priority;
+			task.DeveloperId = ModelDatabase.GetUser(newTask.DeveloperId)?.Id;
+			task.ReviewerId = ModelDatabase.GetUser(newTask.ReviewerId)?.Id;
+			task.ColumnId = ModelDatabase.GetColumn(newTask.ColumnId)?.Id;
 
 			ModelDatabase.SaveChanges();
 		}
 
-		public void Delete(Guid tableId) {
-			DeleteTask(tableId);
+		public void Delete(TaskId taskId) {
+			DeleteTask(taskId);
 			ModelDatabase.SaveChanges();
 		}
 	}

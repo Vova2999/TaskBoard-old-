@@ -1,34 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TaskBoard.Common.Database.Readers;
 using TaskBoard.Common.Http;
 using TaskBoard.Common.Tables;
+using TaskBoard.Common.Tables.TableIds;
 
 namespace TaskBoard.Client.Clients.Readers {
 	public class DatabaseBoardReader : BaseHttpClient, IDatabaseBoardReader {
 		public DatabaseBoardReader(HttpClientParameters httpClientParameters) : base(httpClientParameters) {
 		}
 
-		public Board GetById(Guid id) {
+		public Board GetById(BoardId id) {
 			var parameters = GetDefaultParameters();
 			parameters[HttpParameters.BoardId] = id.ToString();
 
 			return SendRequest<Board>(HttpFunctions.BoardReads.GetBoardById, parameters);
 		}
 
-		public Guid[] GetAllIds() {
-			return SendRequest<Guid[]>(HttpFunctions.BoardReads.GetAllBoardIds, GetDefaultParameters());
+		public BoardId[] GetAllIds() {
+			return SendRequest<BoardId[]>(HttpFunctions.BoardReads.GetAllBoardIds, GetDefaultParameters());
 		}
 
 		public Board[] GetAll() {
 			return SendRequest<Board[]>(HttpFunctions.BoardReads.GetAllBoards, GetDefaultParameters());
 		}
 
-		public Guid GetIdByName(string name) {
+		public BoardId GetIdByName(string name) {
 			var parameters = GetDefaultParameters();
 			parameters[HttpParameters.BoardName] = name;
 
-			return SendRequest<Guid>(HttpFunctions.BoardReads.GetBoardIdByName, parameters);
+			return SendRequest<BoardId>(HttpFunctions.BoardReads.GetBoardIdByName, parameters);
 		}
 
 		public Board GetByName(string name) {
@@ -38,8 +38,8 @@ namespace TaskBoard.Client.Clients.Readers {
 			return SendRequest<Board>(HttpFunctions.BoardReads.GetBoardByName, parameters);
 		}
 
-		public Guid[] GetIdsWithUsingFilters(string name) {
-			return SendRequest<Guid[]>(HttpFunctions.BoardReads.GetBoardIdsWithUsingFilters, CreateParametersForUsingFilters(name));
+		public BoardId[] GetIdsWithUsingFilters(string name) {
+			return SendRequest<BoardId[]>(HttpFunctions.BoardReads.GetBoardIdsWithUsingFilters, CreateParametersForUsingFilters(name));
 		}
 
 		public Board[] GetWithUsingFilters(string name) {

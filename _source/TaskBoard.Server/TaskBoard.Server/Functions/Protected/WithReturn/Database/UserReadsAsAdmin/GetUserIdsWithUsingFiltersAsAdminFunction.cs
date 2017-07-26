@@ -1,14 +1,14 @@
-using System;
 using TaskBoard.Common.Database;
 using TaskBoard.Common.Database.Readers;
 using TaskBoard.Common.Enums;
 using TaskBoard.Common.Http;
+using TaskBoard.Common.Tables.TableIds;
 using TaskBoard.Server.AdditionalObjects;
 
 namespace TaskBoard.Server.Functions.Protected.WithReturn.Database.UserReadsAsAdmin {
 	// ReSharper disable UnusedMember.Global
 
-	public class GetUserIdsWithUsingFiltersAsAdminFunction : HttpProtectedFunctionWithReturn<Guid[]> {
+	public class GetUserIdsWithUsingFiltersAsAdminFunction : HttpProtectedFunctionWithReturn<UserId[]> {
 		public override string NameOfCalledMethod => HttpFunctions.UserReadsAsAdmin.GetUserIdsWithUsingFiltersAsAdmin;
 		protected override AccessType RequiredAccessType => AccessType.AdminRead;
 		private readonly IDatabaseUserReaderAsAdmin databaseUserReaderAsAdmin;
@@ -17,7 +17,7 @@ namespace TaskBoard.Server.Functions.Protected.WithReturn.Database.UserReadsAsAd
 			this.databaseUserReaderAsAdmin = databaseUserReaderAsAdmin;
 		}
 
-		protected override Guid[] Run(NameValues parameters, byte[] requestBody) {
+		protected override UserId[] Run(NameValues parameters, byte[] requestBody) {
 			var login = parameters.GetValueOrNull(HttpParameters.UserLogin);
 
 			return databaseUserReaderAsAdmin.GetIdsWithUsingFilters(login);

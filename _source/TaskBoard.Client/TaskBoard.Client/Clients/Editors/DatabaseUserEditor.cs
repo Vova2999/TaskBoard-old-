@@ -1,28 +1,28 @@
-using System;
 using TaskBoard.Common.Database.Editors;
 using TaskBoard.Common.Extensions;
 using TaskBoard.Common.Http;
 using TaskBoard.Common.Tables;
+using TaskBoard.Common.Tables.TableIds;
 
 namespace TaskBoard.Client.Clients.Editors {
 	public class DatabaseUserEditor : BaseHttpClient, IDatabaseUserEditor {
 		public DatabaseUserEditor(HttpClientParameters httpClientParameters) : base(httpClientParameters) {
 		}
 
-		public void Add(User table) {
-			SendRequest(HttpFunctions.UserEdits.AddUser, GetDefaultParameters(), table.ToJson());
+		public void Add(User user) {
+			SendRequest(HttpFunctions.UserEdits.AddUser, GetDefaultParameters(), user.ToJson());
 		}
 
-		public void Edit(Guid oldTableId, User newTable) {
+		public void Edit(UserId oldUserId, User newUser) {
 			var parameters = GetDefaultParameters();
-			parameters[HttpParameters.UserId] = oldTableId.ToString();
+			parameters[HttpParameters.UserId] = oldUserId.ToString();
 
-			SendRequest(HttpFunctions.UserEdits.EditUser, parameters, newTable.ToJson());
+			SendRequest(HttpFunctions.UserEdits.EditUser, parameters, newUser.ToJson());
 		}
 
-		public void Delete(Guid tableId) {
+		public void Delete(UserId userId) {
 			var parameters = GetDefaultParameters();
-			parameters[HttpParameters.UserId] = tableId.ToString();
+			parameters[HttpParameters.UserId] = userId.ToString();
 
 			SendRequest(HttpFunctions.UserEdits.DeleteUser, parameters);
 		}

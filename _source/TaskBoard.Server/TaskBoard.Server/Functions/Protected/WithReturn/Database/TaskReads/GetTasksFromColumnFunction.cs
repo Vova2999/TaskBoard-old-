@@ -19,7 +19,7 @@ namespace TaskBoard.Server.Functions.Protected.WithReturn.Database.TaskReads {
 		}
 
 		protected override Task[] Run(NameValues parameters, byte[] requestBody) {
-			return databaseTaskReader.GetFromColumn(parameters[HttpParameters.TaskBoardId].ToGuid(), parameters[HttpParameters.TaskColumnId].ToGuid());
+			return databaseTaskReader.GetFromColumn(parameters[HttpParameters.TaskBoardId].ToGuid().ToBoardId(), parameters[HttpParameters.TaskColumnId].ToGuid().ToColumnId());
 		}
 	}
 }

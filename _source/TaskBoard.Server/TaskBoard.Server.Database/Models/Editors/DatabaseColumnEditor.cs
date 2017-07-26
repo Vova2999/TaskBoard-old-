@@ -1,6 +1,7 @@
 ﻿using System;
 using TaskBoard.Common.Database.Editors;
 using TaskBoard.Common.Tables;
+using TaskBoard.Common.Tables.TableIds;
 using TaskBoard.Server.Database.Entities;
 
 namespace TaskBoard.Server.Database.Models.Editors {
@@ -10,27 +11,27 @@ namespace TaskBoard.Server.Database.Models.Editors {
 		public DatabaseColumnEditor(ModelDatabase modelDatabase) : base(modelDatabase) {
 		}
 
-		public void Add(Column table) {
+		public void Add(Column column) {
 			ModelDatabase.Columns.Add(new ColumnEntity {
-				ColumnId = Guid.NewGuid(),
-				Header = table.Header,
-				Brush = table.Brush,
-				BoardId = ModelDatabase.GetBoard(table.BoardId).BoardId
+				Id = Guid.NewGuid(),
+				Header = column.Header,
+				Brush = column.Brush,
+				BoardId = ModelDatabase.GetBoard(column.BoardId).Id
 			});
 
 			ModelDatabase.SaveChanges();
 		}
 
-		public void Edit(Guid oldTableId, Column newTable) {
-			var column = ModelDatabase.GetColumn(oldTableId);
-			column.Header = newTable.Header;
-			column.Brush = newTable.Brush;
+		public void Edit(ColumnId oldColumnId, Column newColumn) {
+			var column = ModelDatabase.GetColumn(oldColumnId);
+			column.Header = newColumn.Header;
+			column.Brush = newColumn.Brush;
 
 			ModelDatabase.SaveChanges();
 		}
 
-		public void Delete(Guid tableId) {
-			DeleteColumn(tableId);
+		public void Delete(ColumnId columnId) {
+			DeleteColumn(columnId);
 			ModelDatabase.SaveChanges();
 		}
 	}

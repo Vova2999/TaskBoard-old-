@@ -11,8 +11,7 @@ namespace TaskBoard.Client.UI.Extensions.Tables {
 		}
 
 		public static BoardModel ToModel(this Board board, IHttpClientProvider httpClientProvider) {
-			return new BoardModel {
-				BoardId = board.BoardId,
+			return new BoardModel(board.Id) {
 				Name = board.Name
 			};
 		}

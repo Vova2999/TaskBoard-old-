@@ -1,6 +1,7 @@
 ﻿using System;
 using TaskBoard.Common.Database.Editors;
 using TaskBoard.Common.Tables;
+using TaskBoard.Common.Tables.TableIds;
 using TaskBoard.Server.Database.Entities;
 
 namespace TaskBoard.Server.Database.Models.Editors {
@@ -10,24 +11,24 @@ namespace TaskBoard.Server.Database.Models.Editors {
 		public DatabaseBoardEditor(ModelDatabase modelDatabase) : base(modelDatabase) {
 		}
 
-		public void Add(Board table) {
+		public void Add(Board board) {
 			ModelDatabase.Boards.Add(new BoardEntity {
-				BoardId = Guid.NewGuid(),
-				Name = table.Name
+				Id = Guid.NewGuid(),
+				Name = board.Name
 			});
 
 			ModelDatabase.SaveChanges();
 		}
 
-		public void Edit(Guid oldTableId, Board newTable) {
-			var board = ModelDatabase.GetBoard(oldTableId);
-			board.Name = newTable.Name;
+		public void Edit(BoardId oldBoardId, Board newBoard) {
+			var board = ModelDatabase.GetBoard(oldBoardId);
+			board.Name = newBoard.Name;
 
 			ModelDatabase.SaveChanges();
 		}
 
-		public void Delete(Guid tableId) {
-			DeleteBoard(tableId);
+		public void Delete(BoardId boardId) {
+			DeleteBoard(boardId);
 			ModelDatabase.SaveChanges();
 		}
 	}

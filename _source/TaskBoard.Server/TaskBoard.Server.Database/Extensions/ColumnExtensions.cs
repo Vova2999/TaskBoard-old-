@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using TaskBoard.Common.Extensions;
 using TaskBoard.Common.Tables;
 using TaskBoard.Server.Database.Entities;
 
@@ -12,10 +13,10 @@ namespace TaskBoard.Server.Database.Extensions {
 		}
 		public static Column ToTable(this ColumnEntity column) {
 			return new Column {
-				ColumnId = column.ColumnId,
+				Id = column.Id.ToColumnId(),
 				Header = column.Header,
 				Brush = column.Brush,
-				BoardId = column.BoardId
+				BoardId = column.BoardId.ToBoardId()
 			};
 		}
 	}

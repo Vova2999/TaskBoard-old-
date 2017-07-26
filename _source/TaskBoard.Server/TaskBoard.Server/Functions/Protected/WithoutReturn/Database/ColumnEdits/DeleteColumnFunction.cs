@@ -18,7 +18,7 @@ namespace TaskBoard.Server.Functions.Protected.WithoutReturn.Database.ColumnEdit
 		}
 
 		protected override void Run(NameValues parameters, byte[] requestBody) {
-			databaseColumnEditor.Delete(parameters[HttpParameters.ColumnId].ToGuid());
+			databaseColumnEditor.Delete(parameters[HttpParameters.ColumnId].ToGuid().ToColumnId());
 		}
 	}
 }

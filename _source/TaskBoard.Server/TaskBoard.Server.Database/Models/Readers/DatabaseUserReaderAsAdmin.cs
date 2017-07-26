@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq;
 using TaskBoard.Common.Database.Readers;
+using TaskBoard.Common.Extensions;
 using TaskBoard.Common.Tables;
+using TaskBoard.Common.Tables.TableIds;
 using TaskBoard.Server.Database.Entities;
 using TaskBoard.Server.Database.Extensions;
 
@@ -12,28 +14,28 @@ namespace TaskBoard.Server.Database.Models.Readers {
 		public DatabaseUserReaderAsAdmin(ModelDatabase modelDatabase) : base(modelDatabase) {
 		}
 
-		public User GetById(Guid id) {
+		public User GetById(UserId id) {
 			return ModelDatabase.GetUser(id).ToTableAsAdmin();
 		}
 
-		public Guid[] GetAllIds() {
-			return ModelDatabase.Users.Select(user => user.UserId).ToArray();
+		public UserId[] GetAllIds() {
+			return ModelDatabase.Users.Select(user => user.Id.ToUserId()).ToArray();
 		}
 
 		public User[] GetAll() {
 			return ModelDatabase.Users.ToTablesAsAdmin();
 		}
 
-		public Guid GetIdByLogin(string login) {
-			return ModelDatabase.Users.FirstOrDefault(user => user.Login == login)?.UserId ?? throw new ArgumentException($"Не найден пользователь с login = '{login}'");
+		public UserId GetIdByLogin(string login) {
+			return (ModelDatabase.Users.FirstOrDefault(user => user.Login == login)?.Id ?? throw new ArgumentException($"Не найден пользователь с login = '{login}'")).ToUserId();
 		}
 
 		public User GetByLogin(string login) {
 			return ModelDatabase.Users.FirstOrDefault(user => user.Login == login)?.ToTableAsAdmin() ?? throw new ArgumentException($"Не найден пользователь с login = '{login}'");
 		}
 
-		public Guid[] GetIdsWithUsingFilters(string login) {
-			return GetQueryWithUsingFilters(login).Select(user => user.UserId).ToArray();
+		public UserId[] GetIdsWithUsingFilters(string login) {
+			return GetQueryWithUsingFilters(login).Select(user => user.Id.ToUserId()).ToArray();
 		}
 
 		public User[] GetWithUsingFilters(string login) {

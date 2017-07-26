@@ -2,14 +2,11 @@
 using System.Collections.ObjectModel;
 using GalaSoft.MvvmLight;
 using TaskBoard.Common.Enums;
+using TaskBoard.Common.Tables.TableIds;
 
 namespace TaskBoard.Client.UI.Models {
 	public class TaskModel : ViewModelBase {
-		private Guid taskId;
-		public Guid TaskId {
-			get => taskId;
-			set => Set(() => TaskId, ref taskId, value);
-		}
+		public TaskId Id { get; }
 
 		private string header;
 		public string Header {
@@ -77,11 +74,15 @@ namespace TaskBoard.Client.UI.Models {
 			set => Set(() => CommentModels, ref commentModels, value);
 		}
 
+		public TaskModel(TaskId id) {
+			Id = id;
+		}
+
 		public override bool Equals(object obj) {
-			return obj is TaskModel that && TaskId.Equals(that.TaskId);
+			return obj is TaskModel that && Id.Equals(that.Id);
 		}
 		public override int GetHashCode() {
-			return TaskId.GetHashCode();
+			return Id.GetHashCode();
 		}
 	}
 }

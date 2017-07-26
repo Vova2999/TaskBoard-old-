@@ -19,7 +19,7 @@ namespace TaskBoard.Server.Functions.Protected.WithoutReturn.Database.CommentEdi
 		}
 
 		protected override void Run(NameValues parameters, byte[] requestBody) {
-			databaseCommentEditor.Edit(parameters[HttpParameters.CommentId].ToGuid(), requestBody.FromJson<Comment>());
+			databaseCommentEditor.Edit(parameters[HttpParameters.CommentId].ToGuid().ToCommentId(), requestBody.FromJson<Comment>());
 		}
 	}
 }

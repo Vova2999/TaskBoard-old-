@@ -1,26 +1,26 @@
-﻿using System;
-using TaskBoard.Common.Database.Editors;
+﻿using TaskBoard.Common.Database.Editors;
 using TaskBoard.Common.Extensions;
 using TaskBoard.Common.Http;
 using TaskBoard.Common.Tables;
+using TaskBoard.Common.Tables.TableIds;
 
 namespace TaskBoard.Client.Clients.Editors {
 	public class DatabaseColumnEditor : BaseHttpClient, IDatabaseColumnEditor {
 		public DatabaseColumnEditor(HttpClientParameters httpClientParameters) : base(httpClientParameters) {
 		}
 
-		public void Add(Column table) {
-			SendRequest(HttpFunctions.ColumnEdits.AddColumn, GetDefaultParameters(), table.ToJson());
+		public void Add(Column column) {
+			SendRequest(HttpFunctions.ColumnEdits.AddColumn, GetDefaultParameters(), column.ToJson());
 		}
 
-		public void Edit(Guid oldTableId, Column newTable) {
+		public void Edit(ColumnId oldColumnId, Column newColumn) {
 			var parameters = GetDefaultParameters();
-			parameters[HttpParameters.ColumnId] = oldTableId.ToString();
+			parameters[HttpParameters.ColumnId] = oldColumnId.ToString();
 
-			SendRequest(HttpFunctions.ColumnEdits.EditColumn, parameters, newTable.ToJson());
+			SendRequest(HttpFunctions.ColumnEdits.EditColumn, parameters, newColumn.ToJson());
 		}
 
-		public void Delete(Guid tableId) {
+		public void Delete(ColumnId tableId) {
 			var parameters = GetDefaultParameters();
 			parameters[HttpParameters.ColumnId] = tableId.ToString();
 

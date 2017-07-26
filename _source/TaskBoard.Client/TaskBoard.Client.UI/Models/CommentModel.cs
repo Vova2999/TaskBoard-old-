@@ -1,13 +1,10 @@
 ﻿using System;
 using GalaSoft.MvvmLight;
+using TaskBoard.Common.Tables.TableIds;
 
 namespace TaskBoard.Client.UI.Models {
 	public class CommentModel : ViewModelBase {
-		private Guid commentId;
-		public Guid CommentId {
-			get => commentId;
-			set => Set(() => CommentId, ref commentId, value);
-		}
+		public CommentId Id { get; }
 
 		private string content;
 		public string Content {
@@ -33,11 +30,15 @@ namespace TaskBoard.Client.UI.Models {
 			set => Set(() => TaskModel, ref taskModel, value);
 		}
 
+		public CommentModel(CommentId id) {
+			Id = id;
+		}
+
 		public override bool Equals(object obj) {
-			return obj is CommentModel that && CommentId.Equals(that.CommentId);
+			return obj is CommentModel that && Id.Equals(that.Id);
 		}
 		public override int GetHashCode() {
-			return CommentId.GetHashCode();
+			return Id.GetHashCode();
 		}
 	}
 }

@@ -49,8 +49,8 @@ namespace TaskBoard.Client.UI.AdditionalObjects {
 			this.executeActionName = executeActionName;
 			this.canExecuteActionName = canExecuteActionName;
 
-			execute = new WeakAction(() => executeMethodInfo?.Invoke(parentObject, null));
-			canExecute = new WeakFunc<bool>(() => (bool?)canExecuteMethodInfo?.Invoke(parentObject, null) != false);
+			execute = new WeakAction(() => executeMethodInfo.Invoke(parentObject, null));
+			canExecute = new WeakFunc<bool>(() => (bool?)canExecuteMethodInfo.Invoke(parentObject, null) != false);
 		}
 
 		public void SetObject(object parentObject) {
@@ -66,12 +66,12 @@ namespace TaskBoard.Client.UI.AdditionalObjects {
 		}
 
 		public void Execute(object parameter) {
-			if (CanExecute(parameter))
-				execute?.Execute();
+			if (CanExecute(parameter) && executeMethodInfo != null)
+				execute.Execute();
 		}
 
 		public bool CanExecute(object parameter) {
-			return canExecute?.Execute() != false;
+			return canExecuteMethodInfo == null || canExecute.Execute();
 		}
 	}
 }

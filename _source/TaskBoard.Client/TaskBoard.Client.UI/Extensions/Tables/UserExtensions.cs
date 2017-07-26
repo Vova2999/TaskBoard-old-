@@ -11,8 +11,7 @@ namespace TaskBoard.Client.UI.Extensions.Tables {
 		}
 
 		public static UserModel ToModel(this User user, IHttpClientProvider httpClientProvider) {
-			return new UserModel {
-				UserId = user.UserId,
+			return new UserModel(user.Id) {
 				Login = user.Login,
 				Password = user.Password,
 				AccessType = user.AccessType

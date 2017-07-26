@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using TaskBoard.Common.Extensions;
 using TaskBoard.Common.Tables;
 using TaskBoard.Server.Database.Entities;
 
@@ -12,7 +13,7 @@ namespace TaskBoard.Server.Database.Extensions {
 		}
 		public static Board ToTable(this BoardEntity board) {
 			return new Board {
-				BoardId = board.BoardId,
+				Id = board.Id.ToBoardId(),
 				Name = board.Name
 			};
 		}

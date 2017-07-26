@@ -19,7 +19,7 @@ namespace TaskBoard.Server.Functions.Protected.WithoutReturn.Database.TaskEdits 
 		}
 
 		protected override void Run(NameValues parameters, byte[] requestBody) {
-			databaseTaskEditor.Edit(parameters[HttpParameters.TaskId].ToGuid(), requestBody.FromJson<Task>());
+			databaseTaskEditor.Edit(parameters[HttpParameters.TaskId].ToGuid().ToTaskId(), requestBody.FromJson<Task>());
 		}
 	}
 }

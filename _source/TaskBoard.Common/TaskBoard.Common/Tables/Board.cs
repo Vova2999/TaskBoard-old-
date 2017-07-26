@@ -1,15 +1,14 @@
-﻿using System;
+﻿using JetBrains.Annotations;
 using TaskBoard.Common.Tables.Attributes;
+using TaskBoard.Common.Tables.TableIds;
 
 namespace TaskBoard.Common.Tables {
 	// ReSharper disable ClassNeverInstantiated.Global
+	// ReSharper disable NotNullMemberIsNotInitialized
 	// ReSharper disable UnusedMember.Global
 
-	public class Board {
-		[HeaderColumn("Id доски")]
-		public Guid BoardId { get; set; }
-
-		[HeaderColumn("Название")]
+	public class Board : BaseTable<BoardId> {
+		[HeaderColumn("Название"), NotNull]
 		public string Name { get; set; }
 	}
 }

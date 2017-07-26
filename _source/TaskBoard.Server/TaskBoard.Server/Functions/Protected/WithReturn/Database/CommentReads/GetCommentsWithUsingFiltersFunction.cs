@@ -22,8 +22,8 @@ namespace TaskBoard.Server.Functions.Protected.WithReturn.Database.CommentReads 
 			var content = parameters.GetValueOrNull(HttpParameters.CommentContent);
 			var beginCreateDateTime = parameters.GetValueOrNull(HttpParameters.CommentBeginCreateDateTime)?.ToDateTime();
 			var endCreateDateTime = parameters.GetValueOrNull(HttpParameters.CommentEndCreateDateTime)?.ToDateTime();
-			var userId = parameters.GetValueOrNull(HttpParameters.CommentUserId)?.ToGuid();
-			var taskId = parameters.GetValueOrNull(HttpParameters.CommentTaskId)?.ToGuid();
+			var userId = parameters.GetValueOrNull(HttpParameters.CommentUserId)?.ToGuid().ToUserId();
+			var taskId = parameters.GetValueOrNull(HttpParameters.CommentTaskId)?.ToGuid().ToTaskId();
 
 			return databaseCommentReader.GetWithUsingFilters(content, beginCreateDateTime, endCreateDateTime, userId, taskId);
 		}

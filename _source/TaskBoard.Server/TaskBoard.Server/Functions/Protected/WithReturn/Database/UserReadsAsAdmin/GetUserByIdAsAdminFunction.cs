@@ -19,7 +19,7 @@ namespace TaskBoard.Server.Functions.Protected.WithReturn.Database.UserReadsAsAd
 		}
 
 		protected override User Run(NameValues parameters, byte[] requestBody) {
-			return databaseUserReaderAsAdmin.GetById(parameters[HttpParameters.UserId].ToGuid());
+			return databaseUserReaderAsAdmin.GetById(parameters[HttpParameters.UserId].ToGuid().ToUserId());
 		}
 	}
 }

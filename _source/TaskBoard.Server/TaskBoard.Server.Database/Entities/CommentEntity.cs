@@ -8,7 +8,7 @@ namespace TaskBoard.Server.Database.Entities {
 
 	public class CommentEntity {
 		[Key]
-		public Guid CommentId { get; set; }
+		public Guid Id { get; set; }
 
 		[Required]
 		public string Content { get; set; }

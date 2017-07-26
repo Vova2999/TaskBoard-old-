@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq;
 using TaskBoard.Common.Database.Readers;
+using TaskBoard.Common.Extensions;
 using TaskBoard.Common.Tables;
+using TaskBoard.Common.Tables.TableIds;
 using TaskBoard.Server.Database.Entities;
 using TaskBoard.Server.Database.Extensions;
 
@@ -12,61 +14,61 @@ namespace TaskBoard.Server.Database.Models.Readers {
 		public DatabaseColumnReader(ModelDatabase modelDatabase) : base(modelDatabase) {
 		}
 
-		public Column GetById(Guid id) {
+		public Column GetById(ColumnId id) {
 			return ModelDatabase.GetColumn(id).ToTable();
 		}
 
-		public Guid[] GetAllIds() {
-			return ModelDatabase.Columns.Select(column => column.ColumnId).ToArray();
+		public ColumnId[] GetAllIds() {
+			return ModelDatabase.Columns.Select(column => column.Id.ToColumnId()).ToArray();
 		}
 
 		public Column[] GetAll() {
 			return ModelDatabase.Columns.ToTables();
 		}
 
-		public Guid GetIdByHeaderWithBoardId(string header, Guid boardId) {
-			return ModelDatabase.Columns.FirstOrDefault(column => column.Header == header && column.BoardId == boardId)?.BoardId
+		public ColumnId GetIdByHeaderWithBoardId(string header, BoardId boardId) {
+			return (ModelDatabase.Columns.FirstOrDefault(column => column.Header == header && column.BoardId == boardId.InstanceId)?.BoardId
+				?? throw new ArgumentException($"Не найден столбец с header = '{header}', boardId = '{boardId}")).ToColumnId();
+		}
+
+		public Column GetByHeaderWithBoardId(string header, BoardId boardId) {
+			return ModelDatabase.Columns.FirstOrDefault(column => column.Header == header && column.BoardId == boardId.InstanceId)?.ToTable()
 				?? throw new ArgumentException($"Не найден столбец с header = '{header}', boardId = '{boardId}");
 		}
 
-		public Column GetByHeaderWithBoardId(string header, Guid boardId) {
-			return ModelDatabase.Columns.FirstOrDefault(column => column.Header == header && column.BoardId == boardId)?.ToTable()
-				?? throw new ArgumentException($"Не найден столбец с header = '{header}', boardId = '{boardId}");
-		}
-
-		public Guid GetIdByHeaderWithBoardName(string header, string boardName) {
-			var board = ModelDatabase.Boards.FirstOrDefault(b => b.Name == boardName) ?? throw new ArgumentException($"Не найдена доска с name = '{boardName}'");
-			return ModelDatabase.Columns.FirstOrDefault(column => column.Header == header && column.BoardId == board.BoardId)?.BoardId
-				?? throw new ArgumentException($"Не найден столбец с header = '{header}', boardName = '{boardName}");
+		public ColumnId GetIdByHeaderWithBoardName(string header, string boardName) {
+			var boardId = ModelDatabase.Boards.FirstOrDefault(b => b.Name == boardName)?.Id ?? throw new ArgumentException($"Не найдена доска с name = '{boardName}'");
+			return (ModelDatabase.Columns.FirstOrDefault(column => column.Header == header && column.BoardId == boardId)?.BoardId
+				?? throw new ArgumentException($"Не найден столбец с header = '{header}', boardName = '{boardName}")).ToColumnId();
 		}
 
 		public Column GetByHeaderWithBoardName(string header, string boardName) {
-			var board = ModelDatabase.Boards.FirstOrDefault(b => b.Name == boardName) ?? throw new ArgumentException($"Не найдена доска с name = '{boardName}'");
-			return ModelDatabase.Columns.FirstOrDefault(column => column.Header == header && column.BoardId == board.BoardId)?.ToTable()
+			var boardId = ModelDatabase.Boards.FirstOrDefault(b => b.Name == boardName)?.Id ?? throw new ArgumentException($"Не найдена доска с name = '{boardName}'");
+			return ModelDatabase.Columns.FirstOrDefault(column => column.Header == header && column.BoardId == boardId)?.ToTable()
 				?? throw new ArgumentException($"Не найден столбец с header = '{header}', boardName = '{boardName}");
 		}
 
-		public Guid[] GetIdsFromBoard(Guid boardId) {
-			return ModelDatabase.Columns.Where(column => column.BoardId == boardId).Select(column => column.ColumnId).ToArray();
+		public ColumnId[] GetIdsFromBoard(BoardId boardId) {
+			return ModelDatabase.Columns.Where(column => column.BoardId == boardId.InstanceId).Select(column => column.Id.ToColumnId()).ToArray();
 		}
 
-		public Column[] GetFromBoard(Guid boardId) {
-			return ModelDatabase.Columns.Where(column => column.BoardId == boardId).ToTables();
+		public Column[] GetFromBoard(BoardId boardId) {
+			return ModelDatabase.Columns.Where(column => column.BoardId == boardId.InstanceId).ToTables();
 		}
 
-		public Guid[] GetIdsWithUsingFilters(string header, string brush, Guid? boardId) {
-			return GetQueryWithUsingFilters(header, brush, boardId).Select(column => column.ColumnId).ToArray();
+		public ColumnId[] GetIdsWithUsingFilters(string header, string brush, BoardId boardId) {
+			return GetQueryWithUsingFilters(header, brush, boardId).Select(column => column.Id.ToColumnId()).ToArray();
 		}
 
-		public Column[] GetWithUsingFilters(string header, string brush, Guid? boardId) {
+		public Column[] GetWithUsingFilters(string header, string brush, BoardId boardId) {
 			return GetQueryWithUsingFilters(header, brush, boardId).ToTables();
 		}
 
-		private IQueryable<ColumnEntity> GetQueryWithUsingFilters(string header, string brush, Guid? boardId) {
+		private IQueryable<ColumnEntity> GetQueryWithUsingFilters(string header, string brush, BoardId boardId) {
 			IQueryable<ColumnEntity> columns = ModelDatabase.Columns;
 			UseFilter(header != null, ref columns, column => column.Header.Contains(header));
 			UseFilter(brush != null, ref columns, column => column.Brush == brush);
-			UseFilter(boardId != null, ref columns, column => column.ColumnId == boardId.Value);
+			UseFilter(boardId != null, ref columns, column => column.Id == boardId.InstanceId);
 
 			return columns;
 		}

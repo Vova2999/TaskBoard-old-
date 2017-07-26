@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Media;
 using GalaSoft.MvvmLight;
+using TaskBoard.Common.Tables.TableIds;
 
 namespace TaskBoard.Client.UI.Models {
 	public class ColumnModel : ViewModelBase {
-		private Guid columnId;
-		public Guid ColumnId {
-			get => columnId;
-			set => Set(() => ColumnId, ref columnId, value);
-		}
+		public ColumnId Id { get; }
 
 		private string header;
 		public string Header {
@@ -35,11 +31,15 @@ namespace TaskBoard.Client.UI.Models {
 			set => Set(() => TaskModels, ref taskModels, value);
 		}
 
+		public ColumnModel(ColumnId id) {
+			Id = id;
+		}
+
 		public override bool Equals(object obj) {
-			return obj is ColumnModel that && ColumnId.Equals(that.ColumnId);
+			return obj is ColumnModel that && Id.Equals(that.Id);
 		}
 		public override int GetHashCode() {
-			return ColumnId.GetHashCode();
+			return Id.GetHashCode();
 		}
 	}
 }

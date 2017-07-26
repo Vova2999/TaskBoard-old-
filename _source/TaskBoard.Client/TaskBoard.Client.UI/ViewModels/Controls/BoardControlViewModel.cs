@@ -6,7 +6,6 @@ using GalaSoft.MvvmLight.Ioc;
 using TaskBoard.Client.Providers;
 using TaskBoard.Client.UI.AdditionalObjects;
 using TaskBoard.Client.UI.Extensions;
-using TaskBoard.Client.UI.Extensions.Models;
 using TaskBoard.Client.UI.Helpers;
 using TaskBoard.Client.UI.Models;
 using TaskBoard.Client.UI.Services;
@@ -44,10 +43,10 @@ namespace TaskBoard.Client.UI.ViewModels.Controls {
 		public ICommand RefreshColumnsCommand { get; } = new AutoRelayCommand(nameof(RefreshColumns));
 		private void RefreshColumns() {
 			ColumnControlViewModels.Clear();
-			if (BoardModel == null || BoardModel.BoardId == Guid.Empty)
+			if (BoardModel == null || BoardModel.Id.InstanceId == Guid.Empty)
 				return;
 
-			BoardModel.DownloadColumnModels(httpClientProvider);
+			//BoardModel.DownloadColumnModels(httpClientProvider);
 			ColumnControlViewModels.Add(BoardModel.ColumnModels.Select(columnModel => controlService.CreateColumnControlViewModel(columnModel)));
 		}
 	}

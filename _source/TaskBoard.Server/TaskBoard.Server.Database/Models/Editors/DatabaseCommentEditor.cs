@@ -1,6 +1,7 @@
 ﻿using System;
 using TaskBoard.Common.Database.Editors;
 using TaskBoard.Common.Tables;
+using TaskBoard.Common.Tables.TableIds;
 using TaskBoard.Server.Database.Entities;
 
 namespace TaskBoard.Server.Database.Models.Editors {
@@ -10,27 +11,27 @@ namespace TaskBoard.Server.Database.Models.Editors {
 		public DatabaseCommentEditor(ModelDatabase modelDatabase) : base(modelDatabase) {
 		}
 
-		public void Add(Comment table) {
+		public void Add(Comment comment) {
 			ModelDatabase.Comments.Add(new CommentEntity {
-				CommentId = Guid.NewGuid(),
-				Content = table.Content,
+				Id = Guid.NewGuid(),
+				Content = comment.Content,
 				CreateDateTime = DateTime.Now,
-				UserId = ModelDatabase.GetUser(table.UserId).UserId,
-				TaskId = ModelDatabase.GetTask(table.TaskId).TaskId
+				UserId = ModelDatabase.GetUser(comment.UserId).Id,
+				TaskId = ModelDatabase.GetTask(comment.TaskId).Id
 			});
 
 			ModelDatabase.SaveChanges();
 		}
 
-		public void Edit(Guid oldTableId, Comment newTable) {
-			var comment = ModelDatabase.GetComment(oldTableId);
-			comment.Content = newTable.Content;
+		public void Edit(CommentId oldCommentId, Comment newComment) {
+			var comment = ModelDatabase.GetComment(oldCommentId);
+			comment.Content = newComment.Content;
 
 			ModelDatabase.SaveChanges();
 		}
 
-		public void Delete(Guid tableId) {
-			DeleteComment(tableId);
+		public void Delete(CommentId commentId) {
+			DeleteComment(commentId);
 			ModelDatabase.SaveChanges();
 		}
 	}

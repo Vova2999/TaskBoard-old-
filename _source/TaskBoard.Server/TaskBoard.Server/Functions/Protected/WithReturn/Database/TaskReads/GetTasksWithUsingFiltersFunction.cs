@@ -24,10 +24,10 @@ namespace TaskBoard.Server.Functions.Protected.WithReturn.Database.TaskReads {
 			var branch = parameters.GetValueOrNull(HttpParameters.TaskBranch);
 			var state = parameters.GetValueOrNull(HttpParameters.TaskState)?.ToState();
 			var priority = parameters.GetValueOrNull(HttpParameters.TaskPriority)?.ToPriority();
-			var developerId = parameters.GetValueOrNull(HttpParameters.TaskDeveloperId)?.ToGuid();
-			var reviewerId = parameters.GetValueOrNull(HttpParameters.TaskReviewerId)?.ToGuid();
-			var columnId = parameters.GetValueOrNull(HttpParameters.TaskColumnId)?.ToGuid();
-			var boardId = parameters.GetValueOrNull(HttpParameters.TaskBoardId)?.ToGuid();
+			var developerId = parameters.GetValueOrNull(HttpParameters.TaskDeveloperId)?.ToGuid().ToUserId();
+			var reviewerId = parameters.GetValueOrNull(HttpParameters.TaskReviewerId)?.ToGuid().ToUserId();
+			var columnId = parameters.GetValueOrNull(HttpParameters.TaskColumnId)?.ToGuid().ToColumnId();
+			var boardId = parameters.GetValueOrNull(HttpParameters.TaskBoardId)?.ToGuid().ToBoardId();
 
 			return databaseTaskReader.GetWithUsingFilters(header, description, branch, state, priority, developerId, reviewerId, columnId, boardId);
 		}

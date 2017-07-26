@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using TaskBoard.Common.Extensions;
 using TaskBoard.Common.Tables;
 using TaskBoard.Server.Database.Entities;
 
@@ -12,11 +13,11 @@ namespace TaskBoard.Server.Database.Extensions {
 		}
 		public static Comment ToTable(this CommentEntity comment) {
 			return new Comment {
-				CommentId = comment.CommentId,
+				Id = comment.Id.ToCommentId(),
 				Content = comment.Content,
 				CreateDateTime = comment.CreateDateTime,
-				UserId = comment.UserId,
-				TaskId = comment.TaskId
+				UserId = comment.UserId.ToUserId(),
+				TaskId = comment.TaskId.ToTaskId()
 			};
 		}
 	}

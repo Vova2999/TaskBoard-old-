@@ -19,7 +19,7 @@ namespace TaskBoard.Server.Functions.Protected.WithReturn.Database.CommentReads 
 		}
 
 		protected override Comment[] Run(NameValues parameters, byte[] requestBody) {
-			return databaseCommentReader.GetFromTask(parameters[HttpParameters.CommentTaskId].ToGuid());
+			return databaseCommentReader.GetFromTask(parameters[HttpParameters.CommentTaskId].ToGuid().ToTaskId());
 		}
 	}
 }

@@ -9,7 +9,7 @@ namespace TaskBoard.Server.Database.Entities {
 
 	public class TaskEntity {
 		[Key]
-		public Guid TaskId { get; set; }
+		public Guid Id { get; set; }
 
 		[Required]
 		public string Header { get; set; }

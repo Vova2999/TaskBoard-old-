@@ -8,7 +8,7 @@ namespace TaskBoard.Server.Database.Entities {
 
 	public class ColumnEntity {
 		[Key]
-		public Guid ColumnId { get; set; }
+		public Guid Id { get; set; }
 
 		[Required, MaxLength(64), Index("IX_ColumnUniques", 1, IsUnique = true)]
 		public string Header { get; set; }

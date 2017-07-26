@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using GalaSoft.MvvmLight;
+using TaskBoard.Common.Tables.TableIds;
 
 namespace TaskBoard.Client.UI.Models {
 	public class BoardModel : ViewModelBase {
-		private Guid boardId;
-		public Guid BoardId {
-			get => boardId;
-			set => Set(() => BoardId, ref boardId, value);
-		}
+		public BoardId Id { get; }
 
 		private string name;
 		public string Name {
@@ -28,11 +24,15 @@ namespace TaskBoard.Client.UI.Models {
 			set => Set(() => TaskModels, ref taskModels, value);
 		}
 
+		public BoardModel(BoardId id) {
+			Id = id;
+		}
+
 		public override bool Equals(object obj) {
-			return obj is BoardModel that && BoardId.Equals(that.BoardId);
+			return obj is BoardModel that && Id.Equals(that.Id);
 		}
 		public override int GetHashCode() {
-			return BoardId.GetHashCode();
+			return Id.GetHashCode();
 		}
 	}
 }

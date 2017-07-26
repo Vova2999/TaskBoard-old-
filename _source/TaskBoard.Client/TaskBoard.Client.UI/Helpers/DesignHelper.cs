@@ -24,14 +24,12 @@ namespace TaskBoard.Client.UI.Helpers {
 			var countColumns = 3;
 			var countTasks = new[] { 3, 2, 1 };
 
-			boardModel = new BoardModel {
-				BoardId = Guid.NewGuid(),
+			boardModel = new BoardModel(Guid.NewGuid().ToBoardId()) {
 				Name = "Название доски"
 			};
 
 			columnModels = Enumerable.Range(0, countColumns)
-				.Select(x => new ColumnModel {
-					ColumnId = Guid.NewGuid(),
+				.Select(x => new ColumnModel(Guid.NewGuid().ToColumnId()) {
 					Header = $"Столбец №{x + 1}",
 					Brush = (Brush)new BrushConverter().ConvertFromString($"#FF{(x % 3 == 0 ? "FF" : "00")}{(x % 3 == 1 ? "FF" : "00")}{(x % 3 == 2 ? "FF" : "00")}"),
 					BoardModel = boardModel
@@ -39,16 +37,15 @@ namespace TaskBoard.Client.UI.Helpers {
 
 			taskModels = Enumerable.Range(0, countColumns)
 				.Select(x => Enumerable.Range(0, countTasks[x % countTasks.Length])
-					.Select(y => new TaskModel {
-						TaskId = Guid.NewGuid(),
+					.Select(y => new TaskModel(Guid.NewGuid().ToTaskId()) {
 						Header = $"Задача №{x + 1}-{y + 1}",
 						Description = "Описание задачи",
 						Branch = "Branch",
 						State = State.NoState,
 						Priority = Priority.NoPriority,
 						CreateDateTime = DateTime.Now,
-						DeveloperUserModel = new UserModel { Login = "Developer" },
-						ReviewerUserModel = new UserModel { Login = "Reviewer" },
+						DeveloperUserModel = new UserModel(Guid.NewGuid().ToUserId()) { Login = "Developer" },
+						ReviewerUserModel = new UserModel(Guid.NewGuid().ToUserId()) { Login = "Reviewer" },
 						ColumnModel = columnModels[x],
 						BoardModel = boardModel
 					}).ToArray()).ToArray();

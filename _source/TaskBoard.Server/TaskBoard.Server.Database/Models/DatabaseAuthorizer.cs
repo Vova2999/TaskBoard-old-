@@ -18,7 +18,7 @@ namespace TaskBoard.Server.Database.Models {
 		}
 		private void AddFirstUser() {
 			modelDatabase.Users.Add(new UserEntity {
-				UserId = Guid.NewGuid(),
+				Id = Guid.NewGuid(),
 				Login = "login",
 				Password = "password",
 				AccessType = -1

@@ -6,12 +6,12 @@ using GalaSoft.MvvmLight.Ioc;
 using TaskBoard.Client.Providers;
 using TaskBoard.Client.UI.AdditionalObjects;
 using TaskBoard.Client.UI.Extensions;
-using TaskBoard.Client.UI.Extensions.Tables;
 using TaskBoard.Client.UI.Helpers;
 using TaskBoard.Client.UI.Models;
 using TaskBoard.Client.UI.Services;
 using TaskBoard.Client.UI.ViewModels.Controls;
 using TaskBoard.Client.UI.ViewModels.Flyouts;
+using TaskBoard.Common.Extensions;
 
 namespace TaskBoard.Client.UI.ViewModels {
 	public class MainViewModel : AutoViewModelBase {
@@ -19,7 +19,7 @@ namespace TaskBoard.Client.UI.ViewModels {
 		private readonly IWindowService windowService;
 		private readonly IDialogService dialogService;
 
-		private readonly BoardModel[] firstModelsOfBoardModels = { new BoardModel { BoardId = Guid.Empty, Name = "Выберите доску" } };
+		private readonly BoardModel[] firstModelsOfBoardModels = { new BoardModel(Guid.Empty.ToBoardId()) { Name = "Выберите доску" } };
 		public ObservableCollection<BoardModel> BoardModels { get; } = new ObservableCollection<BoardModel>();
 
 		private BoardControlViewModel boardControlViewModel;
@@ -73,7 +73,7 @@ namespace TaskBoard.Client.UI.ViewModels {
 			changeBoardModelOnBoardViewModel = false;
 
 			var oldSelectedBoardModel = SelectedBoardModel;
-			BoardModels.Reset(firstModelsOfBoardModels.Concat(httpClientProvider.GetDatabaseBoardReader().GetAll().ToModels(httpClientProvider)));
+			BoardModels.Reset(firstModelsOfBoardModels.Concat(DownloadHelper.BoardModels.GetAll(httpClientProvider)));
 			if (BoardModels.Contains(oldSelectedBoardModel))
 				SelectedBoardModel = oldSelectedBoardModel;
 

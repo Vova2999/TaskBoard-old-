@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using TaskBoard.Common.Extensions;
 using TaskBoard.Common.Tables;
 using TaskBoard.Server.Database.Entities;
 
@@ -12,17 +13,17 @@ namespace TaskBoard.Server.Database.Extensions {
 		}
 		public static Task ToTable(this TaskEntity task) {
 			return new Task {
-				TaskId = task.TaskId,
+				Id = task.Id.ToTaskId(),
 				Header = task.Header,
 				Description = task.Description,
 				Branch = task.Branch,
 				State = task.State,
 				Priority = task.Priority,
 				CreateDateTime = task.CreateDateTime,
-				DeveloperId = task.DeveloperId,
-				ReviewerId = task.ReviewerId,
-				ColumnId = task.ColumnId,
-				BoardId = task.BoardId
+				DeveloperId = task.DeveloperId?.ToUserId(),
+				ReviewerId = task.ReviewerId?.ToUserId(),
+				ColumnId = task.ColumnId?.ToColumnId(),
+				BoardId = task.BoardId.ToBoardId()
 			};
 		}
 	}

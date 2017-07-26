@@ -1,13 +1,9 @@
-﻿using System;
-using GalaSoft.MvvmLight;
+﻿using GalaSoft.MvvmLight;
+using TaskBoard.Common.Tables.TableIds;
 
 namespace TaskBoard.Client.UI.Models {
 	public class UserModel : ViewModelBase {
-		private Guid userId;
-		public Guid UserId {
-			get => userId;
-			set => Set(() => UserId, ref userId, value);
-		}
+		public UserId Id { get; }
 
 		private string login;
 		public string Login {
@@ -27,11 +23,15 @@ namespace TaskBoard.Client.UI.Models {
 			set => Set(() => AccessType, ref accessType, value);
 		}
 
+		public UserModel(UserId id) {
+			Id = id;
+		}
+
 		public override bool Equals(object obj) {
-			return obj is UserModel that && UserId.Equals(that.UserId);
+			return obj is UserModel that && Id.Equals(that.Id);
 		}
 		public override int GetHashCode() {
-			return UserId.GetHashCode();
+			return Id.GetHashCode();
 		}
 	}
 }

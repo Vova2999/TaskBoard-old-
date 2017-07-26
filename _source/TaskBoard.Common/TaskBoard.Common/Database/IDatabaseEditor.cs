@@ -1,11 +1,13 @@
-﻿using System;
+﻿using JetBrains.Annotations;
+using TaskBoard.Common.Tables;
+using TaskBoard.Common.Tables.TableIds;
 
 namespace TaskBoard.Common.Database {
 	// ReSharper disable UnusedMember.Global
 
-	public interface IDatabaseEditor<in TTable> {
-		void Add(TTable table);
-		void Edit(Guid oldTableId, TTable newTable);
-		void Delete(Guid tableId);
+	public interface IDatabaseEditor<in TTableId, in TTable> where TTableId : BaseTableId where TTable : BaseTable<TTableId> {
+		void Add([NotNull] TTable table);
+		void Edit([NotNull] TTableId oldTableId, [NotNull] TTable newTable);
+		void Delete([NotNull] TTableId tableId);
 	}
 }

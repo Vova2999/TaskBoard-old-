@@ -18,7 +18,7 @@ namespace TaskBoard.Server.Functions.Protected.WithoutReturn.Database.UserEdits 
 		}
 
 		protected override void Run(NameValues parameters, byte[] requestBody) {
-			databaseUserEditor.Delete(parameters[HttpParameters.UserId].ToGuid());
+			databaseUserEditor.Delete(parameters[HttpParameters.UserId].ToGuid().ToUserId());
 		}
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using TaskBoard.Common.Extensions;
 using TaskBoard.Common.Tables;
 using TaskBoard.Server.Database.Entities;
 
@@ -12,7 +13,7 @@ namespace TaskBoard.Server.Database.Extensions {
 		}
 		public static User ToTable(this UserEntity user) {
 			return new User {
-				UserId = user.UserId,
+				Id = user.Id.ToUserId(),
 				Login = user.Login
 			};
 		}
@@ -22,7 +23,7 @@ namespace TaskBoard.Server.Database.Extensions {
 		}
 		public static User ToTableAsAdmin(this UserEntity user) {
 			return new User {
-				UserId = user.UserId,
+				Id = user.Id.ToUserId(),
 				Login = user.Login,
 				Password = user.Password,
 				AccessType = user.AccessType
