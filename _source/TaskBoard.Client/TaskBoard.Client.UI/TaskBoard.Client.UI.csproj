@@ -43,6 +43,9 @@
     <Reference Include="GalaSoft.MvvmLight.Platform, Version=5.3.0.19032, Culture=neutral, PublicKeyToken=5f873c45e98af8a1, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmLightLibs.5.3.0.0\lib\net45\GalaSoft.MvvmLight.Platform.dll</HintPath>
     </Reference>
+    <Reference Include="JetBrains.Annotations, Version=11.0.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
+      <HintPath>..\packages\JetBrains.Annotations.11.0.0\lib\net20\JetBrains.Annotations.dll</HintPath>
+    </Reference>
     <Reference Include="MahApps.Metro, Version=1.5.0.23, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.5.0\lib\net45\MahApps.Metro.dll</HintPath>
     </Reference>
@@ -82,11 +85,11 @@
     <Compile Include="Extensions\ObservableCollectionExtensions.cs" />
     <Compile Include="Extensions\Tables\TaskExtensions.cs" />
     <Compile Include="Extensions\Tables\UserExtensions.cs" />
-    <Compile Include="Helpers\DownloadHelper.cs" />
     <Compile Include="Helpers\PasswordHelper.cs" />
     <Compile Include="Helpers\RunMethodHelper.cs" />
     <Compile Include="Helpers\WindowHelper.cs" />
     <Compile Include="Messages\CloseViewMessage.cs" />
+    <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Services\Realizations\DialogService.cs" />
     <Compile Include="Services\IControlService.cs" />
     <Compile Include="Services\Realizations\ControlService.cs" />

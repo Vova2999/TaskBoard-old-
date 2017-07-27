@@ -6,6 +6,7 @@ using GalaSoft.MvvmLight.Ioc;
 using TaskBoard.Client.Providers;
 using TaskBoard.Client.UI.AdditionalObjects;
 using TaskBoard.Client.UI.Extensions;
+using TaskBoard.Client.UI.Extensions.Tables;
 using TaskBoard.Client.UI.Helpers;
 using TaskBoard.Client.UI.Models;
 using TaskBoard.Client.UI.Services;
@@ -73,7 +74,7 @@ namespace TaskBoard.Client.UI.ViewModels {
 			changeBoardModelOnBoardViewModel = false;
 
 			var oldSelectedBoardModel = SelectedBoardModel;
-			BoardModels.Reset(firstModelsOfBoardModels.Concat(DownloadHelper.BoardModels.GetAll(httpClientProvider)));
+			BoardModels.Reset(firstModelsOfBoardModels.Concat(httpClientProvider.GetDatabaseBoardReader().GetAll().ToModels(httpClientProvider)));
 			if (BoardModels.Contains(oldSelectedBoardModel))
 				SelectedBoardModel = oldSelectedBoardModel;
 

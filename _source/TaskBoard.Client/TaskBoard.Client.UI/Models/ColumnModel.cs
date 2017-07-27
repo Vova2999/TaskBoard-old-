@@ -1,12 +1,9 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Media;
-using GalaSoft.MvvmLight;
 using TaskBoard.Common.Tables.TableIds;
 
 namespace TaskBoard.Client.UI.Models {
-	public class ColumnModel : ViewModelBase {
-		public ColumnId Id { get; }
-
+	public class ColumnModel : BaseModel<ColumnId> {
 		private string header;
 		public string Header {
 			get => header;
@@ -31,8 +28,7 @@ namespace TaskBoard.Client.UI.Models {
 			set => Set(() => TaskModels, ref taskModels, value);
 		}
 
-		public ColumnModel(ColumnId id) {
-			Id = id;
+		public ColumnModel(ColumnId id) : base(id) {
 		}
 
 		public override bool Equals(object obj) {

@@ -6,7 +6,7 @@ using TaskBoard.Client.UI.Models;
 namespace TaskBoard.Client.UI.Extensions.Models {
 	public static class TaskModelExtensions {
 		public static TaskModel DownloadCommentModels(this TaskModel taskModel, IHttpClientProvider httpClientProvider) {
-			taskModel.CommentModels = new ObservableCollection<CommentModel>(httpClientProvider.GetDatabaseCommentReader().GetFromTask(taskModel.Id).ToModels(httpClientProvider));
+			taskModel.CommentModels = new ObservableCollection<CommentModel>(httpClientProvider.GetDatabaseCommentReader().GetFromTask(taskModel.Id).ToModels(httpClientProvider, null, taskModel));
 			return taskModel;
 		}
 	}

@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using GalaSoft.MvvmLight;
 using TaskBoard.Common.Enums;
 using TaskBoard.Common.Tables.TableIds;
 
 namespace TaskBoard.Client.UI.Models {
-	public class TaskModel : ViewModelBase {
-		public TaskId Id { get; }
-
+	public class TaskModel : BaseModel<TaskId> {
 		private string header;
 		public string Header {
 			get => header;
@@ -74,8 +71,7 @@ namespace TaskBoard.Client.UI.Models {
 			set => Set(() => CommentModels, ref commentModels, value);
 		}
 
-		public TaskModel(TaskId id) {
-			Id = id;
+		public TaskModel(TaskId id) : base(id) {
 		}
 
 		public override bool Equals(object obj) {

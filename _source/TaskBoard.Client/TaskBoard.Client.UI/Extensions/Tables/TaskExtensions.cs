@@ -2,40 +2,15 @@
 using System.Linq;
 using TaskBoard.Client.Providers;
 using TaskBoard.Client.UI.Models;
-using TaskBoard.Common.Extensions;
 using TaskBoard.Common.Tables;
 
 namespace TaskBoard.Client.UI.Extensions.Tables {
 	public static class TaskExtensions {
-		public static TaskModel[] ToModels(this IEnumerable<Task> tasks, IHttpClientProvider httpClientProvider, IEnumerable<UserModel> userModels = null, IEnumerable<ColumnModel> columnModels = null, IEnumerable<BoardModel> boardModels = null) {
-			var userModelsArray = userModels.ToArrayOrNull();
-			var columnModelsArray = columnModels.ToArrayOrNull();
-			var boardModelsArray = boardModels.ToArrayOrNull();
-
-			return tasks.Select(task => task.ToModel(httpClientProvider, userModelsArray, columnModelsArray, boardModelsArray)).ToArray();
+		public static TaskModel[] ToModels(this IEnumerable<Task> tasks, IHttpClientProvider httpClientProvider, UserModel developerUserModel = null, UserModel reviewerUserModel = null, ColumnModel columnModel = null, BoardModel boardModel = null) {
+			return tasks.Select(task => task.ToModel(httpClientProvider, developerUserModel, reviewerUserModel, columnModel, boardModel)).ToArray();
 		}
 
-		public static TaskModel ToModel(this Task task, IHttpClientProvider httpClientProvider, IEnumerable<UserModel> userModels = null, IEnumerable<ColumnModel> columnModels = null, IEnumerable<BoardModel> boardModels = null) {
-			var userModelsArray = userModels.ToArrayOrNull();
-
-			var developerUserModel = task.DeveloperId == null
-				? null
-				: (userModelsArray?.FirstOrDefault(model => model.Id == task.DeveloperId)
-					?? httpClientProvider.GetDatabaseUserReader().GetById(task.DeveloperId).ToModel(httpClientProvider));
-
-			var reviewerUserModel = task.ReviewerId == null
-				? null
-				: (userModelsArray?.FirstOrDefault(model => model.Id == task.ReviewerId)
-					?? httpClientProvider.GetDatabaseUserReader().GetById(task.ReviewerId).ToModel(httpClientProvider));
-
-			var columnModel = task.ColumnId == null
-				? null
-				: (columnModels?.FirstOrDefault(model => model.Id == task.ColumnId)
-					?? httpClientProvider.GetDatabaseColumnReader().GetById(task.ColumnId).ToModel(httpClientProvider));
-
-			var boardModel = boardModels?.FirstOrDefault(model => model.Id == task.BoardId)
-				?? httpClientProvider.GetDatabaseBoardReader().GetById(task.BoardId).ToModel(httpClientProvider);
-
+		public static TaskModel ToModel(this Task task, IHttpClientProvider httpClientProvider, UserModel developerUserModel = null, UserModel reviewerUserModel = null, ColumnModel columnModel = null, BoardModel boardModel = null) {
 			return new TaskModel(task.Id) {
 				Header = task.Header,
 				Description = task.Description,
@@ -43,11 +18,24 @@ namespace TaskBoard.Client.UI.Extensions.Tables {
 				State = task.State,
 				Priority = task.Priority,
 				CreateDateTime = task.CreateDateTime,
-				DeveloperUserModel = developerUserModel,
-				ReviewerUserModel = reviewerUserModel,
-				ColumnModel = columnModel,
-				BoardModel = boardModel
+				DeveloperUserModel = task.CheckOrDownloadDeveloperUserModel(httpClientProvider, developerUserModel),
+				ReviewerUserModel = task.CheckOrDownloadReviewerUserModel(httpClientProvider, reviewerUserModel),
+				ColumnModel = task.CheckOrDownloadColumnModel(httpClientProvider, columnModel, boardModel),
+				BoardModel = task.CheckOrDownloadBoardModel(httpClientProvider, boardModel)
 			};
+		}
+
+		private static UserModel CheckOrDownloadDeveloperUserModel(this Task task, IHttpClientProvider httpClientProvider, UserModel userModel) {
+			return task.DeveloperId == null ? null : task.DeveloperId == userModel?.Id ? userModel : httpClientProvider.GetDatabaseUserReader().GetById(task.DeveloperId).ToModel(httpClientProvider);
+		}
+		private static UserModel CheckOrDownloadReviewerUserModel(this Task task, IHttpClientProvider httpClientProvider, UserModel userModel) {
+			return task.ReviewerId == null ? null : task.ReviewerId == userModel?.Id ? userModel : httpClientProvider.GetDatabaseUserReader().GetById(task.ReviewerId).ToModel(httpClientProvider);
+		}
+		private static ColumnModel CheckOrDownloadColumnModel(this Task task, IHttpClientProvider httpClientProvider, ColumnModel columnModel, BoardModel boardModel = null) {
+			return task.ColumnId == columnModel?.Id ? columnModel : httpClientProvider.GetDatabaseColumnReader().GetById(task.ColumnId).ToModel(httpClientProvider, boardModel);
+		}
+		private static BoardModel CheckOrDownloadBoardModel(this Task task, IHttpClientProvider httpClientProvider, BoardModel boardModel) {
+			return task.BoardId == boardModel?.Id ? boardModel : httpClientProvider.GetDatabaseBoardReader().GetById(task.BoardId).ToModel(httpClientProvider);
 		}
 	}
 }

@@ -41,7 +41,7 @@
 			</TextBox>
 
 			<TextBlock Grid.Row="2" Grid.Column="0" Text="Пароль: " />
-			<PasswordBox Grid.Row="2" Grid.Column="1" helpers:PasswordHelper.Attach="True" helpers:PasswordHelper.Password="{Binding Password, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+			<PasswordBox Grid.Row="2" Grid.Column="1" helpers:PasswordHelper.Password="{Binding Password, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
 				<i:Interaction.Triggers>
 					<i:EventTrigger EventName="LostFocus">
 						<i:InvokeCommandAction Command="{Binding WriteConfigurationCommand}" />

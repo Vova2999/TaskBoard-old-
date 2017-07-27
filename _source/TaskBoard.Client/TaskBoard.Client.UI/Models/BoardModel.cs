@@ -1,11 +1,8 @@
 ﻿using System.Collections.ObjectModel;
-using GalaSoft.MvvmLight;
 using TaskBoard.Common.Tables.TableIds;
 
 namespace TaskBoard.Client.UI.Models {
-	public class BoardModel : ViewModelBase {
-		public BoardId Id { get; }
-
+	public class BoardModel : BaseModel<BoardId> {
 		private string name;
 		public string Name {
 			get => name;
@@ -24,8 +21,7 @@ namespace TaskBoard.Client.UI.Models {
 			set => Set(() => TaskModels, ref taskModels, value);
 		}
 
-		public BoardModel(BoardId id) {
-			Id = id;
+		public BoardModel(BoardId id) : base(id) {
 		}
 
 		public override bool Equals(object obj) {

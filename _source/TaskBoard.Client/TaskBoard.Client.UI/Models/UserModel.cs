@@ -1,10 +1,7 @@
-﻿using GalaSoft.MvvmLight;
-using TaskBoard.Common.Tables.TableIds;
+﻿using TaskBoard.Common.Tables.TableIds;
 
 namespace TaskBoard.Client.UI.Models {
-	public class UserModel : ViewModelBase {
-		public UserId Id { get; }
-
+	public class UserModel : BaseModel<UserId> {
 		private string login;
 		public string Login {
 			get => login;
@@ -23,8 +20,7 @@ namespace TaskBoard.Client.UI.Models {
 			set => Set(() => AccessType, ref accessType, value);
 		}
 
-		public UserModel(UserId id) {
-			Id = id;
+		public UserModel(UserId id) : base(id) {
 		}
 
 		public override bool Equals(object obj) {

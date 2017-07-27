@@ -6,18 +6,8 @@ namespace TaskBoard.Client.UI.Helpers {
 		public static readonly DependencyProperty PasswordProperty =
 			DependencyProperty.RegisterAttached("Password", typeof(string), typeof(PasswordHelper), new FrameworkPropertyMetadata(string.Empty, OnPasswordPropertyChanged));
 
-		public static readonly DependencyProperty AttachProperty =
-			DependencyProperty.RegisterAttached("Attach", typeof(bool), typeof(PasswordHelper), new PropertyMetadata(false, Attach));
-
 		private static readonly DependencyProperty isUpdatingProperty =
 			DependencyProperty.RegisterAttached("isUpdating", typeof(bool), typeof(PasswordHelper));
-
-		public static bool GetAttach(DependencyObject dp) {
-			return (bool)dp.GetValue(AttachProperty);
-		}
-		public static void SetAttach(DependencyObject dp, bool value) {
-			dp.SetValue(AttachProperty, value);
-		}
 
 		public static string GetPassword(DependencyObject dp) {
 			return (string)dp.GetValue(PasswordProperty);
@@ -43,17 +33,6 @@ namespace TaskBoard.Client.UI.Helpers {
 				passwordBox.Password = (string)e.NewValue;
 
 			passwordBox.PasswordChanged += PasswordChanged;
-		}
-
-		private static void Attach(DependencyObject sender, DependencyPropertyChangedEventArgs e) {
-			if (!(sender is PasswordBox passwordBox))
-				return;
-
-			if ((bool)e.OldValue)
-				passwordBox.PasswordChanged -= PasswordChanged;
-
-			if ((bool)e.NewValue)
-				passwordBox.PasswordChanged += PasswordChanged;
 		}
 
 		private static void PasswordChanged(object sender, RoutedEventArgs e) {

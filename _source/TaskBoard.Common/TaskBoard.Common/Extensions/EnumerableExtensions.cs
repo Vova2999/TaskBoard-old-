@@ -17,8 +17,8 @@ namespace TaskBoard.Common.Extensions {
 				action(value, i++);
 		}
 
-		public static TValue[] ToArrayOrNull<TValue>(this IEnumerable<TValue> enumerable) {
-			return enumerable == null ? null : enumerable as TValue[] ?? enumerable.ToArray();
+		public static TValue[] ToArrayIfNotNull<TValue>(this IEnumerable<TValue> enumerable) {
+			return enumerable == null ? null : (enumerable as TValue[] ?? enumerable.ToArray());
 		}
 	}
 }
