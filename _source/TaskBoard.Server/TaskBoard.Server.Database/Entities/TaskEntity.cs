@@ -11,6 +11,9 @@ namespace TaskBoard.Server.Database.Entities {
 		[Key]
 		public Guid Id { get; set; }
 
+		[Required, Index("IX_TaskUniques", 1, IsUnique = true)]
+		public int Index { get; set; }
+
 		[Required]
 		public string Header { get; set; }
 

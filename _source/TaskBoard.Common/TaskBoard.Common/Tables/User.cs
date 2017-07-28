@@ -3,6 +3,7 @@ using TaskBoard.Common.Tables.Attributes;
 using TaskBoard.Common.Tables.TableIds;
 
 namespace TaskBoard.Common.Tables {
+	// ReSharper disable AnnotationRedundancyAtValueType
 	// ReSharper disable ClassNeverInstantiated.Global
 	// ReSharper disable NotNullMemberIsNotInitialized
 	// ReSharper disable UnusedMember.Global
@@ -14,7 +15,7 @@ namespace TaskBoard.Common.Tables {
 		[HeaderColumn("Пароль"), NotNull]
 		public string Password { get; set; }
 
-		[HeaderColumn("Тип доступа")]
+		[HeaderColumn("Тип доступа"), NotNull]
 		public int AccessType { get; set; }
 	}
 }

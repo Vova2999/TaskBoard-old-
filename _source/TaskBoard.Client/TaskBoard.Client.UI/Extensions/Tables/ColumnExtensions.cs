@@ -13,6 +13,7 @@ namespace TaskBoard.Client.UI.Extensions.Tables {
 
 		public static ColumnModel ToModel(this Column column, IHttpClientProvider httpClientProvider, BoardModel boardModel = null) {
 			return new ColumnModel(column.Id) {
+				Index = column.Index,
 				Header = column.Header,
 				Brush = (Brush)new BrushConverter().ConvertFromString(column.Brush),
 				BoardModel = column.CheckOrDownloadBoardModel(httpClientProvider, boardModel)

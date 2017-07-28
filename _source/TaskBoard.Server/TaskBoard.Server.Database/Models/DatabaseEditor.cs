@@ -4,6 +4,8 @@ using System.Linq;
 using TaskBoard.Common.Tables.TableIds;
 
 namespace TaskBoard.Server.Database.Models {
+	// ReSharper disable MemberCanBePrivate.Global
+
 	public abstract class DatabaseEditor {
 		protected readonly ModelDatabase ModelDatabase;
 

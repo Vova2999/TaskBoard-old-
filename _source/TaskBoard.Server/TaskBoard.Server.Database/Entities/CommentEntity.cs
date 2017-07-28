@@ -10,6 +10,9 @@ namespace TaskBoard.Server.Database.Entities {
 		[Key]
 		public Guid Id { get; set; }
 
+		[Required, Index("IX_CommentUniques", 1, IsUnique = true)]
+		public int Index { get; set; }
+
 		[Required]
 		public string Content { get; set; }
 

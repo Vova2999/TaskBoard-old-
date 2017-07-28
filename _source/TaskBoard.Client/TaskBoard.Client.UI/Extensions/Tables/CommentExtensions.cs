@@ -12,6 +12,7 @@ namespace TaskBoard.Client.UI.Extensions.Tables {
 
 		public static CommentModel ToModel(this Comment comment, IHttpClientProvider httpClientProvider, UserModel userModel = null, TaskModel taskModel = null) {
 			return new CommentModel(comment.Id) {
+				Index = comment.Index,
 				Content = comment.Content,
 				CreateDateTime = comment.CreateDateTime,
 				UserModel = comment.CheckOrDownloadUserModel(httpClientProvider, userModel),

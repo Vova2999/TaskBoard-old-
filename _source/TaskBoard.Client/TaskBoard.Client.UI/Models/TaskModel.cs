@@ -5,6 +5,12 @@ using TaskBoard.Common.Tables.TableIds;
 
 namespace TaskBoard.Client.UI.Models {
 	public class TaskModel : BaseModel<TaskId> {
+		private int index;
+		public int Index {
+			get => index;
+			set => Set(() => Index, ref index, value);
+		}
+
 		private string header;
 		public string Header {
 			get => header;

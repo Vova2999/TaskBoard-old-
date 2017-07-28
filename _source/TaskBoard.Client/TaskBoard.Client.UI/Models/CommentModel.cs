@@ -3,6 +3,12 @@ using TaskBoard.Common.Tables.TableIds;
 
 namespace TaskBoard.Client.UI.Models {
 	public class CommentModel : BaseModel<CommentId> {
+		private int index;
+		public int Index {
+			get => index;
+			set => Set(() => Index, ref index, value);
+		}
+
 		private string content;
 		public string Content {
 			get => content;

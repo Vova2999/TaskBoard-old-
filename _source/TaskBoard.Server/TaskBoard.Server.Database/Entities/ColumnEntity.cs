@@ -10,13 +10,16 @@ namespace TaskBoard.Server.Database.Entities {
 		[Key]
 		public Guid Id { get; set; }
 
-		[Required, MaxLength(64), Index("IX_ColumnUniques", 1, IsUnique = true)]
+		[Required, Index("IX_ColumnUniques", 1, IsUnique = true)]
+		public int Index { get; set; }
+
+		[Required, MaxLength(64), Index("IX_ColumnUniques", 2, IsUnique = true)]
 		public string Header { get; set; }
 
 		[Required, MaxLength(10)]
 		public string Brush { get; set; }
 
-		[Required, Index("IX_ColumnUniques", 2, IsUnique = true)]
+		[Required, Index("IX_ColumnUniques", 3, IsUnique = true)]
 		public Guid BoardId { get; set; }
 		[Required, ForeignKey(nameof(BoardId))]
 		public virtual BoardEntity Board { get; set; }

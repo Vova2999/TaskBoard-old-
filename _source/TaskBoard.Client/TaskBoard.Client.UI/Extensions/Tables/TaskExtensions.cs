@@ -12,6 +12,7 @@ namespace TaskBoard.Client.UI.Extensions.Tables {
 
 		public static TaskModel ToModel(this Task task, IHttpClientProvider httpClientProvider, UserModel developerUserModel = null, UserModel reviewerUserModel = null, ColumnModel columnModel = null, BoardModel boardModel = null) {
 			return new TaskModel(task.Id) {
+				Index = task.Index,
 				Header = task.Header,
 				Description = task.Description,
 				Branch = task.Branch,

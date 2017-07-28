@@ -14,6 +14,7 @@ namespace TaskBoard.Server.Database.Extensions {
 		public static Task ToTable(this TaskEntity task) {
 			return new Task {
 				Id = task.Id.ToTaskId(),
+				Index = task.Index,
 				Header = task.Header,
 				Description = task.Description,
 				Branch = task.Branch,

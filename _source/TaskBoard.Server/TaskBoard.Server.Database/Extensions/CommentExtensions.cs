@@ -14,6 +14,7 @@ namespace TaskBoard.Server.Database.Extensions {
 		public static Comment ToTable(this CommentEntity comment) {
 			return new Comment {
 				Id = comment.Id.ToCommentId(),
+				Index = comment.Index,
 				Content = comment.Content,
 				CreateDateTime = comment.CreateDateTime,
 				UserId = comment.UserId.ToUserId(),

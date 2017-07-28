@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using TaskBoard.Common.Database.Editors;
+using TaskBoard.Common.Extensions;
 using TaskBoard.Common.Tables;
 using TaskBoard.Common.Tables.TableIds;
 using TaskBoard.Server.Database.Entities;
@@ -12,8 +14,11 @@ namespace TaskBoard.Server.Database.Models.Editors {
 		}
 
 		public void Add(Task task) {
+			AddSpaceForTaskIndex(task.Index);
+
 			ModelDatabase.Tasks.Add(new TaskEntity {
 				Id = Guid.NewGuid(),
+				Index = task.Index,
 				Header = task.Header,
 				Description = task.Description,
 				Branch = string.IsNullOrEmpty(task.Branch) ? "-" : task.Branch,
@@ -31,6 +36,10 @@ namespace TaskBoard.Server.Database.Models.Editors {
 
 		public void Edit(TaskId oldTaskId, Task newTask) {
 			var task = ModelDatabase.GetTask(oldTaskId);
+			RemoveSpaceForTaskIndex(task.Index);
+			AddSpaceForTaskIndex(newTask.Index);
+
+			task.Index = newTask.Index;
 			task.Header = newTask.Header;
 			task.Description = newTask.Description;
 			task.Branch = string.IsNullOrEmpty(newTask.Branch) ? "-" : newTask.Branch;
@@ -44,8 +53,19 @@ namespace TaskBoard.Server.Database.Models.Editors {
 		}
 
 		public void Delete(TaskId taskId) {
+			var task = ModelDatabase.GetTask(taskId);
+
+			RemoveSpaceForTaskIndex(task.Index);
 			DeleteTask(taskId);
+
 			ModelDatabase.SaveChanges();
+		}
+
+		private void AddSpaceForTaskIndex(int taskIndex) {
+			ModelDatabase.Tasks.Where(t => t.Index >= taskIndex).ForEach(t => t.Index++);
+		}
+		private void RemoveSpaceForTaskIndex(int taskIndex) {
+			ModelDatabase.Tasks.Where(t => t.Index >= taskIndex).ForEach(t => t.Index--);
 		}
 	}
 }

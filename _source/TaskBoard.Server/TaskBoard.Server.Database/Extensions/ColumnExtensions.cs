@@ -14,6 +14,7 @@ namespace TaskBoard.Server.Database.Extensions {
 		public static Column ToTable(this ColumnEntity column) {
 			return new Column {
 				Id = column.Id.ToColumnId(),
+				Index = column.Index,
 				Header = column.Header,
 				Brush = column.Brush,
 				BoardId = column.BoardId.ToBoardId()
