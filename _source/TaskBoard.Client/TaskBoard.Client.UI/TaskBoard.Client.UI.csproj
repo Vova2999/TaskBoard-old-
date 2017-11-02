@@ -55,6 +55,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\MahApps.Metro.1.5.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
     </Reference>
     <Reference Include="System.Xaml">
@@ -73,8 +74,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AdditionalObjects\AutoRelayCommand.cs" />
-    <Compile Include="AdditionalObjects\AutoViewModelBase.cs" />
+    <Compile Include="Extensions\Mvvm\AutoRelayCommand.cs" />
+    <Compile Include="Extensions\Mvvm\AutoViewModelBase.cs" />
     <Compile Include="Extensions\Models\BoardModelExtensions.cs" />
     <Compile Include="Extensions\Models\ColumnModelExtensions.cs" />
     <Compile Include="Extensions\Models\TaskModelExtensions.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="Helpers\PasswordHelper.cs" />
     <Compile Include="Helpers\RunMethodHelper.cs" />
     <Compile Include="Helpers\WindowHelper.cs" />
+    <Compile Include="Locators\SizesControlsLocator.cs" />
     <Compile Include="Messages\CloseViewMessage.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Services\Realizations\DialogService.cs" />
@@ -125,7 +127,7 @@
     </Compile>
     <Compile Include="ViewModels\Controls\TaskControlViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
-    <Compile Include="Locators\ViewModelLocator.cs" />
+    <Compile Include="Locators\MainViewModelLocator.cs" />
     <Compile Include="Views\Flyouts\AuthorizationFlyoutView.xaml.cs">
       <DependentUpon>AuthorizationFlyoutView.xaml</DependentUpon>
     </Compile>

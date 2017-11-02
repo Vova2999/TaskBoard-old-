@@ -8,12 +8,10 @@ using TaskBoard.Client.UI.Services.Realizations;
 using TaskBoard.Client.UI.ViewModels;
 
 namespace TaskBoard.Client.UI.Locators {
-	// ReSharper disable MemberCanBeMadeStatic.Global
-
-	public class ViewModelLocator {
+	public class MainViewModelLocator {
 		public static MainViewModel MainViewModel => SimpleIoc.Default.GetInstance<MainViewModel>();
 
-		static ViewModelLocator() {
+		static MainViewModelLocator() {
 			ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
 			SimpleIoc.Default.Register<MainViewModel>();

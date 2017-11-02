@@ -30,6 +30,9 @@ namespace TaskBoard.Common {
 			}
 		}
 		public void WriteConfiguration() {
+			if (!Directory.Exists(configurationFileDirectory))
+				Directory.CreateDirectory(configurationFileDirectory);
+
 			File.WriteAllBytes(Path.Combine(configurationFileDirectory, ConfigurationFileName), this.ToXml());
 		}
 	}

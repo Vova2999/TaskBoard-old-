@@ -8,7 +8,7 @@
 			   xmlns:di="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
 			   Title="MainView" Height="600" Width="1200"
 			   di:DialogParticipation.Register="{Binding}"
-			   DataContext="{Binding MainViewModel, Source={StaticResource Locator}}">
+			   DataContext="{Binding MainViewModel, Source={StaticResource MainViewModelLocator}}">
 	<c:MetroWindow.LeftWindowCommands>
 		<c:WindowCommands>
 			<c:WindowCommandsItem>
@@ -46,6 +46,6 @@
 	</c:MetroWindow.Flyouts>
 
 	<Grid>
-		<viewControls:BoardControlView DataContext="{Binding BoardControlViewModel, UpdateSourceTrigger=PropertyChanged}" />
+		<viewControls:BoardControlView DataContext="{Binding BoardControlViewModel, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" />
 	</Grid>
 </c:MetroWindow>

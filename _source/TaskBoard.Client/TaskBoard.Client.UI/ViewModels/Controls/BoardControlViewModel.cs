@@ -2,11 +2,12 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
+using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Ioc;
 using TaskBoard.Client.Providers;
-using TaskBoard.Client.UI.AdditionalObjects;
 using TaskBoard.Client.UI.Extensions;
 using TaskBoard.Client.UI.Extensions.Models;
+using TaskBoard.Client.UI.Extensions.Mvvm;
 using TaskBoard.Client.UI.Helpers;
 using TaskBoard.Client.UI.Models;
 using TaskBoard.Client.UI.Services;
@@ -25,7 +26,7 @@ namespace TaskBoard.Client.UI.ViewModels.Controls {
 			get => boardModel;
 			set {
 				if (Set(() => BoardModel, ref boardModel, value))
-					RefreshColumns();
+					RefreshColumnsCommand.Execute(null);
 			}
 		}
 

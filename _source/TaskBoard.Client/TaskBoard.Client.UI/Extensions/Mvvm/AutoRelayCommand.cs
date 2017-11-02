@@ -4,7 +4,7 @@ using System.Threading;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Helpers;
 
-namespace TaskBoard.Client.UI.AdditionalObjects {
+namespace TaskBoard.Client.UI.Extensions.Mvvm {
 	// ReSharper disable DelegateSubtraction
 
 	public class AutoRelayCommand : ICommand {

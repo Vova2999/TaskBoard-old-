@@ -6,9 +6,9 @@
 					   xmlns:viewControls="clr-namespace:TaskBoard.Client.UI.Views.Controls"
 					   xmlns:di="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
 					   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
-					   d:DesignHeight="300" d:DesignWidth="250"
+					   d:DataContext="{Binding Source={StaticResource ColumnControlViewModel}}"
 					   di:DialogParticipation.Register="{Binding}"
-					   d:DataContext="{Binding Source={StaticResource ColumnControlViewModel}}">
+					   Width="{Binding ColumnSize.Width, Source={StaticResource SizesControlsLocator}}">
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto" />
@@ -26,7 +26,7 @@
 			</ItemsControl.ItemsPanel>
 			<ItemsControl.ItemTemplate>
 				<DataTemplate>
-					<viewControls:TaskControlView Content="{Binding}" Width="250" />
+					<viewControls:TaskControlView Content="{Binding}" Margin="5" />
 				</DataTemplate>
 			</ItemsControl.ItemTemplate>
 		</ItemsControl>

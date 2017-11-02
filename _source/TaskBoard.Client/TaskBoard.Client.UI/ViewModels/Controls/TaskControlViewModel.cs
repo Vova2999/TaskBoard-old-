@@ -1,6 +1,6 @@
 ﻿using GalaSoft.MvvmLight.Ioc;
 using TaskBoard.Client.Providers;
-using TaskBoard.Client.UI.AdditionalObjects;
+using TaskBoard.Client.UI.Extensions.Mvvm;
 using TaskBoard.Client.UI.Helpers;
 using TaskBoard.Client.UI.Models;
 using TaskBoard.Client.UI.Services;

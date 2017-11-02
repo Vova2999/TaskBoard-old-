@@ -70,9 +70,9 @@ namespace TaskBoard.Client.UI.Helpers {
 			CheckDesignMode();
 
 			boardViewModel.BoardModel = boardModel;
-			boardViewModel.ColumnControlViewModels.Reset(columnModels.Select((columnModel, x) => {
+			boardViewModel.ColumnControlViewModels.Reset(columnModels.Select(columnModel => {
 				var columnControlViewModel = new ColumnControlViewModel { ColumnModel = columnModel };
-				columnControlViewModel.TaskControlViewModels.Reset(taskModels[x].Select(taskModel => new TaskControlViewModel { TaskModel = taskModel }));
+				columnControlViewModel.TaskControlViewModels.Reset(columnModel.TaskModels.Select(taskModel => new TaskControlViewModel { TaskModel = taskModel }));
 				return columnControlViewModel;
 			}));
 		}

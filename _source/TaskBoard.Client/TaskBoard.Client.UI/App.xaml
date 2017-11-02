@@ -7,7 +7,8 @@
 			 StartupUri="Views/MainView.xaml">
 	<Application.Resources>
 		<ResourceDictionary>
-			<locators:ViewModelLocator x:Key="Locator" />
+			<locators:MainViewModelLocator x:Key="MainViewModelLocator" />
+			<locators:SizesControlsLocator x:Key="SizesControlsLocator" />
 
 			<controls:BoardControlViewModel x:Key="BoardControlViewModel" />
 			<controls:ColumnControlViewModel x:Key="ColumnControlViewModel" />

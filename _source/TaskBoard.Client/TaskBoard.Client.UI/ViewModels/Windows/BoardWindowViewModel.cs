@@ -1,4 +1,4 @@
-﻿using TaskBoard.Client.UI.AdditionalObjects;
+﻿using TaskBoard.Client.UI.Extensions.Mvvm;
 
 namespace TaskBoard.Client.UI.ViewModels.Windows {
 	public class BoardWindowViewModel : AutoViewModelBase {

@@ -3,13 +3,13 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using TaskBoard.Common.Extensions;
 
-namespace TaskBoard.Client.UI.AdditionalObjects {
+namespace TaskBoard.Client.UI.Extensions.Mvvm {
 	public class AutoViewModelBase : ViewModelBase {
 		protected AutoViewModelBase() {
-			SetCommands();
+			InitializeCommands();
 		}
 
-		private void SetCommands() {
+		private void InitializeCommands() {
 			if (IsInDesignMode)
 				return;
 

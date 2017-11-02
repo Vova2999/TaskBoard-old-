@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
@@ -9,7 +10,9 @@ namespace TaskBoard.Client.UI.Helpers {
 		private static readonly IDictionary<ViewModelBase, Window> viewModelToWindow = new Dictionary<ViewModelBase, Window>();
 
 		public static void RegisterMessages(this Window window) {
-			var viewModel = (ViewModelBase)window.DataContext;
+			if (!(window.DataContext is ViewModelBase viewModel))
+				throw new ArgumentException($"{window.GetType().Name}.DataContext must contain ViewModel");
+
 			if (!viewModelToWindow.ContainsKey(viewModel))
 				viewModelToWindow.Add(viewModel, window);
 
