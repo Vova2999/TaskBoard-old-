@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<ServerConfiguration> 
+	<ServerAddress>http://127.0.0.1:82/</ServerAddress> 
+</ServerConfiguration> 

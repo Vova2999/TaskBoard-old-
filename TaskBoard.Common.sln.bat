@@ -1,3 +1,5 @@
 @echo off
-start _source\TaskBoard.Common\TaskBoard.Common.sln
+pushd %~dp0
+call scripts\run-project.bat TaskBoard.Common\TaskBoard.Common.sln
+popd
 @echo on

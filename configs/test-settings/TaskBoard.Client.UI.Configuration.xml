@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<ClientUiConfiguration> 
+	<ServerAddress>http://127.0.0.1:82/</ServerAddress> 
+	<TimeoutMs>5000</TimeoutMs> 
+	<Login>login</Login> 
+	<Password>password</Password> 
+	<SaveLoginAndPassword>true</SaveLoginAndPassword> 
+</ClientUiConfiguration> 

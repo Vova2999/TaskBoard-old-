@@ -1,3 +1,5 @@
 @echo off
-start _source\TaskBoard.Server\TaskBoard.Server.sln
+pushd %~dp0
+call scripts\run-project.bat TaskBoard.Server\TaskBoard.Server.sln
+popd
 @echo on
