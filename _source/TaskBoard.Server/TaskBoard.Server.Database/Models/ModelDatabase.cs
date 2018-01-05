@@ -18,7 +18,8 @@ namespace TaskBoard.Server.Database.Models {
 		public DbSet<TaskEntity> Tasks { get; set; }
 		public DbSet<UserEntity> Users { get; set; }
 
-		public ModelDatabase() : base("TaskBoardDatabase") {
+		public ModelDatabase() : base(@"Server=.\SQLEXPRESS;Database=TaskBoardDatabase;User=TaskBoardDatabaseUser;Password=1230") {
+			System.Data.Entity.Database.SetInitializer(new CreateDatabaseIfNotExists<ModelDatabase>());
 		}
 
 		protected override void OnModelCreating(DbModelBuilder modelBuilder) {
