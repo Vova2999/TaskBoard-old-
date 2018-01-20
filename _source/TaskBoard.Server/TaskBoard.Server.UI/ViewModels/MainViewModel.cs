@@ -1,19 +1,22 @@
+using System.ServiceProcess;
+using System.Timers;
 using System.Windows.Input;
-using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using TaskBoard.Server.UI.MvvmExtensions;
 using TaskBoard.Server.UI.Providers;
 
 namespace TaskBoard.Server.UI.ViewModels {
-	public class MainViewModel : ViewModelBase {
+	// ReSharper disable UnusedAutoPropertyAccessor.Local
+	// ReSharper disable UnusedMember.Local
+
+	public class MainViewModel : AutoViewModelBase {
 		private const int controlServerTabItemIndex = 0;
 		private const int addtitonalSettingsTabItemIndex = 1;
 
-		private readonly ServerServiceProvider serverServiceProvider;
-
-		private bool serviceStatus;
-		public bool ServiceStatus {
-			get => serviceStatus;
-			set => Set(() => ServiceStatus, ref serviceStatus, value);
+		private ServiceControllerStatus? serverServiceStatus;
+		public ServiceControllerStatus? ServerServiceStatus {
+			get => serverServiceStatus;
+			set => Set(() => ServerServiceStatus, ref serverServiceStatus, value);
 		}
 
 		private int tabControlSelectedIndex;
@@ -22,24 +25,36 @@ namespace TaskBoard.Server.UI.ViewModels {
 			set => Set(() => TabControlSelectedIndex, ref tabControlSelectedIndex, value);
 		}
 
+		private readonly ServerServiceProvider serverServiceProvider;
+		private readonly Timer updateServerServiceStatusTimer;
+
 		public MainViewModel(ServerServiceProvider serverServiceProvider) {
 			this.serverServiceProvider = serverServiceProvider;
+			updateServerServiceStatusTimer = new Timer(250);
+			updateServerServiceStatusTimer.Elapsed += (sender, args) => ServerServiceStatus = serverServiceProvider.Status;
+			updateServerServiceStatusTimer.Start();
 		}
 
-		private ICommand startServiceCommand;
-		public ICommand StartServiceCommand => startServiceCommand ?? (startServiceCommand =
-			new RelayCommand(() => ServiceStatus = true));
+		public ICommand StartServiceCommand { get; private set; }
+		private void StartService() {
+			serverServiceProvider.Start();
+			ServerServiceStatus = serverServiceProvider.Status;
+		}
 
-		private ICommand stopServiceCommand;
-		public ICommand StopServiceCommand => stopServiceCommand ?? (stopServiceCommand =
-			new RelayCommand(() => ServiceStatus = false));
+		public ICommand StopServiceCommand { get; private set; }
+		private void StopService() {
+			serverServiceProvider.Stop();
+			ServerServiceStatus = serverServiceProvider.Status;
+		}
 
-		private ICommand goToAddtitonalSettingsCommand;
-		public ICommand GoToAddtitonalSettingsCommand => goToAddtitonalSettingsCommand ?? (goToAddtitonalSettingsCommand =
-			new RelayCommand(() => TabControlSelectedIndex = addtitonalSettingsTabItemIndex));
+		public ICommand GoToAddtitonalSettingsCommand { get; private set; }
+		private void GoToAddtitonalSettings() {
+			TabControlSelectedIndex = addtitonalSettingsTabItemIndex;
+		}
 
-		private ICommand goToControlServerCommand;
-		public ICommand GoToControlServerCommand => goToControlServerCommand ?? (goToControlServerCommand =
-			new RelayCommand(() => TabControlSelectedIndex = controlServerTabItemIndex));
+		public ICommand GoToControlServerCommand { get; private set; }
+		private void GoToControlServer() {
+			TabControlSelectedIndex = controlServerTabItemIndex;
+		}
 	}
 }

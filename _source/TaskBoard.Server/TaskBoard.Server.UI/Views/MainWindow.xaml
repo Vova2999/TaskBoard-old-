@@ -1,40 +1,33 @@
 ﻿<c:MetroWindow x:Class="TaskBoard.Server.UI.Views.MainWindow"
+			   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 			   xmlns:c="http://metro.mahapps.com/winfx/xaml/controls"
 			   xmlns:d="http://schemas.microsoft.com/expression/blend/2008" mc:Ignorable="d"
 			   xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
 			   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			   xmlns:di="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
 			   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-			   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-			   di:DialogParticipation.Register="{Binding}"
+			   xmlns:controls="clr-namespace:TaskBoard.Server.UI.Controls"
 			   DataContext="{Binding MainViewModel, Source={StaticResource Locator}}"
-			   Title="" Height="450" Width="550" ResizeMode="CanMinimize">
+			   Title="" Height="450" Width="550" ResizeMode="CanMinimize"
+			   di:DialogParticipation.Register="{Binding}">
+
 	<c:MetroWindow.Resources>
 		<Style x:Key="TitleTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
 			<Setter Property="FontSize" Value="36" />
 			<Setter Property="TextAlignment" Value="Center" />
 			<Setter Property="Foreground" Value="DarkKhaki" />
 		</Style>
-		<Style x:Key="GridStyleBase" TargetType="Grid">
+		<Style x:Key="AddtitonalSettingsGridStyle" TargetType="Grid">
 			<Setter Property="Margin" Value="5" />
 			<Setter Property="VerticalAlignment" Value="Center" />
 			<Setter Property="HorizontalAlignment" Value="Stretch" />
 		</Style>
-		<Style x:Key="ControlServerGridStyle" TargetType="Grid" BasedOn="{StaticResource GridStyleBase}" />
-		<Style x:Key="AddtitonalSettingsGridStyle" TargetType="Grid" BasedOn="{StaticResource GridStyleBase}" />
-		<Style x:Key="StatusTextTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
-			<Setter Property="Margin" Value="5" />
-			<Setter Property="FontSize" Value="24" />
-			<Setter Property="TextAlignment" Value="Center" />
-		</Style>
 		<Style x:Key="ButtonStyleBase" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
 			<Setter Property="Height" Value="35" />
 			<Setter Property="FontSize" Value="14" />
+			<Setter Property="MinWidth" Value="140" />
 			<Setter Property="HorizontalAlignment" Value="Center" />
 			<Setter Property="VerticalAlignment" Value="Center" />
-		</Style>
-		<Style x:Key="ChangeServiceStatusButtonStyle" TargetType="Button" BasedOn="{StaticResource ButtonStyleBase}">
-			<Setter Property="MinWidth" Value="140" />
 		</Style>
 		<Style x:Key="GoToAnyViewButtonStyle" TargetType="Button" BasedOn="{StaticResource ButtonStyleBase}">
 			<Setter Property="Margin" Value="15" />
@@ -57,39 +50,7 @@
 		<c:MetroTabItem>
 			<Grid>
 				<TextBlock Text="Панель управления сервером" Style="{StaticResource TitleTextBlockStyle}" />
-
-				<Grid Style="{StaticResource ControlServerGridStyle}">
-					<Grid.RowDefinitions>
-						<RowDefinition Height="*" />
-						<RowDefinition Height="15" />
-						<RowDefinition Height="*" />
-					</Grid.RowDefinitions>
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="*" />
-						<ColumnDefinition Width="*" />
-					</Grid.ColumnDefinitions>
-
-					<TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
-						<TextBlock.Style>
-							<Style TargetType="TextBlock" BasedOn="{StaticResource StatusTextTextBlockStyle}">
-								<Style.Triggers>
-									<DataTrigger Binding="{Binding ServiceStatus, UpdateSourceTrigger=PropertyChanged}" Value="True">
-										<Setter Property="Foreground" Value="Green" />
-										<Setter Property="Text" Value="Запущен" />
-									</DataTrigger>
-									<DataTrigger Binding="{Binding ServiceStatus, UpdateSourceTrigger=PropertyChanged}" Value="False">
-										<Setter Property="Foreground" Value="Red" />
-										<Setter Property="Text" Value="Остановлен" />
-									</DataTrigger>
-								</Style.Triggers>
-							</Style>
-						</TextBlock.Style>
-					</TextBlock>
-
-					<Button Grid.Row="2" Grid.Column="0" Content="Запустить" Style="{StaticResource ChangeServiceStatusButtonStyle}" Command="{Binding StartServiceCommand}" />
-					<Button Grid.Row="2" Grid.Column="1" Content="Остановить" Style="{StaticResource ChangeServiceStatusButtonStyle}" Command="{Binding StopServiceCommand}" />
-				</Grid>
-
+				<controls:ServerStatusControl ServerServiceStatus="{Binding ServerServiceStatus, UpdateSourceTrigger=PropertyChanged}" StartServiceCommand="{Binding StartServiceCommand}" StopServiceCommand="{Binding StopServiceCommand}" />
 				<Button Content="Дополнительные настройки" Style="{StaticResource GoToAddtitonalSettingsButtonStyle}" Command="{Binding GoToAddtitonalSettingsCommand}" />
 			</Grid>
 		</c:MetroTabItem>
