@@ -5,6 +5,7 @@ using TaskBoard.Server.Servers;
 
 namespace TaskBoard.Server.Service {
 	public partial class TaskBoardServerService : ServiceBase {
+		public const string Name = "TaskBoardServerService";
 		private IHttpServer httpServer;
 
 		public TaskBoardServerService() {

@@ -1,11 +1,14 @@
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using TaskBoard.Server.UI.Providers;
 
 namespace TaskBoard.Server.UI.ViewModels {
 	public class MainViewModel : ViewModelBase {
 		private const int controlServerTabItemIndex = 0;
 		private const int addtitonalSettingsTabItemIndex = 1;
+
+		private readonly ServerServiceProvider serverServiceProvider;
 
 		private bool serviceStatus;
 		public bool ServiceStatus {
@@ -17,6 +20,10 @@ namespace TaskBoard.Server.UI.ViewModels {
 		public int TabControlSelectedIndex {
 			get => tabControlSelectedIndex;
 			set => Set(() => TabControlSelectedIndex, ref tabControlSelectedIndex, value);
+		}
+
+		public MainViewModel(ServerServiceProvider serverServiceProvider) {
+			this.serverServiceProvider = serverServiceProvider;
 		}
 
 		private ICommand startServiceCommand;

@@ -24,7 +24,7 @@
 		/// </summary>
 		private void InitializeComponent() {
 			components = new System.ComponentModel.Container();
-			this.ServiceName = "TaskBoardServerService";
+			this.ServiceName = TaskBoardServerService.Name;
 		}
 
 		#endregion
