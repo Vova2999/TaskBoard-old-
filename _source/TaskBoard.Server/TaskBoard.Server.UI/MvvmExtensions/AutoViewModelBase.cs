@@ -53,8 +53,8 @@ namespace TaskBoard.Server.UI.MvvmExtensions {
 		}
 
 		private void SetProperties(IEnumerable<PropertyInfo> propertyInfos) {
-			string.
-			propertyInfos.First().SetMethod.CreateDelegate()
+			//string.
+			//propertyInfos.First().SetMethod.CreateDelegate()
 			//propertyInfos
 			//	.Where(propertyInfo => !typeof(ICommand).IsAssignableFrom(propertyInfo.PropertyType))
 		}
